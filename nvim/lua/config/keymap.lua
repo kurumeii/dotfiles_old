@@ -5,7 +5,6 @@ map('n', 'L', C('lua MiniBracketed.buffer("forward")'), 'Next buffer ->')
 map('n', 'H', C('lua MiniBracketed.buffer("backward")'), 'Previous buffer <-')
 map('n', L('bl'), C('lua MiniBracketed.buffer("last")'), '[B]uffer (L) ->>')
 map('n', L('bh'), C('lua MiniBracketed.buffer("first")'), '[B]uffer (H) <<-')
-map('n', L('bc'), C('lua MiniBufremove.delete(0)'), '[B]uffer [C]lose (x)')
 map(
   'n',
   L('bw'),

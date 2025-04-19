@@ -5,8 +5,17 @@ require('mini.completion').setup({
     scroll_down = '<C-U>',
     scroll_up = '<C-D>',
   },
+  delay = {
+    completion = 300,
+    info = 200,
+    signature = 100,
+  },
+  window = {
+    info = { height = 25, width = 80, border = 'rounded' },
+    signature = { height = 25, width = 80, border = 'rounded' },
+  },
 })
-MiniIcons.tweak_lsp_kind()
+MiniDeps.later(MiniIcons.tweak_lsp_kind())
 
 local utils = require('utils')
 local map = utils.map

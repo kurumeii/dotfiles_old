@@ -3,6 +3,6 @@ MiniDeps.add({
   name = 'tokyonight',
 })
 require('tokyonight').setup({
-  style = 'moon',
+  style = 'night',
   transparent = false,
 })

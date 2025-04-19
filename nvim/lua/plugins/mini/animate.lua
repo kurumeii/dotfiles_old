@@ -11,7 +11,7 @@ MiniAnimate.setup({
   scroll = {
     enable = true,
     timing = MiniAnimate.gen_timing.cubic({
-      duration = 100,
+      duration = 200,
       unit = 'total',
     }),
   },
