@@ -17,6 +17,9 @@ config.enable_scroll_bar = true
 config.window_background_opacity = 0
 config.macos_window_background_blur = 20
 config.win32_system_backdrop = "Tabbed"
+config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
+config.use_fancy_tab_bar = false
 
 -- config.keys = {
 -- 	{
