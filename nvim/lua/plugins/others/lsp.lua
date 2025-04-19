@@ -6,7 +6,6 @@ MiniDeps.add({
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'jay-babu/mason-nvim-dap.nvim',
     'folke/lazydev.nvim',
-    'justinsgithub/wezterm-types',
   },
 })
 
@@ -88,6 +87,9 @@ local ensure_installed = vim.tbl_keys(local_server or {})
 -- vim.list_extend(ensure_installed, {})
 vim.diagnostic.config({
   severity_sort = true,
+  inlay_hints = {
+    enabled = true,
+  },
   float = { border = 'single', source = 'if_many' },
   underline = { severity = vim.diagnostic.severity.ERROR },
   signs = {
@@ -115,10 +117,13 @@ vim.diagnostic.config({
 
 ---@diagnostic disable-next-line: missing-fields
 require('lazydev').setup({
+  integrations = {
+    lspconfig = true,
+  },
   library = {
     'nvim-dap-ui',
     { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-    'wezterm-types/types',
+    { path = 'wezterm-types', mods = { 'wezterm' } },
   },
 })
 
@@ -167,3 +172,6 @@ require('mason-lspconfig').setup({
 require('mason-tool-installer').setup({
   ensure_installed = ensure_installed,
 })
+
+-- Autocmd
+----------------------------

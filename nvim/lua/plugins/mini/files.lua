@@ -1,20 +1,20 @@
 require('mini.files').setup({
   windows = {
-    preview = true,
+    preview = false,
     width_focus = 30,
     width_preview = 30,
   },
   options = {
     use_as_default_explorer = true,
-  }
+  },
 })
 
 local show_dotfiles = true
-local filter_show = function(fs_entry)
+local filter_show = function(_)
   return true
 end
 local filter_hide = function(fs_entry)
-  return not vim.startswith(fs_entry.name, ".")
+  return not vim.startswith(fs_entry.name, '.')
 end
 
 local toggle_dotfiles = function()
@@ -29,7 +29,7 @@ local map_split = function(buf_id, lhs, direction, close_on_file)
     local cur_target_window = MiniFiles.get_explorer_state().target_window
     if cur_target_window ~= nil then
       vim.api.nvim_win_call(cur_target_window, function()
-        vim.cmd("belowright " .. direction .. " split")
+        vim.cmd('belowright ' .. direction .. ' split')
         new_target_window = vim.api.nvim_get_current_win()
       end)
 
@@ -38,11 +38,11 @@ local map_split = function(buf_id, lhs, direction, close_on_file)
     end
   end
 
-  local desc = "Open in " .. direction .. " split"
+  local desc = 'Open in ' .. direction .. ' split'
   if close_on_file then
-    desc = desc .. " and close"
+    desc = desc .. ' and close'
   end
-  vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+  vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
 local files_set_cwd = function()
@@ -53,29 +53,29 @@ local files_set_cwd = function()
   end
 end
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "MiniFilesBufferCreate",
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MiniFilesBufferCreate',
   callback = function(args)
     local buf_id = args.data.buf_id
 
     vim.keymap.set(
-      "n",
-      "g.",
+      'n',
+      'g.',
       toggle_dotfiles,
-      { buffer = buf_id, desc = "Toggle hidden files" }
+      { buffer = buf_id, desc = 'Toggle hidden files' }
     )
 
     vim.keymap.set(
-      "n",
-      "gc",
+      'n',
+      'gc',
       files_set_cwd,
-      { buffer = args.data.buf_id, desc = "Set cwd" }
+      { buffer = args.data.buf_id, desc = 'Set cwd' }
     )
 
-    map_split(buf_id, "<C-w>s", "horizontal", false)
-    map_split(buf_id, "<C-w>v", "vertical", false)
-    map_split(buf_id, "<C-w>S", "horizontal", true)
-    map_split(buf_id, "<C-w>V", "vertical", true)
+    map_split(buf_id, '<C-w>s', 'horizontal', false)
+    map_split(buf_id, '<C-w>v', 'vertical', false)
+    map_split(buf_id, '<C-w>S', 'horizontal', true)
+    map_split(buf_id, '<C-w>V', 'vertical', true)
   end,
 })
 
