@@ -1,0 +1,169 @@
+MiniDeps.add({
+  source = 'neovim/nvim-lspconfig',
+  depends = {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    'jay-babu/mason-nvim-dap.nvim',
+    'folke/lazydev.nvim',
+    'justinsgithub/wezterm-types',
+  },
+})
+
+local local_server = {
+  tailwindcss = {
+    on_attach = function(_, bufnr)
+      require('tailwindcss-colors').buf_attach(bufnr)
+    end,
+  },
+  vtsls = {
+    filetypes = {
+      'javascript',
+      'javascriptreact',
+      'javascript.jsx',
+      'typescript',
+      'typescriptreact',
+      'typescript.tsx',
+    },
+    settings = {
+      complete_function_calls = true,
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          maxInlayHintLength = 30,
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+      },
+      typescript = {
+        updateImportsOnFileMove = { enabled = 'always' },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = 'literals' },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
+        },
+      },
+    },
+  },
+  cssls = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        workspace = {
+          checkThirdParty = false,
+        },
+        completion = {
+          callSnippet = 'Replace',
+        },
+        doc = {
+          privateName = { '^_' },
+        },
+        hint = {
+          enable = true,
+          setType = false,
+          paramType = false,
+          paramName = 'Disable',
+          semicolon = 'Disable',
+          arrayIndex = 'Disable',
+        },
+      },
+    },
+  },
+  ['js-debug-adapter'] = {},
+  stylua = {},
+  cspell = {},
+  vale = {},
+  biome = {},
+}
+
+local ensure_installed = vim.tbl_keys(local_server or {})
+-- vim.list_extend(ensure_installed, {})
+vim.diagnostic.config({
+  severity_sort = true,
+  float = { border = 'single', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+  },
+  virtual_text = {
+    source = 'if_many',
+    spacing = 3,
+    format = function(diagnostic)
+      local diagnostic_message = {
+        [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        [vim.diagnostic.severity.WARN] = diagnostic.message,
+        [vim.diagnostic.severity.INFO] = diagnostic.message,
+        [vim.diagnostic.severity.HINT] = diagnostic.message,
+      }
+      return diagnostic_message[diagnostic.severity]
+    end,
+  },
+})
+
+---@diagnostic disable-next-line: missing-fields
+require('lazydev').setup({
+  library = {
+    'nvim-dap-ui',
+    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+    'wezterm-types/types',
+  },
+})
+
+require('mason').setup({
+  ui = {
+    icons = {
+      package_installed = '✓',
+      package_pending = '➜',
+      package_uninstalled = '✗',
+    },
+  },
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend(
+  'force',
+  capabilities,
+  MiniCompletion.get_lsp_capabilities()
+)
+
+require('mason-lspconfig').setup({
+  ensure_installed = {},
+  automatic_installation = false,
+  handlers = {
+    function(server_name)
+      capabilities = vim.tbl_deep_extend('force', capabilities, {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
+      })
+
+      local server = local_server[server_name] or {}
+      require('lspconfig')[server_name].setup(server)
+    end,
+  },
+})
+
+-- require('mason-nvim-dap').setup({
+--   ensure_installed = {},
+--   automatic_installation = false,
+-- })
+
+require('mason-tool-installer').setup({
+  ensure_installed = ensure_installed,
+})
