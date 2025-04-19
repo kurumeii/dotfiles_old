@@ -138,26 +138,23 @@ require('mason').setup({
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend(
-  'force',
-  capabilities,
-  MiniCompletion.get_lsp_capabilities()
-)
+local mini_capabilities = MiniCompletion.get_lsp_capabilities()
+local file_operations = {
+  workspace = {
+    fileOperations = {
+      didRename = true,
+      willRename = true,
+    },
+  },
+}
+capabilities =
+  vim.tbl_deep_extend('force', capabilities, mini_capabilities, file_operations)
 
 require('mason-lspconfig').setup({
   ensure_installed = {},
   automatic_installation = false,
   handlers = {
     function(server_name)
-      capabilities = vim.tbl_deep_extend('force', capabilities, {
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
-      })
-
       local server = local_server[server_name] or {}
       require('lspconfig')[server_name].setup(server)
     end,

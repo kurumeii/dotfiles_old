@@ -1,5 +1,5 @@
-require('plugins.theme.catpuccin')
+require('plugins.theme.catppuccin')
 require('plugins.theme.tokyonight')
 -- More colorschemes later
 --
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('catppuccin')
