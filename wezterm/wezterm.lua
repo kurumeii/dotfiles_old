@@ -1,26 +1,17 @@
-local term = require("wezterm")
+local wez = require("wezterm")
+local config = wez.config_builder()
+local function merge_conf(config, t) end
 
-local config = term.config_builder()
-config.font = term.font({
-	family = "CaskaydiaCove Nerd Font",
-})
-config.font_size = 12
-config.color_scheme = "catppuccin-mocha"
-config.default_prog = {
-	"pwsh.exe",
-}
-config.default_gui_startup_args = {
-	"start",
-	-- "--fullsize",
-}
-config.enable_scroll_bar = true
-config.window_background_opacity = 0
-config.macos_window_background_blur = 20
-config.win32_system_backdrop = "Tabbed"
-config.hide_tab_bar_if_only_one_tab = true
-config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = false
+for _, file in ipairs(wez.glob(wez.config_dir .. "/config/*.lua")) do
+	local tbl = dofile(file)
+	if type(tbl) == "table" then
+		for k, v in pairs(tbl) do
+			config[k] = v
+		end
+	end
+end
 
+return config
 -- config.keys = {
 -- 	{
 -- 		key = "h",
@@ -56,5 +47,3 @@ config.use_fancy_tab_bar = false
 -- 		mods ="ALT",
 -- 	}
 -- }
-
-return config
