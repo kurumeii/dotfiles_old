@@ -5,6 +5,16 @@ local mods = {
 	S = "SHIFT",
 	L = "LEADER",
 }
+local join_mods = function(m)
+	local result = ""
+	for i, v in ipairs(m) do
+		result = result .. v
+		if i < #m then
+			result = result .. "|"
+		end
+	end
+	return result
+end
 
 return {
 	leader = {
@@ -48,12 +58,13 @@ return {
 		},
 		{
 			key = "l", -- Focus next tab
-			mods = mods.M .. "|" .. mods.S,
+			-- mods = mods.M .. "|" .. mods.S,
+			mods = join_mods({ mods.M, mods.S }),
 			action = wez.action.ActivateTabRelative(-1),
 		},
 		{
 			key = "h", -- Focus previous tab
-			mods = mods.M .. "|" .. mods.S,
+			mods = join_mods({ mods.M, mods.S }),
 			action = wez.action.ActivateTabRelative(1),
 		},
 		{
