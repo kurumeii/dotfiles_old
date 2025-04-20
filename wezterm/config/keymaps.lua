@@ -87,5 +87,22 @@ return {
 			mods = mods.M,
 			action = wez.action.ActivatePaneDirection("Down"),
 		},
+		{
+			key = "c",
+			mods = join_mods({ mods.C }),
+			action = wez.action.CopyTo("Clipboard"),
+		},
+		{
+			key = "v",
+			mods = join_mods({ mods.C }),
+			action = wez.action.PasteFrom("Clipboard"),
+		},
+		{
+			key = "/",
+			mods = mods.L,
+			action = wez.action.PaneSelect({
+				alphabet = "hljk",
+			}),
+		},
 	},
 }
