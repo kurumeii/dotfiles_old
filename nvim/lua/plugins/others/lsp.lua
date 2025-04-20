@@ -76,7 +76,6 @@ local local_server = {
       },
     },
   },
-  ['js-debug-adapter'] = {},
   stylua = {},
   cspell = {},
   vale = {},

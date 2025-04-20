@@ -15,7 +15,9 @@ require('mini.completion').setup({
     signature = { height = 25, width = 80, border = 'rounded' },
   },
 })
-MiniDeps.later(MiniIcons.tweak_lsp_kind())
+MiniDeps.later(function()
+  MiniIcons.tweak_lsp_kind()
+end)
 
 local utils = require('utils')
 local map = utils.map

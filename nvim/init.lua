@@ -26,7 +26,7 @@ local load = function(spec, mode, cb)
     end)
   else
     adaptive_func(function()
-      pcall(add)
+      pcall(spec)
     end)
   end
 end

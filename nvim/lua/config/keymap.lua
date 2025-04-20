@@ -33,6 +33,8 @@ map('n', L('wrk'), C('resize -5'), '[W]indow [R]esize up')
 map('n', L('wrh'), C('vertical resize +5'), '[W]indow [R]esize right')
 map('n', L('wrl'), C('vertical resize -5'), '[W]indow [R]esize left')
 map('n', L('wrr'), C('<c-w>='), '[W]indow [R]esize [R]eset')
+map('n', ']t', C('tabnext'), 'Next tab')
+map('n', '[t', C('tabprev'), 'Previous tab')
 
 map('n', L('nd'), C('lua MiniNotify.clear()'), '[N]otify: [D]ismiss all')
 map({ 'n' }, [[\f]], C('FormatToggle'), 'Toggle auto-format')

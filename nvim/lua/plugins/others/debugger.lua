@@ -12,6 +12,7 @@ local utils = require('utils')
 local map, L = utils.map, utils.L
 local dap = require('dap')
 local dapui = require('dapui')
+
 -- TOD: Config the icons
 dapui.setup({
   icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
@@ -37,6 +38,15 @@ dap.listeners.before.event_exited['dapui_config'] = dapui.close
 vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
 
 -- TODO: Check later if these configs were working as expected
+require('dap-vscode-js').setup({
+  debugger_path = vim.fn.stdpath('data')
+    .. '/site/pack/deps/opt/vscode-js-debug',
+  adapters = {
+    'pwa-node',
+    'pwa-msedge',
+    'node-terminal',
+  },
+})
 -- local vscode = require('dap.ext.vscode')
 -- local json = require('plenary.json')
 -- vscode.json_decode = function(str)

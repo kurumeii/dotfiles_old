@@ -22,10 +22,6 @@ require('conform').setup({
   },
 })
 
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
--- vim.o.foldmethod = 'expr'
--- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-
 -- Conform
 
 vim.api.nvim_create_autocmd('BufWritePre', {
