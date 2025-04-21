@@ -108,17 +108,17 @@ return {
 		{
 			key = "=",
 			mods = mods.C,
-			action = wez.action.IncreaseFontSize(),
+			action = wez.action.IncreaseFontSize,
 		},
 		{
 			key = "-",
 			mods = mods.C,
-			action = wez.action.DecreaseFontSize(),
+			action = wez.action.DecreaseFontSize,
 		},
 		{
-			keys = '0',
+			key = '0',
 			mods = mods.C,
-			action = wez.action.ResetFontAndWindowSize()
+			action = wez.action.ResetFontAndWindowSize
 		}
 	},
 }
