@@ -12,4 +12,16 @@ H.C = function(cmd)
   return '<cmd>' .. cmd .. '<cr>'
 end
 
+--- @param msg string
+--- @param level 'ERROR' | 'WARN' | 'INFO'
+--- @param timeout number?
+H.notify = function(msg, level, timeout)
+  level = level or 'INFO'
+  timeout = timeout or 2000
+  local id = require('mini.notify').add(msg, level)
+  vim.defer_fn(function()
+    require('mini.notify').remove(id)
+  end, timeout)
+end
+
 return H

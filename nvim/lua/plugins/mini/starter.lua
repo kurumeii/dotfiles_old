@@ -2,7 +2,7 @@ local starter = require('mini.starter')
 
 starter.setup({
   items = {
-    starter.sections.sessions(5, true),
+    starter.sections.sessions(),
     starter.sections.recent_files(3),
     {
       { name = 'Mason Sync', action = 'MasonUpdate', section = 'Updaters' },
@@ -13,7 +13,11 @@ starter.setup({
       },
     },
     starter.sections.pick(),
-    starter.sections.builtin_actions(),
+		{
+			name = 'Edit config ',
+			action = 'edit $MYVIMRC',
+			section = 'Config',
+		}
   },
 
   header = function()

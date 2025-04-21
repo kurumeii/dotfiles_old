@@ -75,7 +75,8 @@ local local_server = {
       },
     },
   },
-  cssls = {},
+	-- using tailwindcss should be enough
+  -- cssls = {},
   lua_ls = {
     settings = {
       Lua = {

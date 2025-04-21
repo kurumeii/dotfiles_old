@@ -57,21 +57,6 @@ map({ 'n' }, [[\f]], C('FormatToggle'), 'Toggle auto-format')
 -- 	'Peak inside'
 -- )
 
--- Sessions
-map(
-  { 'n' },
-  L('Ss'),
-  C("lua require('plugins.mini.sessions').save()"),
-  'Save session'
-)
-map(
-  { 'n' },
-  L('Sd'),
-  C("lua require('plugins.mini.sessions').delete()"),
-  'Delete session'
-)
-map({ 'n' }, L('Sl'), C('lua MiniSessions.select()'), 'Load session')
-
 -- LSP
 map('n', L('lr'), C('Pick lsp scope="references"'), '[L]sp: [R]efrences')
 map('n', L('ld'), C('Pick lsp scope="definition"'), '[L]sp: [D]efinition')
