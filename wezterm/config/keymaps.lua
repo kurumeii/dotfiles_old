@@ -104,5 +104,21 @@ return {
 				alphabet = "hljk",
 			}),
 		},
+		-- Fonts size
+		{
+			key = "=",
+			mods = mods.C,
+			action = wez.action.IncreaseFontSize(),
+		},
+		{
+			key = "-",
+			mods = mods.C,
+			action = wez.action.DecreaseFontSize(),
+		},
+		{
+			keys = '0',
+			mods = mods.C,
+			action = wez.action.ResetFontAndWindowSize()
+		}
 	},
 }
