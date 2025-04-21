@@ -11,48 +11,70 @@ MiniDeps.add({
 
 local local_server = {
   tailwindcss = {
-    on_attach = function(_, bufnr)
+    filetypes = {
+      'html',
+      'css',
+      'javascript',
+      'javascriptreact',
+      'typescript',
+      'typescriptreact',
+    },
+    settings = {
+      tailwindCSS = {
+        classFunctions = {
+          'cva',
+          'cx',
+        },
+      },
+    },
+    on_attach = function(client, bufnr)
+      if not client then
+        vim.notify_once(
+          'twcs-colors: Attach to a nil value',
+          vim.log.levels.WARN
+        )
+        return
+      end
       require('tailwindcss-colors').buf_attach(bufnr)
     end,
   },
-  --- Might use biome instead
-  -- vtsls = {
-  --   filetypes = {
-  --     'javascript',
-  --     'javascriptreact',
-  --     'javascript.jsx',
-  --     'typescript',
-  --     'typescriptreact',
-  --     'typescript.tsx',
-  --   },
-  --   settings = {
-  --     complete_function_calls = true,
-  --     vtsls = {
-  --       enableMoveToFileCodeAction = true,
-  --       autoUseWorkspaceTsdk = true,
-  --       experimental = {
-  --         maxInlayHintLength = 30,
-  --         completion = {
-  --           enableServerSideFuzzyMatch = true,
-  --         },
-  --       },
-  --     },
-  --     typescript = {
-  --       updateImportsOnFileMove = { enabled = 'always' },
-  --       suggest = {
-  --         completeFunctionCalls = true,
-  --       },
-  --       inlayHints = {
-  --         enumMemberValues = { enabled = true },
-  --         functionLikeReturnTypes = { enabled = true },
-  --         parameterNames = { enabled = 'literals' },
-  --         parameterTypes = { enabled = true },
-  --         propertyDeclarationTypes = { enabled = true },
-  --         variableTypes = { enabled = false },
-  --       },
-  --     },
-  --   },
-  -- },
+  vtsls = {
+    filetypes = {
+      'javascript',
+      'javascriptreact',
+      'javascript.jsx',
+      'typescript',
+      'typescriptreact',
+      'typescript.tsx',
+    },
+    settings = {
+      complete_function_calls = true,
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          maxInlayHintLength = 30,
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+      },
+      typescript = {
+        updateImportsOnFileMove = { enabled = 'always' },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = 'literals' },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
+        },
+      },
+    },
+  },
   cssls = {},
   lua_ls = {
     settings = {
