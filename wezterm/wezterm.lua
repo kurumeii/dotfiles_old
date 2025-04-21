@@ -1,3 +1,4 @@
+--- @type Wezterm
 local wez = require("wezterm")
 local config = wez.config_builder()
 local config_dir = wez.glob(wez.config_dir .. "/config/*.lua")
@@ -10,5 +11,7 @@ for _, file in ipairs(config_dir) do
 		end
 	end
 end
+
+require("events")
 
 return config
