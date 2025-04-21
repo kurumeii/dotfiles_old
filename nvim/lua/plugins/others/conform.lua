@@ -20,6 +20,13 @@ require('conform').setup({
     typescriptreact = { 'biome' },
     javascriptreact = { 'biome' },
   },
+  formatters = {
+    biome = {
+      command = 'biome',
+      args = { 'check', '--write', '--stdin-file-path', '$FILENAME' },
+      stdin = true,
+    },
+  },
 })
 
 -- Conform
@@ -27,7 +34,7 @@ require('conform').setup({
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   callback = function(args)
-    require('conform').format({ bufnr = args.buf })
+    require('conform').format({ bufnr = args.buf, async = true })
   end,
 })
 

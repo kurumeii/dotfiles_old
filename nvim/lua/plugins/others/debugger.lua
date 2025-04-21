@@ -5,6 +5,18 @@ MiniDeps.add({
     'theHamsta/nvim-dap-virtual-text',
     'jbyuki/one-small-step-for-vimkind',
     'nvim-neotest/nvim-nio',
+    'mxsdev/nvim-dap-vscode-js',
+  },
+})
+
+MiniDeps.add({
+  source = 'microsoft/vscode-js-debug',
+  hooks = {
+    post_install = function(path)
+      vim.fn.system({ 'pnpm', 'install' }, path)
+      vim.fn.system({ 'npx', 'gulp', 'vsDebugServerBundle' }, path)
+      vim.fn.system({ 'mv', 'dist', 'out' }, path)
+    end,
   },
 })
 
@@ -47,43 +59,15 @@ require('dap-vscode-js').setup({
     'node-terminal',
   },
 })
--- local vscode = require('dap.ext.vscode')
--- local json = require('plenary.json')
--- vscode.json_decode = function(str)
---   return vim.json.decode(json.json_strip_comments(str))
--- end
 
-local js_based_lang = {
-  'typescript',
-  'javascript',
-  'javascriptreact',
-  'typescriptreact',
-}
-for _, lang in ipairs(js_based_lang) do
-  dap.configurations[lang] = {
-    {
-      type = 'pwa-node',
-      request = 'launch',
-      name = 'Launch Program',
-      program = '${file}',
-      cwd = '${workspaceFolder}',
-    },
-    {
-      type = 'pwa-node',
-      request = 'attach',
-      name = 'Attach to Process',
-      processId = require('dap.utils').pick_process,
-      cwd = '${workspaceFolder}',
-    },
-    {
-      type = 'pwa-msedge',
-      request = 'launch',
-      name = 'Launch Edge',
-      url = 'http://localhost:3000',
-      webRoot = '${workspaceFolder}',
-    },
-  }
+local vscode = require('dap.ext.vscode')
+local json = require('plenary.json')
+vscode.json_decode = function(str)
+  return vim.json.decode(json.json_strip_comments(str))
 end
+
+require('config.dap')
+
 -- REMAPS ====================================================================
 map('n', L('dc'), function()
   dap.continue()

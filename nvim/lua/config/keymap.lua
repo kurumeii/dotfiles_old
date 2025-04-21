@@ -35,6 +35,9 @@ map('n', L('wrl'), C('vertical resize -5'), '[W]indow [R]esize left')
 map('n', L('wrr'), C('<c-w>='), '[W]indow [R]esize [R]eset')
 map('n', ']t', C('tabnext'), 'Next tab')
 map('n', '[t', C('tabprev'), 'Previous tab')
+map('n', '<c-a>', 'ggVG', 'Visual select all', {
+  noremap = true,
+})
 
 map('n', L('nd'), C('lua MiniNotify.clear()'), '[N]otify: [D]ismiss all')
 map({ 'n' }, [[\f]], C('FormatToggle'), 'Toggle auto-format')
@@ -87,5 +90,11 @@ map(
   C('lua vim.diagnostic.open_float()'),
   '[C]ode show [D]iagnostic'
 )
-map('n', L('cf'), C('lua require "conform".format()'), '[C]ode [F]ormat')
+map(
+  'n',
+  L('cf'),
+  C('lua require "conform".format({ async = true})'),
+  '[C]ode [F]ormat'
+)
+
 map('n', L('cr'), C('lua vim.lsp.buf.rename()'), '[C]ode [R]ename')
