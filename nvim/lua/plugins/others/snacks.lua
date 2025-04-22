@@ -4,7 +4,7 @@ MiniDeps.add({
 
 require('snacks').setup({
   statuscolumn = {
-    left = { 'mark', 'git' }, -- priority of signs on the left (high to low)
+    left = { 'mark' }, -- priority of signs on the left (high to low)
     right = { 'fold', 'sign' }, -- priority of signs on the right (high to low)
     git = {
       -- patterns to match Git signs
@@ -16,6 +16,7 @@ require('snacks').setup({
       git_hl = true,
     },
   },
+  lazygit = {},
 })
 
 -- vim.o.foldcolumn = 'auto:1'
@@ -24,3 +25,10 @@ require('snacks').setup({
 -- vim.o.foldlevelstart = 99
 -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
+local util = require('utils')
+local map, L = util.map, util.L
+
+map('n', L('G'), function()
+  Snacks.lazygit.open()
+end, 'Open Lazy[G]it')
