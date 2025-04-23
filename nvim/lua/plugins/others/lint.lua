@@ -4,7 +4,7 @@ MiniDeps.add({
 local lint = require('lint')
 
 lint.linters_by_ft = {
-  markdown = { 'vale' },
+  markdown = { 'markdownlint' },
   javascriptreact = { 'biome' },
   typescriptreact = { 'biome' },
   typescript = { 'biome' },
@@ -15,6 +15,7 @@ lint.linters_by_ft = {
 lint.linters = {
   biome = {},
   cspell = {},
+	markdownlint = {},
 }
 
 local debounce = function(ms, fn)

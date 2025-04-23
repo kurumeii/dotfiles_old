@@ -1,5 +1,5 @@
 return {
-	color_scheme = "Kanagawa Dragon (Gogh)",
+	color_scheme = "Kanagawa (Gogh)",
 	enable_scroll_bar = true,
 	window_background_opacity = 0.8,
 	macos_window_background_blur = 20,
