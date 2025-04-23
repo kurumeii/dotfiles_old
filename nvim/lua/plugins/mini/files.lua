@@ -1,8 +1,9 @@
 require('mini.files').setup({
   windows = {
     preview = false,
-    width_focus = 30,
-    width_preview = 30,
+    -- width_focus = 30,
+    -- width_preview = 30,
+    --
   },
   options = {
     use_as_default_explorer = true,
@@ -81,5 +82,11 @@ vim.api.nvim_create_autocmd('User', {
 
 -- MiniFile (Tree)
 local utils = require('utils')
-local map, L, C = utils.map, utils.L, utils.C
-map('n', L('e'), C('lua MiniFiles.open()'), 'Open explore')
+local map, L = utils.map, utils.L
+
+map('n', L('e'), function()
+  local getCurrentDir = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0))
+  if not getCurrentDir then
+    MiniFiles.open()
+  end
+end, 'Open explore')

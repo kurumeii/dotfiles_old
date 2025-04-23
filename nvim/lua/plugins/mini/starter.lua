@@ -16,7 +16,12 @@ starter.setup({
 		{
 			name = 'Edit config ',
 			action = 'edit $MYVIMRC',
-			section = 'Config',
+			section = 'Core',
+		},
+		{
+			name = "Quit",
+			action = 'qa',
+			section = 'Core',
 		}
   },
 
