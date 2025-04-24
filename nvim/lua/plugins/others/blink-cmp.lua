@@ -1,12 +1,15 @@
+local utils = require('utils')
+local notify = utils.notify
+
 local function build_blink(params)
-  MiniNotify.add('Building blink.cmp', 'INFO')
+  notify('Building blink.cmp', 'INFO')
   local obj = vim
     .system({ 'cargo', 'build', '--release' }, { cwd = params.path })
     :wait()
   if obj.code == 0 then
-    MiniNotify.add('Building blink.cmp done', 'INFO')
+    notify('Building blink.cmp done', 'INFO')
   else
-    MiniNotify.add('Building blink.cmp failed', 'ERROR')
+    notify('Building blink.cmp failed', 'ERROR')
   end
 end
 
@@ -35,8 +38,17 @@ require('blink.cmp').setup({
   signature = {
     enabled = true,
   },
-  -- appearance = {
-  --   use_nvim_cmp_as_default = true,
-  --   nerd_font_variant = 'normal',
-  -- },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = 'normal',
+  },
+  snippets = {
+    preset = 'mini_snippets',
+  },
+  sources = {
+    default = { 'lsp', 'path', 'buffer', 'snippets' },
+  },
+  fuzzy = {
+    implementation = 'prefer_rust_with_warning',
+  },
 })

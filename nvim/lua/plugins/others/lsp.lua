@@ -163,7 +163,15 @@ require('mason').setup({
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-local mini_capabilities = MiniCompletion.get_lsp_capabilities()
+-- local mini_capabilities = MiniCompletion.get_lsp_capabilities()
+local blink_capabilities = require('blink.cmp').get_lsp_capabilities({
+	textDocument = {
+		foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true
+		}
+	}
+})
 local file_operations = {
   workspace = {
     fileOperations = {
@@ -173,7 +181,7 @@ local file_operations = {
   },
 }
 capabilities =
-  vim.tbl_deep_extend('force', capabilities, mini_capabilities, file_operations)
+  vim.tbl_deep_extend('force', capabilities, blink_capabilities, file_operations)
 
 require('mason-lspconfig').setup({
   ensure_installed = {},
