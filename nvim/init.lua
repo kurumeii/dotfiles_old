@@ -90,6 +90,7 @@ load('plugins.mini.clues', 'later')
 -- Another plugins
 load(add('nvim-lua/plenary.nvim'), 'later')
 load('plugins.others.treesitter', 'later')
+load('plugins.others.better-escape', 'later')
 load('plugins.others.blink-cmp', 'later')
 load(add('themaxmarchuk/tailwindcss-colors.nvim'), 'later', function()
   require('tailwindcss-colors').setup()
