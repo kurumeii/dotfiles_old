@@ -17,6 +17,12 @@ require('snacks').setup({
     },
   },
   lazygit = {},
+	inputs = {
+		enabled = true,
+	},
+	bigfile = {
+		enabled = true,
+	}
 })
 
 -- vim.o.foldcolumn = 'auto:1'
@@ -25,6 +31,7 @@ require('snacks').setup({
 -- vim.o.foldlevelstart = 99
 -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.ui.input = Snacks.input.input
 
 local util = require('utils')
 local map, L = util.map, util.L

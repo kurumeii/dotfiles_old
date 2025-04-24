@@ -1,3 +1,7 @@
+local utils = require('utils')
+local map, L = utils.map, utils.L
+local notify = utils.notify
+
 require('mini.sessions').setup({
   autoread = false,
   autowrite = true,
@@ -7,11 +11,15 @@ require('mini.sessions').setup({
   directory = vim.fn.stdpath('data') .. '/sessions',
 })
 
-local utils = require('utils')
-local map, L = utils.map, utils.L
-local notify = utils.notify
--- Sessions
-
+-- Autoload session
+local las = 'last-session'
+vim.api.nvim_create_autocmd('VimLeavePre', {
+  group = vim.api.nvim_create_augroup('AutoSessions', { clear = false }),
+  callback = function()
+    MiniSessions.write(las)
+  end,
+})
+-- keymaps
 map({ 'n' }, L('Ss'), function()
   vim.ui.input({ prompt = 'Session name: ' }, function(input)
     if input == nil or input == '' then
