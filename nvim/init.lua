@@ -25,7 +25,7 @@ local load = function(spec, mode, cb)
   end)
 end
 
--- -----------------------------------------------------------------------------
+-- ============================================================================
 -- Mini plugins
 load('plugins.mini.notify', 'now')
 load('plugins.theme', 'now')
@@ -81,6 +81,7 @@ load('plugins.mini.hipatterns', 'later')
 load('plugins.mini.minimap', 'later')
 load('plugins.mini.files', 'later')
 load('plugins.mini.clues', 'later')
+-- ============================================================================
 -- Another plugins
 load(add('nvim-lua/plenary.nvim'), 'later')
 load('plugins.others.treesitter', 'later')
@@ -91,6 +92,9 @@ end)
 load('plugins.others.blink-cmp', 'later')
 load(add('themaxmarchuk/tailwindcss-colors.nvim'), 'later', function()
   require('tailwindcss-colors').setup()
+end)
+load(add('windwp/nvim-ts-autotag'), 'later', function()
+  require('nvim-ts-autotag').setup()
 end)
 load(add('justinsgithub/wezterm-types'), 'later')
 load('plugins.others.lsp', 'later')
