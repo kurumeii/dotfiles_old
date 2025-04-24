@@ -51,6 +51,7 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>l', desc = '[L]sp ' },
     { mode = 'n', keys = '<leader>d', desc = '[D]ebugger ' },
     { mode = 'n', keys = '<leader>S', desc = '[S]essions ' },
+    { mode = 'n', keys = '<leader>u', desc = '[U]i ' },
     miniclue.gen_clues.builtin_completion(),
     -- miniclue.gen_clues.g(),
     -- miniclue.gen_clues.marks(),

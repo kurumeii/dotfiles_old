@@ -5,12 +5,6 @@ map('n', 'L', C('lua MiniBracketed.buffer("forward")'), 'Next buffer ->')
 map('n', 'H', C('lua MiniBracketed.buffer("backward")'), 'Previous buffer <-')
 map('n', L('bl'), C('lua MiniBracketed.buffer("last")'), '[B]uffer (L) ->>')
 map('n', L('bh'), C('lua MiniBracketed.buffer("first")'), '[B]uffer (H) <<-')
-map(
-  'n',
-  L('bw'),
-  C('lua MiniBufremove.wipeout()'),
-  '[B]uffer [W]ipeout (x-all)'
-)
 -- MiniPick/ Picker
 map('n', L('sf'), C('lua MiniPick.builtin.files()'), '[S]earch [F]iles')
 map('n', L('sw'), C('lua MiniPick.builtin.grep_live()'), '[S]earch [W]ord')
