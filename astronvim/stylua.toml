@@ -1,0 +1,4 @@
+indent_type = "space"
+indent_width = 2
+line_ending = 'Windows'
+quote_style = "AutoPreferSingle"
