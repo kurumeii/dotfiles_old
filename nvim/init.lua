@@ -19,16 +19,10 @@ end
 local load = function(spec, mode, cb)
   cb = cb or function() end
   local adaptive_func = mode == 'later' and MiniDeps.later or MiniDeps.now
-  if type(spec) == 'string' then
-    adaptive_func(function()
-      require(spec)
-      cb()
-    end)
-  else
-    adaptive_func(function()
-      pcall(spec)
-    end)
-  end
+  adaptive_func(function()
+    (type(spec) == 'string' and require or pcall)(spec)
+    cb()
+  end)
 end
 
 -- -----------------------------------------------------------------------------
@@ -90,7 +84,10 @@ load('plugins.mini.clues', 'later')
 -- Another plugins
 load(add('nvim-lua/plenary.nvim'), 'later')
 load('plugins.others.treesitter', 'later')
-load('plugins.others.better-escape', 'later')
+-- load('plugins.others.better-escape', 'later')
+load(add('max397574/better-escape.nvim'), 'later', function()
+  require('better_escape').setup()
+end)
 load('plugins.others.blink-cmp', 'later')
 load(add('themaxmarchuk/tailwindcss-colors.nvim'), 'later', function()
   require('tailwindcss-colors').setup()
