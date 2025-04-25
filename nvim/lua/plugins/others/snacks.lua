@@ -17,12 +17,15 @@ require('snacks').setup({
     },
   },
   lazygit = {},
-	inputs = {
-		enabled = true,
-	},
-	bigfile = {
-		enabled = true,
-	}
+  inputs = {
+    enabled = true,
+  },
+  bigfile = {
+    enabled = true,
+  },
+  terminal = {
+    enabled = true,
+  },
 })
 
 -- vim.o.foldcolumn = 'auto:1'
@@ -39,3 +42,5 @@ local map, L = util.map, util.L
 map('n', L('G'), function()
   Snacks.lazygit.open()
 end, 'Open Lazy[G]it')
+
+map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')

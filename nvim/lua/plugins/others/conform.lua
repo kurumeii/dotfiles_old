@@ -15,19 +15,12 @@ require('conform').setup({
   -- end,
   formatters_by_ft = {
     lua = { 'stylua' },
-    markdown = { 'markdownlint' },
     javascript = { 'biome' },
     typescript = { 'biome' },
     typescriptreact = { 'biome' },
     javascriptreact = { 'biome' },
   },
-  formatters = {
-    biome = {
-      command = 'biome',
-      args = { 'check', '--write', '--stdin-file-path', '$FILENAME' },
-      stdin = true,
-    },
-  },
+  formatters = {},
 })
 
 -- Conform
