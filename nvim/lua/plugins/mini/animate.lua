@@ -2,11 +2,7 @@ local MiniAnimate = require('mini.animate')
 
 MiniAnimate.setup({
   cursor = {
-    enable = true,
-    timing = MiniAnimate.gen_timing.linear({
-      duration = 100,
-      unit = 'total',
-    }),
+    enable = false,
   },
   scroll = {
     enable = true,
