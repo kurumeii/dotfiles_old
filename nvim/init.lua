@@ -81,6 +81,7 @@ load('plugins.mini.hipatterns', 'later')
 load('plugins.mini.minimap', 'later')
 load('plugins.mini.files', 'later')
 load('plugins.mini.clues', 'later')
+load('plugins.mini.visited', 'later')
 -- ============================================================================
 -- Another plugins
 load(add('nvim-lua/plenary.nvim'), 'later')
