@@ -8,6 +8,9 @@ require('mini.files').setup({
   options = {
     use_as_default_explorer = true,
   },
+  mappings = {
+    go_out_plus = 'h',
+  },
 })
 
 local show_dotfiles = true
@@ -85,8 +88,10 @@ local utils = require('utils')
 local map, L = utils.map, utils.L
 
 map('n', L('e'), function()
-  local getCurrentDir = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0))
-  if not getCurrentDir then
+  local ok = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0))
+  if ok then
+    MiniFiles.reveal_cwd()
+  else
     MiniFiles.open()
   end
 end, 'Open explore')
