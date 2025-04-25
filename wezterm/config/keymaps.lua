@@ -1,3 +1,4 @@
+--- @type Wezterm
 local wez = require("wezterm")
 local mods = {
 	C = "CTRL",
@@ -29,7 +30,7 @@ return {
 			action = wez.action.SpawnTab("CurrentPaneDomain"),
 		},
 		{
-			key = "d", -- Delete tab
+			key = "w", -- Delete tab
 			mods = mods.L,
 			action = wez.action.CloseCurrentTab({
 				confirm = true,
@@ -53,7 +54,7 @@ return {
 			key = "c", -- Close pane
 			mods = mods.L,
 			action = wez.action.CloseCurrentPane({
-				confirm = true,
+				confirm = false,
 			}),
 		},
 		{
@@ -116,9 +117,9 @@ return {
 			action = wez.action.DecreaseFontSize,
 		},
 		{
-			key = '0',
+			key = "0",
 			mods = mods.C,
-			action = wez.action.ResetFontAndWindowSize
-		}
+			action = wez.action.ResetFontAndWindowSize,
+		},
 	},
 }
