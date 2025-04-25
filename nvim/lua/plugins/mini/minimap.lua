@@ -12,15 +12,15 @@ MiniMap.config.integrations = {
 }
 
 MiniMap.config.symbols.encode = MiniMap.gen_encode_symbols.dot('4x2')
-MiniMap.config.window.width = 10
+MiniMap.config.window.width = 7
 local utils = require('utils')
 local map, L = utils.map, utils.L
-
-vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
-  callback = function()
-    MiniMap.open()
-  end,
-})
+--- Experimental features
+-- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+--   callback = function()
+--     MiniMap.open()
+--   end,
+-- })
 
 map('n', L('um'), MiniMap.toggle, '[M]inimap Toggle')
 

@@ -3,35 +3,42 @@ local starter = require('mini.starter')
 starter.setup({
   items = {
     starter.sections.sessions(),
-    starter.sections.recent_files(3),
+    starter.sections.recent_files(3, true, false),
     {
-      { name = 'Mason Sync', action = 'MasonUpdate', section = 'Updaters' },
+      { name = 'Open Mason', action = 'Mason', section = 'Tools' },
       {
-        name = 'Update deps',
+        name = 'Update Mini Packages',
         action = 'DepsUpdate',
-        section = 'Updaters',
+        section = 'Tools',
       },
     },
     starter.sections.pick(),
-		{
-			name = 'Edit config ',
-			action = 'edit $MYVIMRC',
-			section = 'Core',
-		},
-		{
-			name = "Quit",
-			action = 'qa',
-			section = 'Core',
-		}
+    {
+      name = 'Edit config ',
+      action = 'edit $MYVIMRC',
+      section = 'Core',
+    },
+    {
+      name = 'Quit',
+      action = 'qa',
+      section = 'Core',
+    },
   },
 
   header = function()
     return [[
- _._     _,-'""`-._
-(,-.`._,'(       |\`-/|
-    `-.-' \ )-`( , o o)
-          `-    \`_`"'-
+ __       __ __          __ __     __ __              
+|  \     /  \  \        |  \  \   |  \  \             
+| ▓▓\   /  ▓▓\▓▓_______  \▓▓ ▓▓   | ▓▓\▓▓______ ____  
+| ▓▓▓\ /  ▓▓▓  \       \|  \ ▓▓   | ▓▓  \      \    \ 
+| ▓▓▓▓\  ▓▓▓▓ ▓▓ ▓▓▓▓▓▓▓\ ▓▓\▓▓\ /  ▓▓ ▓▓ ▓▓▓▓▓▓\▓▓▓▓\
+| ▓▓\▓▓ ▓▓ ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓ \▓▓\  ▓▓| ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓ \▓▓▓| ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓  \▓▓ ▓▓ | ▓▓ ▓▓ | ▓▓ | ▓▓
+| ▓▓  \▓ | ▓▓ ▓▓ ▓▓  | ▓▓ ▓▓   \▓▓▓  | ▓▓ ▓▓ | ▓▓ | ▓▓
+ \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
     ]]
   end,
-  footer = 'Hoang Anh',
+  footer = function()
+    return "It's - " .. os.date('%x %X')
+  end,
 })
