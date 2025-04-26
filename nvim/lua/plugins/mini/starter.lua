@@ -42,3 +42,11 @@ starter.setup({
     return "It's - " .. os.date('%x %X')
   end,
 })
+
+local utils = require('utils')
+local map = utils.map
+local L = utils.L
+
+map('n', L('h'), function()
+  MiniStarter.open()
+end, 'Open Dashboard')
