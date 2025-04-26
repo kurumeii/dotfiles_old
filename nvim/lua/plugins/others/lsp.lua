@@ -104,6 +104,7 @@ local local_server = {
   cspell = {},
   markdownlint = {},
   biome = {},
+	powershell_es = {},
 }
 
 local ensure_installed = vim.tbl_keys(local_server or {})

@@ -97,6 +97,11 @@ end)
 load(add('windwp/nvim-ts-autotag'), 'later', function()
   require('nvim-ts-autotag').setup()
 end)
+load(add('TheLeoP/powershell.nvim'), 'later', function()
+  require('powershell').setup({
+		bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services'
+	})
+end)
 load(add('justinsgithub/wezterm-types'), 'later')
 load('plugins.others.lsp', 'later')
 load('plugins.others.conform', 'later')
