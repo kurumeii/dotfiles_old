@@ -39,6 +39,9 @@ local local_server = {
     end,
   },
   vtsls = {
+		on_attach = function(client, bufnr)
+			require('nvim-navic').attach(client, bufnr)
+		end,
     filetypes = {
       'javascript',
       'javascriptreact',
@@ -78,6 +81,9 @@ local local_server = {
 	-- using tailwindcss should be enough
   -- cssls = {},
   lua_ls = {
+		on_attach = function(client, bufnr)
+			require('nvim-navic').attach(client, bufnr)
+		end,
     settings = {
       Lua = {
         workspace = {

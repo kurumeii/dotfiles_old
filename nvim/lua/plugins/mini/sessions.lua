@@ -7,6 +7,7 @@ require('mini.sessions').setup({
   autowrite = true,
   force = {
     delete = true,
+		write = true,
   },
   directory = vim.fn.stdpath('data') .. '/sessions',
 })
