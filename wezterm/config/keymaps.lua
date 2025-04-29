@@ -90,12 +90,12 @@ return {
 		},
 		{
 			key = "c",
-			mods = join_mods({ mods.C }),
+			mods = join_mods({ mods.C , mods.S}),
 			action = wez.action.CopyTo("Clipboard"),
 		},
 		{
 			key = "v",
-			mods = join_mods({ mods.C }),
+			mods = join_mods({ mods.C, mods.S }),
 			action = wez.action.PasteFrom("Clipboard"),
 		},
 		{
