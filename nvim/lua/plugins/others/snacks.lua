@@ -4,8 +4,8 @@ MiniDeps.add({
 
 require('snacks').setup({
   statuscolumn = {
-    left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
-    right = { 'fold' }, -- priority of signs on the right (high to low)
+    left = { 'mark' }, -- priority of signs on the left (high to low)
+    right = { 'sign', 'fold' }, -- priority of signs on the right (high to low)
     git = {
       -- patterns to match Git signs
       patterns = { 'GitSign', 'MiniDiffSign' },
@@ -26,14 +26,24 @@ require('snacks').setup({
   terminal = {
     enabled = true,
   },
+  image = {
+    enabled = true,
+  },
+  indent = {
+    enabled = true,
+  },
 })
 
--- vim.o.foldcolumn = 'auto:1'
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.ui.input = Snacks.input.input
 
+-- LSP rename from snacks to work with mini.files
+vim.api.nvim_create_autocmd('User', {
+	pattern = 'MiniFilesActionRename',
+	callback = function (e)
+		Snacks.rename.on_rename_file(e.data.from, e.data.to)
+	end
+})
 local util = require('utils')
 local map, L = util.map, util.L
 
@@ -42,3 +52,6 @@ map('n', L('G'), function()
 end, 'Open Lazy[G]it')
 
 map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
+-- And rename file in current buffer
+map('n', L('cr'), Snacks.rename.rename_file , '[C]ode [R]ename')
+
