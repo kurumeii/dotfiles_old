@@ -7,12 +7,14 @@ colorizer.setup({
   highlight = {
     enabled = true,
     virtual_text = ' ',
-    style = 'virtual_left',
-		italic = true,
-		emphasis = false -- set it to true when style are forground and background
+    style = 'foreground',
+    italic = true,
+		bold = true,
+    -- set it to false when style aren't forground and background
+    -- emphasis = false,
   },
 })
 
 local utils = require('utils')
 
-utils.map('n', utils.L 'cp', colorizer.pick_under_cursor, 'Pick color under cursor')
+utils.map('n', utils.L('cp'), colorizer.pick_under_cursor, 'Pick color under cursor')

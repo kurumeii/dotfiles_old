@@ -22,7 +22,7 @@ require('mini.notify').setup({
 	},
 })
 
-vim.notify = MiniNotify.make_notify()
+vim.notify = MiniNotify.make_notify
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   callback = function(args)

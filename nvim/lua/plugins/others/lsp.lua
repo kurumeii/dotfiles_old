@@ -35,13 +35,13 @@ local local_server = {
         },
       },
     },
-    on_attach = function(client, bufnr)
-      if not client then
-        vim.notify_once('twcs-colors: Attach to a nil value', vim.log.levels.WARN)
-        return
-      end
-      require('tailwindcss-colors').buf_attach(bufnr)
-    end,
+    -- on_attach = function(client, bufnr)
+    --   if not client then
+    --     vim.notify_once('twcs-colors: Attach to a nil value', vim.log.levels.WARN)
+    --     return
+    --   end
+    --   require('tailwindcss-colors').buf_attach(bufnr)
+    -- end,
   },
   vtsls = {
     on_attach = function(client, bufnr)

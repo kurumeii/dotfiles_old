@@ -45,7 +45,7 @@ MiniStatusline.setup({
       local breadcrumbs = navic.is_available() and navic.get_location()
       local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = width < 80 and 30 or 120 })
       -- local location = width < 100 and "" or MiniStatusline.section_location({ trunc_width = 75 })
-      local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+      -- local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
       local nvim_battery = battery.get_status_line()
 
       return MiniStatusline.combine_groups({
@@ -58,7 +58,7 @@ MiniStatusline.setup({
         { hl = 'MiniStatuslineFilename', strings = { breadcrumbs } },
         '%=', -- End left alignment
         { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-        { hl = mode_hl, strings = { search } },
+        -- { hl = mode_hl, strings = { search } },
         { hl = 'MiniStatuslineLocation', strings = { nvim_battery } },
       })
     end,
