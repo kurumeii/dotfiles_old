@@ -27,6 +27,7 @@ end
 
 -- ============================================================================
 load('config.option', 'now')
+load('config.keymap', 'now')
 
 -- Mini plugins
 load('plugins.mini.notify', 'now')
@@ -110,4 +111,3 @@ load('plugins.others.lint', 'later')
 load('plugins.others.debugger', 'later')
 load('plugins.others.colorizer', 'later')
 
-load('config.keymap', 'now')

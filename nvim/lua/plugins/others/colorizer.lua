@@ -6,10 +6,10 @@ local colorizer = require('oklch-color-picker')
 colorizer.setup({
   highlight = {
     enabled = true,
-    virtual_text = '',
-    style = 'foreground',
+    virtual_text = ' ',
+    style = 'virtual_left',
 		italic = true,
-		emphasis = false
+		emphasis = false -- set it to true when style are forground and background
   },
 })
 
