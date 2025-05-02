@@ -9,9 +9,12 @@ MiniDeps.add({
   },
 })
 
+MiniDeps.add({
+  source = 'justinsgithub/wezterm-types',
+})
 
 MiniDeps.add({
-	source = 'justinsgithub/wezterm-types',
+  source = 'b0o/SchemaStore.nvim',
 })
 
 local local_server = {
@@ -34,10 +37,7 @@ local local_server = {
     },
     on_attach = function(client, bufnr)
       if not client then
-        vim.notify_once(
-          'twcs-colors: Attach to a nil value',
-          vim.log.levels.WARN
-        )
+        vim.notify_once('twcs-colors: Attach to a nil value', vim.log.levels.WARN)
         return
       end
       require('tailwindcss-colors').buf_attach(bufnr)
@@ -116,6 +116,33 @@ local local_server = {
   markdownlint = {},
   biome = {},
   powershell_es = {},
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+				validate = { enable = true },
+				extra = {
+					{
+						description = 'Shadcn JSON schema',
+						filematch = {'components.json'},
+						name = 'components.json',
+						url = 'https://ui.shadcn.com/schema.json'
+					}
+				}
+      },
+    },
+  },
+	yamlls = {
+		settings = {
+			yaml = {
+				schemaStore = {
+					enable = false,
+					url = ''
+				},
+				schemas = require('schemastore').yaml.schemas(),
+			}
+		}
+	}
 }
 
 vim.diagnostic.config({
@@ -175,6 +202,11 @@ require('mason').setup({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local mini_capabilities = MiniCompletion.get_lsp_capabilities({
   textDocument = {
+		completion = {
+			completionItem = {
+				snippetSupport = true,
+			}
+		},
     foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true,
@@ -200,7 +232,7 @@ local file_operations = {
 capabilities = vim.tbl_deep_extend(
   'force',
   capabilities,
-	mini_capabilities,
+  mini_capabilities,
   -- blink_capabilities,
   file_operations
 )
@@ -230,4 +262,6 @@ require('mason-tool-installer').setup({
 local utils = require('utils')
 local map, L = utils.map, utils.L
 
-map('n', L('lR'), function() vim.cmd('LspRestart') end, '[L]sp: [R]eset Server')
+map('n', L('lR'), function()
+  vim.cmd('LspRestart')
+end, '[L]sp: [R]eset Server')
