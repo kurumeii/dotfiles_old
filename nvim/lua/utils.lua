@@ -18,10 +18,11 @@ end
 H.notify = function(msg, level, timeout)
   level = level or 'INFO'
   timeout = timeout or 2000
-  local id = require('mini.notify').add(msg, level)
-  vim.defer_fn(function()
-    require('mini.notify').remove(id)
-  end, timeout)
+  -- local id = require('mini.notify').add(msg, level)
+    vim.defer_fn(function()
+			Snacks.notify[string.lower(level)](msg)
+      -- require('mini.notify').remove(id)
+    end, timeout)
 end
 
 return H

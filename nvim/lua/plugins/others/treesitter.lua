@@ -1,15 +1,3 @@
-MiniDeps.add({
-  source = 'nvim-treesitter/nvim-treesitter',
-  hooks = {
-    post_checkout = function()
-      vim.cmd('TSUpdate')
-    end,
-  },
-  depends = {
-    'nvim-treesitter/nvim-treesitter-context',
-  },
-})
-
 require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
@@ -27,6 +15,7 @@ require('nvim-treesitter.configs').setup({
     'jsonc',
     'luadoc',
     'toml',
+		'regex'
   },
   auto_install = true,
 })

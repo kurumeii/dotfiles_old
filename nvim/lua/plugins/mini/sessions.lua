@@ -3,7 +3,7 @@ local map, L = utils.map, utils.L
 local notify = utils.notify
 
 require('mini.sessions').setup({
-  autoread = true,
+  autoread = false,
   autowrite = true,
   force = {
     delete = true,
@@ -14,12 +14,13 @@ require('mini.sessions').setup({
 
 -- Autoload session
 local default_session = 'last-session'
--- vim.api.nvim_create_autocmd('VimLeavePre', {
---   group = vim.api.nvim_create_augroup('AutoSessions', { clear = false }),
---   callback = function()
---     MiniSessions.write(las)
---   end,
--- })
+vim.api.nvim_create_autocmd('VimLeavePre', {
+  callback = function()
+		local session_name = MiniSessions.get_latest() or default_session
+    MiniSessions.write(session_name)
+  end,
+})
+
 -- keymaps
 map({ 'n' }, L('Ss'), function()
   vim.ui.input({ prompt = 'Enter session name: ', default = default_session }, function(input)
@@ -39,7 +40,7 @@ map({ 'n' }, L('Sd'), function()
   if not ok then
     notify('Error: ' .. tostring(err), 'ERROR')
   end
-  notify('Session deleted', 'INFO')
+  -- notify('Session deleted', 'INFO')
 end, 'Delete session')
 
 map({ 'n' }, L('Sl'), function()

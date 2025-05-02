@@ -8,7 +8,7 @@ miniclue.setup({
       -- width = vim.api.nvim_list_uis()[1]['width'],
       -- row = 'auto',
       -- col = 'auto',
-      -- border = 'single',
+      border = 'double',
     },
   },
   triggers = {
@@ -43,6 +43,7 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>b', desc = '[B]uffers ' },
     { mode = 'n', keys = '<leader>c', desc = '[C]ode ' },
     { mode = 'n', keys = '<leader>s', desc = '[S]earch ' },
+    { mode = 'n', keys = '<leader>f', desc = '[F]ind ' },
     { mode = 'n', keys = '<leader>w', desc = '[W]indow ' },
     { mode = 'n', keys = '<leader>wr', desc = '[W]indow [R]esize' },
     { mode = 'n', keys = '<leader>wq', desc = '[W]indow [Q]uit' },
@@ -55,6 +56,6 @@ miniclue.setup({
     miniclue.gen_clues.builtin_completion(),
     -- miniclue.gen_clues.g(),
     -- miniclue.gen_clues.marks(),
-    -- miniclue.gen_clues.z(),
+    miniclue.gen_clues.z(),
   },
 })
