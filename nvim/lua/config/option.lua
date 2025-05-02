@@ -32,3 +32,4 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 10
 vim.o.swapfile = false
 -- vim.o.backup = false
+-- vim.o.winbar = "%=%{fnamemodify(expand('%:p:h'), ':~')}"

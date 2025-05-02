@@ -1,6 +1,6 @@
 local wez = require("wezterm")
 return {
-	font = wez.font("GeistMono Nerd Font", {
+	font = wez.font("Maple Mono NF", {
 		weight = "Medium",
 	}),
 	font_size = 12,

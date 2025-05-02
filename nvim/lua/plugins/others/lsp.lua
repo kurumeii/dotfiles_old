@@ -9,6 +9,11 @@ MiniDeps.add({
   },
 })
 
+
+MiniDeps.add({
+	source = 'justinsgithub/wezterm-types',
+})
+
 local local_server = {
   tailwindcss = {
     filetypes = {
@@ -39,9 +44,9 @@ local local_server = {
     end,
   },
   vtsls = {
-		on_attach = function(client, bufnr)
-			require('nvim-navic').attach(client, bufnr)
-		end,
+    on_attach = function(client, bufnr)
+      require('nvim-navic').attach(client, bufnr)
+    end,
     filetypes = {
       'javascript',
       'javascriptreact',
@@ -78,12 +83,12 @@ local local_server = {
       },
     },
   },
-	-- using tailwindcss should be enough
+  -- using tailwindcss should be enough
   -- cssls = {},
   lua_ls = {
-		on_attach = function(client, bufnr)
-			require('nvim-navic').attach(client, bufnr)
-		end,
+    on_attach = function(client, bufnr)
+      require('nvim-navic').attach(client, bufnr)
+    end,
     settings = {
       Lua = {
         workspace = {
@@ -110,18 +115,16 @@ local local_server = {
   cspell = {},
   markdownlint = {},
   biome = {},
-	powershell_es = {},
+  powershell_es = {},
 }
 
-local ensure_installed = vim.tbl_keys(local_server or {})
--- vim.list_extend(ensure_installed, {})
 vim.diagnostic.config({
   severity_sort = true,
   inlay_hints = {
     enabled = true,
   },
   float = { border = 'single', source = 'if_many' },
-  -- underline = { severity = vim.diagnostic.severity.ERROR },
+  underline = { severity = vim.diagnostic.severity.ERROR },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = '󰅚 ',
@@ -130,22 +133,22 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = '󰌶 ',
     },
   },
-	underline = true,
-	virtual_text = true,
-  -- virtual_text = {
-  --   source = 'if_many',
-  --   spacing = 3,
-  --   format = function(diagnostic)
-  --     local diagnostic_message = {
-  --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
-  --       [vim.diagnostic.severity.WARN] = diagnostic.message,
-  --       [vim.diagnostic.severity.INFO] = diagnostic.message,
-  --       [vim.diagnostic.severity.HINT] = diagnostic.message,
-  --     }
-  --     return diagnostic_message[diagnostic.severity]
-  --   end,
-  -- },
+  virtual_text = {
+    source = 'if_many',
+    spacing = 3,
+    format = function(diagnostic)
+      local diagnostic_message = {
+        [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        [vim.diagnostic.severity.WARN] = diagnostic.message,
+        [vim.diagnostic.severity.INFO] = diagnostic.message,
+        [vim.diagnostic.severity.HINT] = diagnostic.message,
+      }
+      return diagnostic_message[diagnostic.severity]
+    end,
+  },
 })
+
+local ensure_installed = vim.tbl_keys(local_server or {})
 
 ---@diagnostic disable-next-line: missing-fields
 require('lazydev').setup({
@@ -170,15 +173,22 @@ require('mason').setup({
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- local mini_capabilities = MiniCompletion.get_lsp_capabilities()
-local blink_capabilities = require('blink.cmp').get_lsp_capabilities({
-	textDocument = {
-		foldingRange = {
-			dynamicRegistration = false,
-			lineFoldingOnly = true
-		}
-	}
+local mini_capabilities = MiniCompletion.get_lsp_capabilities({
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    },
+  },
 })
+-- local blink_capabilities = require('blink.cmp').get_lsp_capabilities({
+-- 	textDocument = {
+-- 		foldingRange = {
+-- 			dynamicRegistration = false,
+-- 			lineFoldingOnly = true
+-- 		}
+-- 	}
+-- })
 local file_operations = {
   workspace = {
     fileOperations = {
@@ -187,8 +197,13 @@ local file_operations = {
     },
   },
 }
-capabilities =
-  vim.tbl_deep_extend('force', capabilities, blink_capabilities, file_operations)
+capabilities = vim.tbl_deep_extend(
+  'force',
+  capabilities,
+	mini_capabilities,
+  -- blink_capabilities,
+  file_operations
+)
 
 require('mason-lspconfig').setup({
   ensure_installed = {},
@@ -210,5 +225,9 @@ require('mason-tool-installer').setup({
   ensure_installed = ensure_installed,
 })
 
--- Autocmd
+-- keymaps
 ----------------------------
+local utils = require('utils')
+local map, L = utils.map, utils.L
+
+map('n', L('lR'), function() vim.cmd('LspRestart') end, '[L]sp: [R]eset Server')

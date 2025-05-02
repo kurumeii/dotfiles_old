@@ -40,3 +40,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 --   desc = "Toggle autoformat-on-save",
 --   bang = true,
 -- })
+--
+local utils = require('utils')
+local map, L = utils.map, utils.L
+
+map('n', L('cf'), function() vim.cmd('lua require "conform".format({ async = true})') end, '[C]ode [F]ormat')
+map('n', L('ca'), function() vim.cmd('lua vim.lsp.buf.code_action()') end, '[C]ode [A]ction')
+map({ 'n' }, L('cd'), function() vim.cmd('lua vim.diagnostic.open_float()') end, '[C]ode show [D]iagnostic')
+
+map('n', L('cr'), function() vim.cmd('lua vim.lsp.buf.rename()') end, '[C]ode [R]ename')

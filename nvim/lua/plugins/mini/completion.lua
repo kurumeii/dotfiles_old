@@ -14,15 +14,25 @@ require('mini.completion').setup({
     info = { height = 25, width = 80, border = 'rounded' },
     signature = { height = 25, width = 80, border = 'rounded' },
   },
+  lsp_completion = {
+    process_items = function(items, base)
+      return require('mini.completion').default_process_items(items, base, {
+        filtersort = 'fuzzy',
+        kind_priority = {
+          Text = -1,
+          Snippet = 99,
+        },
+      })
+    end,
+  },
 })
 MiniDeps.later(function()
   MiniIcons.tweak_lsp_kind()
 end)
 
 local utils = require('utils')
-local map = utils.map
 
-map(
+utils.map(
   { 'i' },
   '<cr>',
   function()

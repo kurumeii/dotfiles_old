@@ -9,6 +9,7 @@ colorizer.setup({
     virtual_text = '',
     style = 'foreground',
 		italic = true,
+		emphasis = false
   },
 })
 
