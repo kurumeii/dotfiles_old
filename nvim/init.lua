@@ -1,92 +1,94 @@
-require('config.mini')
--- Utilities ==================================================================
--- -----------------------------------------------------------------------------
-
---- @param path string -- The repository source path
---- @param opts? table -- Mini.Deps add options
-local add = function(path, opts)
-  opts = opts or {}
-  return function()
-    MiniDeps.add(vim.tbl_extend('force', {
-      source = path,
-    }, opts))
-  end
-end
-
---- @param spec string|function
---- @param mode? 'now'|'later' - Default 'now'
---- @param cb? function
-local load = function(spec, mode, cb)
-  cb = cb or function() end
-  local adaptive_func = mode == 'later' and MiniDeps.later or MiniDeps.now
-  adaptive_func(function()
-    (type(spec) == 'string' and require or pcall)(spec)
-    cb()
-  end)
-end
-
--- ============================================================================
-load('config.option', 'now')
-load('config.keymap', 'now')
-
-load(add('folke/snacks.nvim'), 'now', function()
-  load('plugins.snacks')
-end)
-
--- Mini plugins
--- load('plugins.mini.notify', 'now')
-load('plugins.theme', 'now', function()
-  vim.cmd.colorscheme('astrodark')
-end)
-load('plugins.mini.icons', 'now')
-load('plugins.mini.basics', 'now')
--- load('plugins.mini.starter', 'now')
-load('plugins.mini.sessions', 'now')
-
--- Pretty bonkers
-load('plugins.mini.animate', 'later')
-load('plugins.mini.bracketed', 'later')
-load('plugins.mini.surround', 'later')
-load('plugins.mini.jump', 'later')
-load('mini.pairs', 'later', function()
-  require('mini.pairs').setup()
-end)
-load('plugins.mini.cursorword', 'later')
-load('mini.trailspace', 'later', function()
-  require('mini.trailspace').setup()
-end)
-load('mini.fuzzy', 'later', function()
-  require('mini.fuzzy').setup()
-end)
-load('mini.extra', 'later', function()
-  require('mini.extra').setup()
-end)
-load('mini.operators', 'later', function()
-  require('mini.operators').setup()
-end)
-load('mini.comment', 'later', function()
-  require('mini.comment').setup()
-end)
-load('plugins.mini.bufremove', 'later')
-load('plugins.mini.statusline', 'now')
-load('plugins.mini.tabline', 'later')
-load('plugins.mini.snippets', 'later')
-load('plugins.mini.jump2d', 'later')
--- load('plugins.mini.pick', 'later')
-load('plugins.mini.diff', 'later')
-load('plugins.mini.ai', 'later')
--- load('plugins.mini.indentscope', 'later')
-load('plugins.mini.completion', 'later')
-load('plugins.mini.hipatterns', 'later')
-load('plugins.mini.minimap', 'later')
-load('plugins.mini.files', 'later')
-load('plugins.mini.clues', 'later')
-load('plugins.mini.visited', 'later')
--- ============================================================================
--- Another plugins
--- load(add('nvim-lua/plenary.nvim'), 'later')
-load(
-  add('nvim-treesitter/nvim-treesitter', {
+require('config.mini').setup({
+  { source = 'config.option' },
+  { source = 'config.keymap' },
+  {
+    source = 'folke/snacks.nvim',
+    cb = function()
+      require('plugins.snacks')
+    end,
+  },
+  {
+    source = 'plugins.theme',
+    cb = function()
+      vim.cmd.colorscheme('astrodark')
+    end,
+  },
+  { source = 'plugins.mini.icons' },
+  { source = 'plugins.mini.basics' },
+  { source = 'plugins.mini.sessions', later = true },
+  { source = 'plugins.mini.animate', later = true },
+  { source = 'plugins.mini.bracketed', later = true },
+  { source = 'plugins.mini.surround', later = true },
+  { source = 'plugins.mini.jump', later = true },
+  { source = 'mini.pairs', later = true, opts = {} },
+  { source = 'plugins.mini.cursorword', later = true },
+  { source = 'mini.trailspace', later = true, opts = {} },
+  { source = 'mini.fuzzy', later = true, opts = {} },
+  { source = 'mini.extra', later = true, opts = {} },
+  { source = 'mini.operators', later = true, opts = {} },
+  { source = 'mini.comment', later = true, opts = {} },
+  { source = 'plugins.mini.bufremove', later = true },
+  {
+    source = 'plugins.mini.snippets',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.jump2d',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.tabline',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.pick',
+    later = true,
+    disable = true,
+  },
+  {
+    source = 'plugins.mini.diff',
+    later = true,
+  },
+  { source = 'plugins.mini.ai', later = true },
+  {
+    source = 'plugins.mini.indentscope',
+    later = true,
+    disable = true,
+  },
+  {
+    source = 'plugins.mini.completion',
+    later = true,
+    disable = false,
+  },
+  {
+    source = 'plugins.others.blink-cmp',
+    later = true,
+    disable = true,
+  },
+  {
+    source = 'plugins.mini.hipatterns',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.minimap',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.files',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.clues',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.visited',
+    later = true,
+    disable = true,
+  },
+  {
+    source = 'nvim-treesitter/nvim-treesitter',
+    later = true,
     hooks = {
       post_checkout = function()
         vim.cmd('TSUpdate')
@@ -95,29 +97,112 @@ load(
     depends = {
       'nvim-treesitter/nvim-treesitter-context',
     },
-  }),
-  'later',
-  function()
-    load('plugins.others.treesitter')
-  end
-)
-load(add('max397574/better-escape.nvim'), 'later', function()
-  require('better_escape').setup()
-end)
--- load('plugins.others.blink-cmp', 'later')
-load('plugins.others.noice', 'later')
-load(add('windwp/nvim-ts-autotag'), 'later', function()
-  require('nvim-ts-autotag').setup()
-end)
-load(add('TheLeoP/powershell.nvim'), 'later', function()
-  require('powershell').setup({
-    bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services',
-  })
-end)
-load('plugins.others.lsp', 'later')
-load('plugins.others.conform', 'later')
-load('plugins.others.fold', 'later')
-load('plugins.others.supermaven', 'later')
-load('plugins.others.lint', 'later')
-load('plugins.others.debugger', 'later')
-load('plugins.others.colorizer', 'later')
+    cb = function()
+      require('plugins.others.treesitter')
+    end,
+  },
+  {
+    source = 'max397574/better-escape.nvim',
+    later = true,
+    cb = function()
+      require('better_escape').setup()
+    end,
+  },
+  {
+    source = 'windwp/nvim-ts-autotag',
+    later = true,
+    cb = function()
+      require('nvim-ts-autotag').setup()
+    end,
+  },
+  {
+    source = 'plugins.others.noice',
+    later = true,
+  },
+  {
+    source = 'TheLeoP/powershell.nvim',
+    later = true,
+    disable = true,
+    cb = function()
+      require('powershell').setup({
+        bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services',
+      })
+    end,
+  },
+  {
+    source = 'justinhj/battery.nvim',
+    depends = {
+      'nvim-lua/plenary.nvim',
+    },
+    cb = function()
+      require('battery').setup({
+        vertical_icons = false,
+        update_rate_seconds = 20,
+      })
+    end,
+  },
+  {
+    source = 'SmiteshP/nvim-navic',
+    depends = { 'neovim/nvim-lspconfig' },
+    cb = function()
+      require('nvim-navic').setup({
+        highlight = true,
+        separator = ' > ',
+        depth_limit = 4,
+      })
+    end,
+  },
+  {
+    source = 'plugins.mini.statusline',
+    later = true,
+  },
+  {
+    source = 'neovim/nvim-lspconfig',
+    later = true,
+    depends = {
+      'williamboman/mason.nvim', -- mason core
+      'williamboman/mason-lspconfig.nvim', -- mason lsp
+      'WhoIsSethDaniel/mason-tool-installer.nvim', -- mason easy installer
+      'justinsgithub/wezterm-types',
+      'b0o/SchemaStore.nvim',
+      'folke/lazydev.nvim',
+    },
+    cb = function()
+      require('plugins.others.mason')
+    end,
+  },
+  {
+    source = 'mfussenegger/nvim-dap',
+    later = true,
+    depends = {
+      'rcarriga/nvim-dap-ui',
+      'theHamsta/nvim-dap-virtual-text',
+      'jbyuki/one-small-step-for-vimkind',
+      'nvim-neotest/nvim-nio',
+      'jay-babu/mason-nvim-dap.nvim', -- mason dap
+    },
+    cb = function()
+      require('plugins.others.debugger')
+    end,
+  },
+  {
+    source = 'plugins.others.conform',
+    later = true,
+  },
+  {
+    source = 'plugins.others.fold',
+    later = true,
+  },
+  {
+    source = 'plugins.others.supermaven',
+    later = true,
+  },
+  {
+    source = 'plugins.others.lint',
+    later = true,
+  },
+  {
+    source = 'plugins.others.colorizer',
+    later = true,
+  },
+})

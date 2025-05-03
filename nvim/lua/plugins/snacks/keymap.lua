@@ -5,6 +5,10 @@ map('n', L('G'), function()
   Snacks.lazygit.open()
 end, 'Open Lazy[G]it')
 
+-- Dashboard =================================================================
+map('n', L'h', Snacks.dashboard.open, 'Open Dashboard')
+
+-- Terminal ==================================================================
 map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
 -- And rename file in current buffer
 map('n', L('cr'), Snacks.rename.rename_file, '[C]ode [R]ename')
@@ -35,6 +39,7 @@ map('n', L('fp'), Snacks.picker.projects, 'Find Projects')
 map('n', L('fd'), Snacks.picker.diagnostics_buffer, 'Find Diagnostics in buffer')
 map('n', L('fD'), Snacks.picker.diagnostics, 'Find Diagnostics')
 map('n', L('fm'), Snacks.picker.marks, 'Find marks')
+map('n', L('fn'), Snacks.picker.notifications, 'Find notifications')
 -- LSP =======================================================================
 map('n', L('lr'), Snacks.picker.lsp_references, 'LSP references')
 map('n', L('ld'), Snacks.picker.lsp_definitions, 'LSP definitions')

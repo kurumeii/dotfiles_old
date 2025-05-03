@@ -32,4 +32,34 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 10
 vim.o.swapfile = false
 -- vim.o.backup = false
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 -- vim.o.winbar = "%=%{fnamemodify(expand('%:p:h'), ':~')}"
+vim.diagnostic.config({
+  severity_sort = true,
+  inlay_hints = {
+    enabled = true,
+  },
+  float = { border = 'single', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+  },
+  virtual_text = {
+    source = 'if_many',
+    spacing = 3,
+    format = function(diagnostic)
+      local diagnostic_message = {
+        [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        [vim.diagnostic.severity.WARN] = diagnostic.message,
+        [vim.diagnostic.severity.INFO] = diagnostic.message,
+        [vim.diagnostic.severity.HINT] = diagnostic.message,
+      }
+      return diagnostic_message[diagnostic.severity]
+    end,
+  },
+})

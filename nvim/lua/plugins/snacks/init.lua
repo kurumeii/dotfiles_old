@@ -74,8 +74,6 @@ require('snacks').setup({
   quickfile = { enabled = true },
   notifier = {
     enabled = true,
-    timeout = 5000,
-    style = 'fancy',
     top_down = false,
     icons = {
       error = '',
@@ -89,7 +87,6 @@ require('snacks').setup({
   words = { enabled = true },
 })
 
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.ui.input = Snacks.input.input
 vim.ui.select = Snacks.picker.select
 vim.notify = Snacks.notifier.notify

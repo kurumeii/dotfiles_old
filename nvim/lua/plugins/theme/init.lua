@@ -1,6 +1,34 @@
-require('plugins.theme.catppuccin')
-require('plugins.theme.tokyonight')
--- More colorschemes later
-require('plugins.theme.gruvbox')
-require('plugins.theme.kanagawa')
-require('plugins.theme.astro')
+require('config.mini').setup({
+  {
+    source = 'catppuccin/nvim',
+    name = 'catppuccin',
+    cb = function()
+      require('plugins.theme.catppuccin')
+    end,
+  },
+  {
+    source = 'folke/tokyonight.nvim',
+    cb = function()
+      require('plugins.theme.tokyonight')
+    end,
+  },
+  {
+    source = 'morhetz/gruvbox',
+    cb = function()
+      require('plugins.theme.gruvbox')
+    end,
+  },
+  {
+    source = 'rebelot/kanagawa.nvim',
+    cb = function()
+      require('plugins.theme.kanagawa')
+    end,
+  },
+  {
+    source = 'AstroNvim/astrotheme',
+    cb = function()
+      require('plugins.theme.astro')
+    end,
+  },
+})
+

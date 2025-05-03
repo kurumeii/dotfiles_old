@@ -1,36 +1,6 @@
 local MiniStatusline = require('mini.statusline')
-MiniDeps.add({
-  source = 'justinhj/battery.nvim',
-  depends = {
-    'nvim-lua/plenary.nvim',
-  },
-})
-MiniDeps.add({
-  source = 'SmiteshP/nvim-navic',
-  depends = {
-    'neovim/nvim-lspconfig',
-  },
-})
-
 local battery = require('battery')
-
-battery.setup({
-  show_percent = true,
-  show_plugged_icon = true,
-  show_unplugged_icon = true,
-  show_status_when_no_battery = true,
-  vertical_icons = false,
-  update_rate_seconds = 20,
-})
-
 local navic = require('nvim-navic')
-
-navic.setup({
-  highlight = true,
-  separator = ' > ',
-  depth_limit = 4,
-})
-
 local width = vim.api.nvim_win_get_width(0)
 
 MiniStatusline.setup({

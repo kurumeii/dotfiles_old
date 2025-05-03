@@ -1,7 +1,3 @@
-MiniDeps.add({
-	source = 'AstroNvim/astrotheme'
-})
-
 require('astrotheme').setup({
 	background = {
 		dark = 'astrodark',

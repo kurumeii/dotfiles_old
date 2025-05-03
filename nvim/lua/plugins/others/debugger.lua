@@ -1,31 +1,17 @@
-MiniDeps.add({
-  source = 'mfussenegger/nvim-dap',
-  depends = {
-    'rcarriga/nvim-dap-ui',
-    'theHamsta/nvim-dap-virtual-text',
-    'jbyuki/one-small-step-for-vimkind',
-    'nvim-neotest/nvim-nio',
-    'mxsdev/nvim-dap-vscode-js',
-  },
-})
-
-MiniDeps.add({
-  source = 'microsoft/vscode-js-debug',
-  hooks = {
-    post_install = function(path)
-      vim.fn.system({ 'pnpm', 'install' }, path)
-      vim.fn.system({ 'npx', 'gulp', 'vsDebugServerBundle' }, path)
-      vim.fn.system({ 'mv', 'dist', 'out' }, path)
-    end,
-  },
-})
-
 local utils = require('utils')
 local map, L = utils.map, utils.L
 local dap = require('dap')
+local dap_widget = require('dap.ui.widgets')
 local dapui = require('dapui')
 
--- TOD: Config the icons
+require('mason-nvim-dap').setup({
+  ensure_installed = { 'js' },
+  automatic_installation = true,
+})
+
+-- TODO: Config the icons
+vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
 dapui.setup({
   icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
   controls = {
@@ -49,42 +35,17 @@ dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
 vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
 
--- TODO: Check later if these configs were working as expected
-require('dap-vscode-js').setup({
-  debugger_path = vim.fn.stdpath('data')
-    .. '/site/pack/deps/opt/vscode-js-debug',
-  adapters = {
-    'pwa-node',
-    'pwa-msedge',
-    'node-terminal',
-  },
-})
-
-local vscode = require('dap.ext.vscode')
-local json = require('plenary.json')
-vscode.json_decode = function(str)
-  return vim.json.decode(json.json_strip_comments(str))
-end
-
 require('config.dap')
 
 -- REMAPS ====================================================================
-map('n', L('dc'), function()
-  dap.continue()
-end, '[D]ebug continue')
-
-map('n', L('dbt'), function()
-  dap.toggle_breakpoint()
-end, '[D]ebug [B]reakpoint [T]oggle')
-
-map('n', L('dbs'), function()
-  dap.toggle_breakpoint()
-end, '[D]ebug [B]reakpoint [S]et')
-
-map('n', L('du'), function()
-  dapui.toggle({})
-end, '[D]ebug [U]i')
-
-map('n', L('de'), function()
-  dapui.eval()
-end, '[D]ebug [E]val')
+map('n', L('dc'), dap.continue, 'Debug continue')
+map('n', L('db'), dap.toggle_breakpoint, 'Debug breakpoint toggle')
+map('n', L('dB'), function()
+  dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+end, 'Debug breakpoint set')
+map('n', L('dg'), dap.goto_, 'Debug goto')
+map('n', L('di'), dap.step_into, 'Debug step into')
+map('n', L('do'), dap.step_out, 'Debug step out')
+map('n', L('dO'), dap.step_over, 'Debug step over')
+map('n', L('dp'), dap.pause, 'Debug pause')
+map('n', L('dw'), dap_widget.hover, 'Debug widget hover')
