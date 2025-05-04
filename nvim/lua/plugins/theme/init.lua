@@ -13,12 +13,6 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'morhetz/gruvbox',
-    cb = function()
-      require('plugins.theme.gruvbox')
-    end,
-  },
-  {
     source = 'rebelot/kanagawa.nvim',
     cb = function()
       require('plugins.theme.kanagawa')

@@ -1,6 +1,3 @@
-MiniDeps.add({
-  source = 'eero-lehtinen/oklch-color-picker.nvim',
-})
 local colorizer = require('oklch-color-picker')
 
 colorizer.setup({

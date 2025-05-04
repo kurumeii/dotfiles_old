@@ -10,24 +10,25 @@ require('config.mini').setup({
   {
     source = 'plugins.theme',
     cb = function()
-      vim.cmd.colorscheme('astrodark')
+      vim.cmd.colorscheme('astrotheme')
     end,
   },
   { source = 'plugins.mini.icons' },
   { source = 'plugins.mini.basics' },
-  { source = 'plugins.mini.sessions', later = true },
-  { source = 'plugins.mini.animate', later = true },
-  { source = 'plugins.mini.bracketed', later = true },
-  { source = 'plugins.mini.surround', later = true },
-  { source = 'plugins.mini.jump', later = true },
-  { source = 'mini.pairs', later = true, opts = {} },
+	{ source = 'mini.colors', opts = {}, later = true },
+  { source = 'plugins.mini.sessions',   later = true },
+  { source = 'plugins.mini.animate',    later = true },
+  { source = 'plugins.mini.bracketed',  later = true },
+  { source = 'plugins.mini.surround',   later = true },
+  { source = 'plugins.mini.jump',       later = true },
+  { source = 'mini.pairs',              later = true, opts = {} },
   { source = 'plugins.mini.cursorword', later = true },
-  { source = 'mini.trailspace', later = true, opts = {} },
-  { source = 'mini.fuzzy', later = true, opts = {} },
-  { source = 'mini.extra', later = true, opts = {} },
-  { source = 'mini.operators', later = true, opts = {} },
-  { source = 'mini.comment', later = true, opts = {} },
-  { source = 'plugins.mini.bufremove', later = true },
+  { source = 'mini.trailspace',         later = true, opts = {} },
+  { source = 'mini.fuzzy',              later = true, opts = {} },
+  { source = 'mini.extra',              later = true, opts = {} },
+  { source = 'mini.operators',          later = true, opts = {} },
+  { source = 'mini.comment',            later = true, opts = {} },
+  { source = 'plugins.mini.bufremove',  later = true },
   {
     source = 'plugins.mini.snippets',
     later = true,
@@ -160,8 +161,8 @@ require('config.mini').setup({
     source = 'neovim/nvim-lspconfig',
     later = true,
     depends = {
-      'williamboman/mason.nvim', -- mason core
-      'williamboman/mason-lspconfig.nvim', -- mason lsp
+      'williamboman/mason.nvim',                   -- mason core
+      'williamboman/mason-lspconfig.nvim',         -- mason lsp
       'WhoIsSethDaniel/mason-tool-installer.nvim', -- mason easy installer
       'justinsgithub/wezterm-types',
       'b0o/SchemaStore.nvim',
@@ -202,7 +203,11 @@ require('config.mini').setup({
     later = true,
   },
   {
-    source = 'plugins.others.colorizer',
+    source = 'eero-lehtinen/oklch-color-picker.nvim',
     later = true,
+		disable = true,
+    cb = function()
+      require('plugins.others.colorizer')
+    end,
   },
 })
