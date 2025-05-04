@@ -1,26 +1,19 @@
 {
+	"$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
 	"workspace": {
-    "checkThirdParty": false
-  },
-  "completion": {
-    "callSnippet": "Replace"
-  },
-  "doc": {
-    "privateName": ["^_"]
-  },
-  "hint": {
-    "enable": true,
-    "setType": false,
-    "paramType": false,
-    "paramName": "Disable",
-    "semicolon": "Disable",
-    "arrayIndex": "Disable"
-  },
+		"checkThirdParty": false
+	},
+	"completion": {
+		"callSnippet": "Both"
+	},
+	"doc": {
+		"privateName": ["^_"]
+	},
+	"hint": {
+		"enable": true
+	},
 	"diagnostics": {
-		"globals": ["minivim"],
-		"disable": [
-			"duplicate-set-field",
-			"missing-fields"
-		]
+		"globals": ["mininvim"],
+		"disable": ["duplicate-set-field", "missing-fields"]
 	}
 }

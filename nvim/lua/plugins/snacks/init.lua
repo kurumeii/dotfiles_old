@@ -40,13 +40,11 @@ require('snacks').setup({
     sections = {
       { section = 'header' },
       { section = 'keys', gap = 1, padding = 1 },
-      { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = { 2, 2 } },
-      { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 2 },
     },
   },
   statuscolumn = {
-    left = { 'mark', 'git' }, -- priority of signs on the left (high to low)
-    right = { 'sign', 'fold' }, -- priority of signs on the right (high to low)
+    left = { 'mark', 'fold' }, -- priority of signs on the left (high to low)
+    right = { 'sign', 'git' }, -- priority of signs on the right (high to low)
     git = {
       -- patterns to match Git signs
       patterns = { 'MiniDiffSign' },
@@ -65,8 +63,8 @@ require('snacks').setup({
     enabled = true,
     force = true,
     env = {
-    	['SNACKS_WEZTERM'] = 'true',
-    }
+      ['SNACKS_WEZTERM'] = 'true',
+    },
   },
   indent = { enabled = true },
   bufdelete = { enable = true },

@@ -65,16 +65,23 @@ local local_server = {
   jsonls = {
     settings = {
       json = {
-        schemas = require('schemastore').json.schemas(),
-        validate = { enable = true },
-        extra = {
-          {
-            description = 'Shadcn JSON schema',
-            filematch = { 'components.json' },
-            name = 'components.json',
-            url = 'https://ui.shadcn.com/schema.json',
+        schemas = require('schemastore').json.schemas({
+          extra = {
+            {
+              description = 'Shadcn JSON schema',
+              filematch = { 'components.json' },
+              name = 'components.json',
+              url = 'https://ui.shadcn.com/schema.json',
+            },
+            {
+              description = 'lua json schema',
+              filematch = { '.luarc.json' },
+              name = 'luarc.json',
+              url = 'https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json',
+            },
           },
-        },
+        }),
+        validate = { enable = true },
       },
     },
   },
@@ -167,6 +174,7 @@ require('mason-lspconfig').setup({
           require('nvim-navic').attach(client, bufnr)
         end
       end
+      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
       require('lspconfig')[server_name].setup(server)
     end,
   },

@@ -28,31 +28,24 @@ vim.o.grepprg = 'rg --vimgrep'
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 10
 vim.o.swapfile = false
 -- vim.o.backup = false
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
--- vim.o.winbar = "%=%{fnamemodify(expand('%:p:h'), ':~')}"
 vim.diagnostic.config({
   severity_sort = true,
-  inlay_hints = {
-    enabled = true,
-  },
   float = { border = 'single', source = 'if_many' },
-  underline = { severity = vim.diagnostic.severity.ERROR },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '󰅚 ',
-      [vim.diagnostic.severity.WARN] = ' ',
-      [vim.diagnostic.severity.INFO] = ' ',
-      [vim.diagnostic.severity.HINT] = '󰌶 ',
+      [vim.diagnostic.severity.ERROR] = mininvim.icons.error,
+      [vim.diagnostic.severity.WARN] = mininvim.icons.warn,
+      [vim.diagnostic.severity.INFO] = mininvim.icons.info,
+      [vim.diagnostic.severity.HINT] = mininvim.icons.hint,
     },
   },
   virtual_text = {
-    source = 'if_many',
-    spacing = 3,
+    spacing = 4,
     format = function(diagnostic)
       local diagnostic_message = {
         [vim.diagnostic.severity.ERROR] = diagnostic.message,

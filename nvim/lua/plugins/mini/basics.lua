@@ -1,9 +1,11 @@
-require("mini.basics").setup({
+require('mini.basics').setup({
   options = {
-    extra_ui = false,
+    basic = true,
+    extra_ui = true,
+    win_borders = 'double',
   },
   mappings = {
     windows = true,
+		move_with_alt = true
   },
-  win_borders = 'single',
 })
