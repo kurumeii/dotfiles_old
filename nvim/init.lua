@@ -10,25 +10,29 @@ require('config.mini').setup({
   {
     source = 'plugins.theme',
     cb = function()
-      vim.cmd.colorscheme('astrotheme')
+      vim.cmd.colorscheme('tokyonight')
     end,
   },
   { source = 'plugins.mini.icons' },
   { source = 'plugins.mini.basics' },
-	{ source = 'mini.colors', opts = {}, later = true },
-  { source = 'plugins.mini.sessions',   later = true },
-  { source = 'plugins.mini.animate',    later = true },
-  { source = 'plugins.mini.bracketed',  later = true },
-  { source = 'plugins.mini.surround',   later = true },
-  { source = 'plugins.mini.jump',       later = true },
-  { source = 'mini.pairs',              later = true, opts = {} },
+  { source = 'mini.colors', opts = {}, later = true },
+  { source = 'plugins.mini.sessions', later = true },
+  { source = 'plugins.mini.animate', later = true },
+  { source = 'plugins.mini.bracketed', later = true },
+  { source = 'plugins.mini.surround', later = true },
+  { source = 'plugins.mini.jump', later = true },
+  { source = 'mini.pairs', later = true, opts = {} },
   { source = 'plugins.mini.cursorword', later = true },
-  { source = 'mini.trailspace',         later = true, opts = {} },
-  { source = 'mini.fuzzy',              later = true, opts = {} },
-  { source = 'mini.extra',              later = true, opts = {} },
-  { source = 'mini.operators',          later = true, opts = {} },
-  { source = 'mini.comment',            later = true, opts = {} },
-  { source = 'plugins.mini.bufremove',  later = true },
+  { source = 'mini.trailspace', later = true, opts = {} },
+  { source = 'mini.fuzzy', later = true, opts = {} },
+  { source = 'mini.extra', later = true, opts = {} },
+  { source = 'mini.operators', later = true, opts = {} },
+  { source = 'mini.comment', later = true, opts = {} },
+  { source = 'plugins.mini.bufremove', later = true },
+  {
+    source = 'plugins.mini.misc',
+    later = true,
+  },
   {
     source = 'plugins.mini.snippets',
     later = true,
@@ -48,6 +52,10 @@ require('config.mini').setup({
   },
   {
     source = 'plugins.mini.diff',
+    later = true,
+  },
+  {
+    source = 'plugins.mini.git',
     later = true,
   },
   { source = 'plugins.mini.ai', later = true },
@@ -146,10 +154,18 @@ require('config.mini').setup({
     source = 'SmiteshP/nvim-navic',
     depends = { 'neovim/nvim-lspconfig' },
     cb = function()
-      require('nvim-navic').setup({
+			local navic = require('nvim-navic')
+      navic.setup({
         highlight = true,
         separator = ' > ',
-        depth_limit = 4,
+        depth_limit = 3,
+      })
+      vim.api.nvim_create_autocmd('BufWinEnter', {
+        callback = function()
+          if navic.is_available() then
+            vim.wo.winbar = navic.get_location()
+          end
+        end,
       })
     end,
   },
@@ -161,8 +177,8 @@ require('config.mini').setup({
     source = 'neovim/nvim-lspconfig',
     later = true,
     depends = {
-      'williamboman/mason.nvim',                   -- mason core
-      'williamboman/mason-lspconfig.nvim',         -- mason lsp
+      'williamboman/mason.nvim', -- mason core
+      'williamboman/mason-lspconfig.nvim', -- mason lsp
       'WhoIsSethDaniel/mason-tool-installer.nvim', -- mason easy installer
       'justinsgithub/wezterm-types',
       'b0o/SchemaStore.nvim',
@@ -197,6 +213,7 @@ require('config.mini').setup({
   {
     source = 'plugins.others.supermaven',
     later = true,
+    disable = true,
   },
   {
     source = 'plugins.others.lint',
@@ -205,7 +222,7 @@ require('config.mini').setup({
   {
     source = 'eero-lehtinen/oklch-color-picker.nvim',
     later = true,
-		disable = true,
+    disable = true,
     cb = function()
       require('plugins.others.colorizer')
     end,

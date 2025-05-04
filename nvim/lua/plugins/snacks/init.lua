@@ -45,7 +45,7 @@ require('snacks').setup({
     },
   },
   statuscolumn = {
-    left = { 'mark' }, -- priority of signs on the left (high to low)
+    left = { 'mark', 'git' }, -- priority of signs on the left (high to low)
     right = { 'sign', 'fold' }, -- priority of signs on the right (high to low)
     git = {
       -- patterns to match Git signs
