@@ -151,22 +151,12 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'SmiteshP/nvim-navic',
-    depends = { 'neovim/nvim-lspconfig' },
+    source = 'utilyre/barbecue.nvim',
+    depends = {
+      'SmiteshP/nvim-navic',
+    },
     cb = function()
-			local navic = require('nvim-navic')
-      navic.setup({
-        highlight = true,
-        separator = ' > ',
-        depth_limit = 3,
-      })
-      vim.api.nvim_create_autocmd('BufWinEnter', {
-        callback = function()
-          if navic.is_available() then
-            vim.wo.winbar = navic.get_location()
-          end
-        end,
-      })
+      require('plugins.others.breadcrumbs')
     end,
   },
   {

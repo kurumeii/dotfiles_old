@@ -2,13 +2,9 @@ require('mini.map').setup()
 
 MiniMap.config.integrations = {
   MiniMap.gen_integration.builtin_search(),
-  MiniMap.gen_integration.diagnostic({
-		error = 'DiagnosticFloatingError',
-		warn  = 'DiagnosticFloatingWarn',
-		info  = 'DiagnosticFloatingInfo',
-		hint  = 'DiagnosticFloatingHint',
-	}),
+  MiniMap.gen_integration.diagnostic(),
   MiniMap.gen_integration.diff(),
+	-- MiniMap.gen_integration.gitsigns()
 }
 
 MiniMap.config.symbols.encode = MiniMap.gen_encode_symbols.dot('4x2')
@@ -22,6 +18,6 @@ local map, L = utils.map, utils.L
 --   end,
 -- })
 
-map('n', L('um'), MiniMap.toggle, '[M]inimap Toggle')
+map('n', L('um'), MiniMap.toggle, 'UI Minimap Toggle')
 
-map('n', L('us'), MiniMap.toggle_side, '[M]inimap Toggle Side')
+map('n', L('us'), MiniMap.toggle_side, 'UI Minimap Toggle Side')

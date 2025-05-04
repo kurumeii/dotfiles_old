@@ -21,13 +21,3 @@ map('n', '<c-a>', 'ggVG', 'Visual select all', {
 
 map('n', L('nd'), C('lua MiniNotify.clear()'), '[N]otify: [D]ismiss all')
 map({ 'n' }, [[\f]], C('FormatToggle'), 'Toggle auto-format')
-
-
--- Fold
--- map(
--- 	'n',
--- 	'K',
--- 	C 'lua if not ufo.peekFoldedLinesUnderCursor() then vim.lsp.buf.hover()',
--- 	'Peak inside'
--- )
-
