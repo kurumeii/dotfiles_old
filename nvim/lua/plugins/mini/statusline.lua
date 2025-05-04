@@ -1,11 +1,11 @@
 local MiniStatusline = require('mini.statusline')
 local battery = require('battery')
--- local navic = require('nvim-navic')
 local width = vim.api.nvim_win_get_width(0)
 local H = {}
 
-local filename = MiniStatusline.section_filename({ trunc_width = 100 })
-
+function _G.statusline_time()
+  return os.date('%H:%M') .. mininvim.icons.clock
+end
 MiniStatusline.setup({
   content = {
     inactive = function()
@@ -16,35 +16,40 @@ MiniStatusline.setup({
     end,
     active = function()
       local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-      local git = MiniStatusline.section_git({ icon = '', trunc_width = 40 })
+      local git = MiniStatusline.section_git({ icon = mininvim.icons.git_branch, trunc_width = 40 })
       -- local diff = MiniStatusline.section_diff({ trunc_width = 60 })
       local diagnostics = MiniStatusline.section_diagnostics({
-        icon = '| 󰂓',
-        signs = { ERROR = ' ', WARN = ' ', INFO = ' ', HINT = ' ' },
+        icon = '|',
+        signs = {
+          ERROR = mininvim.icons.error,
+          WARN = mininvim.icons.warn,
+          INFO = mininvim.icons.info,
+          HINT = minivim.icons.hint,
+        },
         trunc_width = 75,
       })
-      local lsp = MiniStatusline.section_lsp({ icon = '| ', trunc_width = 75 })
+      local lsp = MiniStatusline.section_lsp({ icon = mininvim.icons.lsp, trunc_width = 75 })
       -- local breadcrumb = navic.get_location()
       local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = width < 80 and 30 or 120 })
-      -- local location = width < 100 and "" or MiniStatusline.section_location({ trunc_width = 75 })
-      -- local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+      MiniStatusline.section_location = function()
+        return '%2l|%-2v'
+      end
+      local location = MiniStatusline.section_location()
+      local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
       local nvim_battery = battery.get_status_line()
+      local time = '%{v:lua.statusline_time()}|'
 
       return MiniStatusline.combine_groups({
+        { hl = mode_hl, strings = { mode } },
         {
           hl = 'MiniStatuslineDevinfo',
-          strings = { git, diagnostics },
+          strings = { git, diagnostics, lsp },
         },
         '%<', -- Mark general truncate point
-        {
-          hl = 'MiniStatuslineFilename',
-          strings = { filename },
-        },
         '%=', -- End left alignment
-        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, lsp } },
-        -- { hl = mode_hl, strings = { search } },
-        { hl = 'MiniStatuslineLocation', strings = { nvim_battery } },
-        { hl = mode_hl, strings = { mode } },
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+        { hl = mode_hl, strings = { search, location } },
+        { hl = '', strings = { time, nvim_battery } },
       })
     end,
   },

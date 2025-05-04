@@ -1,6 +1,26 @@
 {
-    "diagnostics.disable": [
-        "duplicate-set-field",
-        "missing-fields"
-    ]
+	"workspace": {
+    "checkThirdParty": false
+  },
+  "completion": {
+    "callSnippet": "Replace"
+  },
+  "doc": {
+    "privateName": ["^_"]
+  },
+  "hint": {
+    "enable": true,
+    "setType": false,
+    "paramType": false,
+    "paramName": "Disable",
+    "semicolon": "Disable",
+    "arrayIndex": "Disable"
+  },
+	"diagnostics": {
+		"globals": ["minivim"],
+		"disable": [
+			"duplicate-set-field",
+			"missing-fields"
+		]
+	}
 }

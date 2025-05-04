@@ -38,14 +38,7 @@ vim.api.nvim_create_autocmd('LspProgress', {
       return table.insert(msg, v.msg) or not v.done
     end, p)
 
-    local spinner = {
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-    }
+    local spinner = mininvim.icons.spinner
     vim.notify(table.concat(msg, '\n'), 'info', {
       id = 'lsp_progress',
       title = client.name,

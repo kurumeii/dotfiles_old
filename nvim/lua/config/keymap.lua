@@ -2,6 +2,7 @@ local utils = require('utils')
 local map, L, C = utils.map, utils.L, utils.C
 -- Qol remap
 map('n', '<Esc>', C('nohlsearch'))
+map('n', L'cs', C('source'), 'Code source current')
 map('n', L('wqq'), C('q'), '[W]indow [Q]uit')
 map('n', L('wqa'), C('qa'), '[W]indow [Q]uit [A]ll')
 map('n', L('ww'), C('w'), '[W]indow [W]rite')

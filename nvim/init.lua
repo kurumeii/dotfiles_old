@@ -1,3 +1,6 @@
+_G.mininvim = {
+	icons = require('config.icons')
+}
 require('config.mini').setup({
   { source = 'config.option' },
   { source = 'config.keymap' },
@@ -44,6 +47,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.tabline',
     later = true,
+		disable = false
   },
   {
     source = 'plugins.mini.pick',
@@ -150,8 +154,11 @@ require('config.mini').setup({
       })
     end,
   },
+  -- Consider using lualine instead of this and mini.statusline
   {
     source = 'utilyre/barbecue.nvim',
+    disable = true,
+		later = true,
     depends = {
       'SmiteshP/nvim-navic',
     },
@@ -160,8 +167,20 @@ require('config.mini').setup({
     end,
   },
   {
+    source = 'nvim-lualine/lualine.nvim',
+    depends = {
+      'SmiteshP/nvim-navic',
+    },
+    disable = false,
+		later = true,
+    cb = function()
+      require('plugins.others.lualine')
+    end,
+  },
+  {
     source = 'plugins.mini.statusline',
     later = true,
+    disable = true,
   },
   {
     source = 'neovim/nvim-lspconfig',

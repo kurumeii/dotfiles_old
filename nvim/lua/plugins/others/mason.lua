@@ -56,29 +56,7 @@ local local_server = {
   },
   -- using tailwindcss should be enough
   -- cssls = {},
-  lua_ls = {
-    settings = {
-      Lua = {
-        workspace = {
-          checkThirdParty = false,
-        },
-        completion = {
-          callSnippet = 'Replace',
-        },
-        doc = {
-          privateName = { '^_' },
-        },
-        hint = {
-          enable = true,
-          setType = false,
-          paramType = false,
-          paramName = 'Disable',
-          semicolon = 'Disable',
-          arrayIndex = 'Disable',
-        },
-      },
-    },
-  },
+  lua_ls = {},
   stylua = {},
   cspell = {},
   markdownlint = {},

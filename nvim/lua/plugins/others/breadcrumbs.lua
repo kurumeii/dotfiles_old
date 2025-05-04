@@ -4,6 +4,8 @@ require('barbecue').setup({
   attach_navic = false, -- For multiple tab
   create_autocmd = false, -- Better perfomance
   context_follow_icon_color = true,
+  show_dirname = true,
+  show_basename = false,
   theme = 'auto',
   kinds = {
     File = '󰈙 ',
