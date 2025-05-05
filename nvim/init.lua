@@ -4,6 +4,7 @@ _G.mininvim = {
 require('config.mini').setup({
   { source = 'config.option' },
   { source = 'config.keymap' },
+  { source = 'plugins.mini.notify', disable = false },
   {
     source = 'folke/snacks.nvim',
     cb = function()
@@ -13,7 +14,7 @@ require('config.mini').setup({
   {
     source = 'plugins.theme',
     cb = function()
-      vim.cmd.colorscheme('tokyonight')
+     vim.cmd.colorscheme('astrotheme')
     end,
   },
   { source = 'plugins.mini.icons' },
@@ -66,7 +67,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.indentscope',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'plugins.mini.completion',
@@ -132,6 +133,7 @@ require('config.mini').setup({
     source = 'folke/noice.nvim',
     depends = { 'MunifTanjim/nui.nvim' },
     later = true,
+		disable = true,
     cb = function()
       require('plugins.others.noice')
     end,
@@ -161,7 +163,7 @@ require('config.mini').setup({
   -- Consider using lualine instead of this and mini.statusline
   {
     source = 'utilyre/barbecue.nvim',
-    disable = true,
+    disable = false,
     later = true,
     depends = {
       'SmiteshP/nvim-navic',
@@ -175,7 +177,7 @@ require('config.mini').setup({
     depends = {
       'SmiteshP/nvim-navic',
     },
-    disable = false,
+    disable = true,
     later = true,
     cb = function()
       require('plugins.others.lualine')
@@ -184,7 +186,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.statusline',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'neovim/nvim-lspconfig',
@@ -223,13 +225,19 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'plugins.others.fold',
+    source = 'kevinhwang91/nvim-ufo',
+    depends = {
+      'kevinhwang91/promise-async',
+    },
     later = true,
+    cb = function()
+      require('plugins.others.fold')
+    end,
   },
   {
     source = 'plugins.others.supermaven',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'mfussenegger/nvim-lint',

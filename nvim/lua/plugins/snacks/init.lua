@@ -52,7 +52,7 @@ require('snacks').setup({
     refresh = 50, -- refresh at most every 50ms
     folds = {
       open = true,
-      git_hl = false,
+      git_hl = true,
     },
   },
   lazygit = { enabled = true },
@@ -66,28 +66,21 @@ require('snacks').setup({
       ['SNACKS_WEZTERM'] = 'true',
     },
   },
-  indent = { enabled = true },
+  indent = { enabled = false, scope = false },
   bufdelete = { enable = true },
   picker = { enabled = true },
   quickfile = { enabled = true },
   notifier = {
-    enabled = true,
-    top_down = false,
-    icons = {
-      error = '',
-      warn = '',
-      info = '',
-      debug = '',
-    },
+    enabled = false,
+    top_down = true,
   },
-  scope = { enabled = true },
   util = { enabled = true },
   words = { enabled = true },
 })
 
 vim.ui.input = Snacks.input.input
 vim.ui.select = Snacks.picker.select
-vim.notify = Snacks.notifier.notify
+-- vim.notify = Snacks.notifier.notify
 
 require('plugins.snacks.keymap')
 require('plugins.snacks.autocmd')

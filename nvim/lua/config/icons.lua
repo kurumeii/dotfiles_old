@@ -1,4 +1,5 @@
 local M = {
+	mode_prepend = '',
   clock = '󱑃',
   git_branch = '',
   error = '',

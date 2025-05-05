@@ -16,15 +16,13 @@ end
 
 --- @param msg string
 --- @param level 'ERROR' | 'WARN' | 'INFO'
---- @param timeout number?
-H.notify = function(msg, level, timeout)
+--- @param title string?
+H.notify = function(msg, level, title)
   level = level or 'INFO'
-  timeout = timeout or 2000
-  -- local id = require('mini.notify').add(msg, level)
   vim.defer_fn(function()
-    Snacks.notify[string.lower(level)](msg)
-    -- require('mini.notify').remove(id)
-  end, timeout)
+    -- Snacks.notify[string.lower(level)](msg)
+    vim.notify(msg, vim.log.levels[level], { title = title or 'Notification' })
+  end, 1000)
 end
 
 H.debounce = function(ms, fn)
@@ -39,7 +37,6 @@ H.debounce = function(ms, fn)
     end
   end
 end
-
 
 function H.hex_to_rgb(hex)
   hex = string.lower(hex)

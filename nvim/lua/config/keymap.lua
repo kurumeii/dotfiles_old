@@ -20,5 +20,4 @@ map('n', '<c-a>', 'ggVG', 'Visual select all', {
   noremap = true,
 })
 
-map('n', L('nd'), C('lua MiniNotify.clear()'), '[N]otify: [D]ismiss all')
 map({ 'n' }, [[\f]], C('FormatToggle'), 'Toggle auto-format')

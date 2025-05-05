@@ -1,7 +1,5 @@
 require('mini.completion').setup({
   mappings = {
-    force_twostep = '<C-Space>',
-    force_fallback = '<A-Space>',
     scroll_down = '<C-U>',
     scroll_up = '<C-D>',
   },
@@ -26,9 +24,6 @@ require('mini.completion').setup({
     end,
   },
 })
-MiniDeps.later(function()
-  MiniIcons.tweak_lsp_kind()
-end)
 
 local utils = require('utils')
 
