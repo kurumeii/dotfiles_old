@@ -1,5 +1,5 @@
 _G.mininvim = {
-	icons = require('config.icons')
+  icons = require('config.icons'),
 }
 require('config.mini').setup({
   { source = 'config.option' },
@@ -47,7 +47,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.tabline',
     later = true,
-		disable = false
+    disable = false,
   },
   {
     source = 'plugins.mini.pick',
@@ -129,8 +129,12 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'plugins.others.noice',
+    source = 'folke/noice.nvim',
+    depends = { 'MunifTanjim/nui.nvim' },
     later = true,
+    cb = function()
+      require('plugins.others.noice')
+    end,
   },
   {
     source = 'TheLeoP/powershell.nvim',
@@ -158,7 +162,7 @@ require('config.mini').setup({
   {
     source = 'utilyre/barbecue.nvim',
     disable = true,
-		later = true,
+    later = true,
     depends = {
       'SmiteshP/nvim-navic',
     },
@@ -172,7 +176,7 @@ require('config.mini').setup({
       'SmiteshP/nvim-navic',
     },
     disable = false,
-		later = true,
+    later = true,
     cb = function()
       require('plugins.others.lualine')
     end,
@@ -212,8 +216,11 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'plugins.others.conform',
+    source = 'stevearc/conform.nvim',
     later = true,
+    cb = function()
+      require('plugins.others.conform')
+    end,
   },
   {
     source = 'plugins.others.fold',
@@ -225,8 +232,11 @@ require('config.mini').setup({
     disable = true,
   },
   {
-    source = 'plugins.others.lint',
+    source = 'mfussenegger/nvim-lint',
     later = true,
+    cb = function()
+      require('plugins.others.lint')
+    end,
   },
   {
     source = 'eero-lehtinen/oklch-color-picker.nvim',

@@ -27,6 +27,20 @@ H.notify = function(msg, level, timeout)
   end, timeout)
 end
 
+H.debounce = function(ms, fn)
+  local timer = vim.uv.new_timer()
+  return function(...)
+    local argv = { ... }
+    if timer ~= nil then
+      timer:start(ms, 0, function()
+        timer:stop()
+        vim.schedule_wrap(fn)(unpack(argv))
+      end)
+    end
+  end
+end
+
+
 function H.hex_to_rgb(hex)
   hex = string.lower(hex)
   local ret = {}

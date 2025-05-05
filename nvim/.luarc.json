@@ -4,6 +4,7 @@
 		"checkThirdParty": false
 	},
 	"completion": {
+		"showParams": true,
 		"callSnippet": "Both"
 	},
 	"doc": {
@@ -13,7 +14,7 @@
 		"enable": true
 	},
 	"diagnostics": {
-		"globals": ["mininvim"],
-		"disable": ["duplicate-set-field", "missing-fields"]
+		"globals": ["mininvim", "Snacks"],
+		"disable": ["duplicate-set-field", "missing-fields", "undefined-field"]
 	}
 }

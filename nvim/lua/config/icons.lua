@@ -18,6 +18,7 @@ local M = {
     '',
     '',
   },
+	recording = ''
 }
 
 return M

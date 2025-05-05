@@ -54,14 +54,16 @@ local local_server = {
       },
     },
   },
-  -- using tailwindcss should be enough
-  -- cssls = {},
   lua_ls = {},
+  selene = {},
   stylua = {},
   cspell = {},
-  markdownlint = {},
+	marksman = {},
+  ['markdownlint-cli2'] = {},
+	['markdown-toc'] = {},
   biome = {},
   powershell_es = {},
+  yamlfix = {},
   jsonls = {
     settings = {
       json = {
@@ -149,6 +151,9 @@ local file_operations = {
       didRename = true,
       willRename = true,
     },
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
   },
 }
 capabilities = vim.tbl_deep_extend(
@@ -175,7 +180,9 @@ require('mason-lspconfig').setup({
         end
       end
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      require('lspconfig')[server_name].setup(server)
+      -- require('lspconfig')[server_name].setup(server)
+			vim.lsp.config(server_name, server)
+			vim.lsp.enable(server_name, true)
     end,
   },
 })

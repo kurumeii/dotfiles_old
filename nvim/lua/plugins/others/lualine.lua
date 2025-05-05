@@ -15,10 +15,10 @@ require('lualine').setup({
     lualine_a = {
       {
         'mode',
-				icons_enabled = false,
-				fmt = function(str)
-					return ' ' .. str
-				end
+        icons_enabled = false,
+        fmt = function(str)
+          return ' ' .. str
+        end,
       },
     },
     lualine_b = {
@@ -50,6 +50,18 @@ require('lualine').setup({
     },
     lualine_x = {
       {
+        'macro',
+        fmt = function()
+          local reg = vim.fn.reg_recording()
+          if reg ~= '' then
+            return mininvim.icons.recording .. ' '.. reg
+          end
+          return nil
+        end,
+        draw_empty = false,
+        color = { fg = Snacks.util.color('MiniIconsOrange') },
+      },
+      {
         'lsp_status',
         icon = mininvim.icons.lsp,
         symbols = {
@@ -62,13 +74,12 @@ require('lualine').setup({
     },
     lualine_y = {
       'searchcount',
+    },
+    lualine_z = {
       {
         'datetime',
         style = '%H:%M' .. ' ' .. mininvim.icons.clock,
       },
-    },
-    lualine_z = {
-      'location',
     },
   },
   inactive_sections = {
