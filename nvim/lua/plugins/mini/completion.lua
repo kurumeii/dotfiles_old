@@ -1,8 +1,4 @@
 require('mini.completion').setup({
-  mappings = {
-    scroll_down = '<C-U>',
-    scroll_up = '<C-D>',
-  },
   delay = {
     completion = 300,
     info = 200,
@@ -24,7 +20,6 @@ require('mini.completion').setup({
     end,
   },
 })
-
 local utils = require('utils')
 
 utils.map(

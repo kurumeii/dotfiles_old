@@ -13,9 +13,9 @@ map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
 -- And rename file in current buffer
 map('n', L('cr'), Snacks.rename.rename_file, '[C]ode [R]ename')
 -- Delete buffer with snacks
-map('n', L('bd'), Snacks.bufdelete.delete, '[B]uffer [D]elete')
-map('n', L('bo'), Snacks.bufdelete.other, '[B]uffer [D]elete other')
-map('n', L('ba'), Snacks.bufdelete.all, '[B]uffer [D]elete [A]ll')
+map('n', L('bd'), Snacks.bufdelete.delete, 'Budder delete')
+map('n', L('bo'), Snacks.bufdelete.other, 'Buffer delete other')
+map('n', L('bD'), Snacks.bufdelete.all, 'Buffer delete all')
 
 -- Picker
 -- Search things ==============================================================

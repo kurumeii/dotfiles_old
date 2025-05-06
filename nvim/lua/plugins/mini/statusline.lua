@@ -13,18 +13,6 @@ function _G.recorder()
   return ''
 end
 
---- Override MiniStatusline hl_groups
-vim.api.nvim_create_autocmd('ColorScheme', {
-  pattern = '*',
-  callback = function()
-    vim.api.nvim_set_hl(
-      0,
-      'MiniStatusLineRecording',
-      { fg = Snacks.util.color('MiniIconsOrange'), bg = Snacks.util.color('MiniStatuslineDevinfo', 'bg')}
-    )
-  end,
-})
-
 MiniStatusline.setup({
   content = {
     active = function()
@@ -68,13 +56,16 @@ MiniStatusline.setup({
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
         {
+          hl = '',
+          strings = { git },
+        },
+        {
           hl = 'MiniStatuslineDevinfo',
-          strings = { git, diff, diagnostics },
+          strings = { diff, diagnostics },
         },
         '%<', -- Mark general truncate point
         '%=', -- End left alignment
-        { hl = 'MiniStatusLineRecording', strings = { recorder } },
-        { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
+        { hl = 'MiniStatuslineFileinfo', strings = {recorder , lsp, fileinfo } },
         { hl = '', strings = { nvim_battery } },
         { hl = mode_hl, strings = { search, location, time } },
       })

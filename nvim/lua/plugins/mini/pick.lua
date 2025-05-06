@@ -17,47 +17,87 @@ require('mini.pick').setup({
     end,
   },
   mappings = {
-    choose_in_vsplit = '<c-L>',
+    choose_in_vsplit = '<c-l>',
   },
 })
 vim.ui.select = MiniPick.ui_select
 
+-- Colorscheme picker =======================================================
+-- Still waiting for the exact implementation from the author
+
 local utils = require('utils')
 local map, L = utils.map, utils.L
 
--- MiniPick/ Picker
-map('n', L('sf'), function()
-  MiniPick.builtin.files()
-end, '[S]earch [F]iles')
-map('n', L('sw'), function()
-  MiniPick.builtin.grep_live()
-end, '[S]earch [W]ord')
-map('n', L('st'), function()
-  vim.cmd('Pick colorschemes')
-end, '[S]earch [T]heme')
-map('n', L('sr'), function()
-  vim.cmd('Pick registers')
-end, '[S]earch [R]egistry')
-map('n', L('sc'), function()
-  vim.cmd('Pick commands')
-end, '[S]earch [C]ommands')
-map('n', L('sh'), function()
-  MiniPick.builtin.help()
-end, '[S]earch [H]elp')
-map('n', L('sb'), function()
-  MiniPick.builtin.buffers()
-end, '[S]earch [B]uffer')
-
--- LSP
+map('n', L('se'), MiniExtra.pickers.explorer, 'Search explorer')
+map('n', L('sf'), MiniPick.builtin.files, 'Search files')
+map('n', L('sw'), MiniPick.builtin.grep_live, 'Search word')
+-- map('n', L('st'), function()
+--   vim.cmd('Pick colorschemes')
+-- end, 'Search colorschemes')
+map('n', L('sr'), MiniExtra.pickers.registers, 'Search registers')
+map('n', L('sc'), MiniExtra.pickers.commands, 'Search commands')
+map('n', L('sh'), MiniPick.builtin.help, 'Search help')
+map('n', L('sb'), MiniPick.builtin.buffers, 'Search buffers')
+map('n', L('sq'), function()
+  MiniExtra.pickers.list({ scope = 'quickfix' })
+end, 'Search quickfix list')
+map('n', L('fc'), function()
+  local dir = vim.fn.stdpath('config')
+  local files = vim.fn.glob(dir .. '/**/*', true, true)
+  files = vim.tbl_filter(function(f)
+    return vim.fn.isdirectory(f) == 0
+  end, files)
+  files = vim.tbl_map(function(f)
+    return vim.fn.fnamemodify(f, ':~:.')
+  end, files)
+  MiniPick.start({
+    source = {
+      items = files,
+      name = 'Config files',
+    },
+  })
+end, 'Find Config files')
+map('n', L('fd'), function()
+  MiniExtra.pickers.diagnostic(nil, { scope = 'current' })
+end, 'Find Diagnostics in buffer')
+map('n', L('fD'), function()
+  MiniExtra.pickers.diagnostic(nil, { scope = 'all' })
+end, 'Find Diagnostics')
+map('n', L('fm'), MiniExtra.pickers.marks, 'Find marks')
+map('n', L('fh'), MiniExtra.pickers.history, 'Find history')
+map('n', L('fv'), MiniExtra.pickers.visit_paths, 'Find visit paths')
+map('n', L('fV'), MiniExtra.pickers.visit_labels, 'Find visit labels')
+-- LSP =======================================================================
 map('n', L('lr'), function()
-  vim.cmd('Pick lsp scope="references"')
-end, '[L]sp: [R]efrences')
+  MiniExtra.pickers.lsp({ scope = 'references' })
+end, 'LSP references')
 map('n', L('ld'), function()
-  vim.cmd('Pick lsp scope="definition"')
-end, '[L]sp: [D]efinition')
-map('n', L('lD'), function()
-  vim.cmd('Pick lsp scope="declaration"')
-end, '[L]sp: [D]eclaration')
+  MiniExtra.pickers.lsp({ scope = 'definition' })
+end, 'LSP definitions')
+map('n', L('lt'), function()
+  MiniExtra.pickers.lsp({ scope = 'type_definition' })
+end, 'LSP type definitions')
 map('n', L('li'), function()
-  vim.cmd('Pick lsp scope ="implementation"')
-end, '[L]sp: [I]mplementation')
+  MiniExtra.pickers.lsp({ scope = 'implementation' })
+end, 'LSP implementations')
+map('n', L('lD'), function()
+  MiniExtra.pickers.lsp({ scope = 'declaration' })
+end, 'LSP declarations')
+map('n', L('ls'), function()
+  MiniExtra.pickers.lsp({ scope = 'document_symbol' })
+end, 'LSP symbols')
+map('n', L('lS'), function()
+  MiniExtra.pickers.lsp({ scope = 'workspace_symbol' })
+end, 'LSP workspace symbols')
+-- Git =======================================================================
+map('n', L('gb'), function()
+  MiniExtra.pickers.git_branches({ scope = 'local' })
+end, 'List local git branches')
+map('n', L('gB'), function()
+  MiniExtra.pickers.git_branches({ scope = 'remotes' })
+end, 'List remote git branches')
+map('n', L('gc'), MiniExtra.pickers.git_commits, 'List git commits')
+map('n', L('gh'), MiniExtra.pickers.git_hunks, 'List unstaged git hunks')
+map('n', L('gH'), function()
+  MiniExtra.pickers.git_hunks({ scope = 'staged' })
+end, 'List staged git hunks')

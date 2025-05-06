@@ -1,6 +1,7 @@
 vim.o.updatetime = 200
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
+vim.g.colorscheme = 'astrotheme'
 vim.o.shell = 'pwsh.exe'
 vim.o.relativenumber = true
 vim.o.smartcase = true

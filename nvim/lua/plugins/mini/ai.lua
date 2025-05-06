@@ -14,6 +14,8 @@ ai.setup({
     B = MiniExtra.gen_ai_spec.buffer(),
     D = MiniExtra.gen_ai_spec.diagnostic(),
     I = MiniExtra.gen_ai_spec.indent(),
+    u = ai.gen_spec.function_call(), -- u for "Usage"
+    U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }),
     N = MiniExtra.gen_ai_spec.number(),
   },
 })

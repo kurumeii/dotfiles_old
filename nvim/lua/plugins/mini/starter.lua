@@ -2,7 +2,7 @@ local starter = require('mini.starter')
 
 starter.setup({
   items = {
-    starter.sections.sessions(),
+    starter.sections.sessions(1, true),
     starter.sections.recent_files(3, true, false),
     {
       { name = 'Open Mason', action = 'Mason', section = 'Tools' },
@@ -14,7 +14,7 @@ starter.setup({
     },
     starter.sections.pick(),
     {
-      name = 'Edit config ',
+      name = 'Edit config',
       action = 'edit $MYVIMRC',
       section = 'Core',
     },
@@ -47,6 +47,4 @@ local utils = require('utils')
 local map = utils.map
 local L = utils.L
 
-map('n', L('h'), function()
-  MiniStarter.open()
-end, 'Open Dashboard')
+map('n', L('h'), MiniStarter.open, 'Open Dashboard')

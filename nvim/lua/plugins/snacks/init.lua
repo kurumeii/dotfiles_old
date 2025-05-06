@@ -1,6 +1,6 @@
 require('snacks').setup({
   dashboard = {
-    enabled = true,
+    enabled = false,
     preset = {
       header = [[
  __       __ __          __ __     __ __              
@@ -21,7 +21,7 @@ require('snacks').setup({
           icon = ' ',
           key = 'c',
           desc = 'Config',
-          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('')})",
         },
         {
           icon = ' ',
@@ -68,7 +68,7 @@ require('snacks').setup({
   },
   indent = { enabled = false, scope = false },
   bufdelete = { enable = true },
-  picker = { enabled = true },
+  picker = { enabled = false },
   quickfile = { enabled = true },
   notifier = {
     enabled = false,
@@ -79,7 +79,7 @@ require('snacks').setup({
 })
 
 vim.ui.input = Snacks.input.input
-vim.ui.select = Snacks.picker.select
+-- vim.ui.select = Snacks.picker.select
 -- vim.notify = Snacks.notifier.notify
 
 require('plugins.snacks.keymap')

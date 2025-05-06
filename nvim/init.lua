@@ -4,7 +4,9 @@ _G.mininvim = {
 require('config.mini').setup({
   { source = 'config.option' },
   { source = 'config.keymap' },
+  { source = 'plugins.mini.sessions' },
   { source = 'plugins.mini.notify', disable = false },
+  { source = 'plugins.mini.starter', disable = false },
   {
     source = 'folke/snacks.nvim',
     cb = function()
@@ -14,25 +16,25 @@ require('config.mini').setup({
   {
     source = 'plugins.theme',
     cb = function()
-     vim.cmd.colorscheme('astrotheme')
+      vim.cmd.colorscheme('astrotheme')
     end,
   },
   { source = 'plugins.mini.icons' },
   { source = 'plugins.mini.basics' },
   { source = 'mini.colors', opts = {}, later = true },
-  { source = 'plugins.mini.sessions', later = true },
+  { source = 'mini.keymap', opts = {}, later = true },
   { source = 'plugins.mini.animate', later = true },
   { source = 'plugins.mini.bracketed', later = true },
   { source = 'plugins.mini.surround', later = true },
   { source = 'plugins.mini.jump', later = true },
-  { source = 'mini.pairs', later = true, opts = {} },
+  { source = 'plugins.mini.pairs', later = true },
   { source = 'plugins.mini.cursorword', later = true },
   { source = 'mini.trailspace', later = true, opts = {} },
   { source = 'mini.fuzzy', later = true, opts = {} },
   { source = 'mini.extra', later = true, opts = {} },
   { source = 'mini.operators', later = true, opts = {} },
   { source = 'mini.comment', later = true, opts = {} },
-  { source = 'plugins.mini.bufremove', later = true },
+  { source = 'mini.bufremove', later = true, opts = {} },
   {
     source = 'plugins.mini.misc',
     later = true,
@@ -53,7 +55,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.pick',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'plugins.mini.diff',
@@ -98,7 +100,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.visited',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'nvim-treesitter/nvim-treesitter',
@@ -133,7 +135,7 @@ require('config.mini').setup({
     source = 'folke/noice.nvim',
     depends = { 'MunifTanjim/nui.nvim' },
     later = true,
-		disable = true,
+    disable = true,
     cb = function()
       require('plugins.others.noice')
     end,
@@ -252,6 +254,13 @@ require('config.mini').setup({
     disable = true,
     cb = function()
       require('plugins.others.colorizer')
+    end,
+  },
+  {
+    source = 'MagicDuck/grug-far.nvim',
+    later = true,
+    cb = function()
+      require('plugins.others.grug-far')
     end,
   },
 })

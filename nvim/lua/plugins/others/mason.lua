@@ -58,9 +58,9 @@ local local_server = {
   selene = {},
   stylua = {},
   cspell = {},
-	marksman = {},
+  marksman = {},
   ['markdownlint-cli2'] = {},
-	['markdown-toc'] = {},
+  ['markdown-toc'] = {},
   biome = {},
   powershell_es = {},
   yamlfix = {},
@@ -173,16 +173,15 @@ require('mason-lspconfig').setup({
   automatic_installation = false,
   handlers = {
     function(server_name)
-      local server = local_server[server_name] or {}
-      server.on_attach = function(client, bufnr)
-        if client.server_capabilities['documentSymbolProvider'] then
-          require('nvim-navic').attach(client, bufnr)
-        end
-      end
-      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      -- require('lspconfig')[server_name].setup(server)
-			vim.lsp.config(server_name, server)
-			vim.lsp.enable(server_name, true)
+      vim.lsp.config(server_name, {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          if client.server_capabilities['documentSymbolProvider'] then
+            require('nvim-navic').attach(client, bufnr)
+          end
+        end,
+      })
+      vim.lsp.enable(server_name, true)
     end,
   },
 })
