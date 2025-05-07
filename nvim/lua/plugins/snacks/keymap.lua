@@ -6,7 +6,7 @@ map('n', L('G'), function()
 end, 'Open Lazy[G]it')
 
 -- Dashboard =================================================================
-map('n', L'h', Snacks.dashboard.open, 'Open Dashboard')
+-- map('n', L('h'), Snacks.dashboard.open, 'Open Dashboard')
 
 -- Terminal ==================================================================
 map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')

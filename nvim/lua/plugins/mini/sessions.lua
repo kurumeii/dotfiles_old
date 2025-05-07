@@ -16,7 +16,10 @@ require('mini.sessions').setup({
 local default_session = 'last-session'
 vim.api.nvim_create_autocmd('VimLeavePre', {
   callback = function()
-		local session_name = MiniSessions.get_latest() or default_session
+    if vim.bo.ft == 'ministarter' then
+      return
+    end
+    local session_name = MiniSessions.get_latest() or default_session
     MiniSessions.write(session_name)
   end,
 })
