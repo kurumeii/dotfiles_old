@@ -32,6 +32,9 @@ vim.api.nvim_create_autocmd('User', {
   callback = function(data)
     local summary = vim.b[data.buf].minidiff_summary
     local t = {}
+    if summary == nil then
+      return
+    end
     if summary.add > 0 then
       table.insert(t, mininvim.icons.git_add .. ' ' .. summary.add)
     end

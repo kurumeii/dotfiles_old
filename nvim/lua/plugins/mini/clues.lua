@@ -2,7 +2,7 @@ local miniclue = require('mini.clue')
 miniclue.setup({
   window = {
     config = {
-      -- width = 'auto',
+      width = 'auto',
       anchor = 'SW',
       row = 'auto',
       col = 'auto',
