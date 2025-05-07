@@ -67,6 +67,7 @@ map('n', L('fm'), MiniExtra.pickers.marks, 'Find marks')
 map('n', L('fh'), MiniExtra.pickers.history, 'Find history')
 map('n', L('fv'), MiniExtra.pickers.visit_paths, 'Find visit paths')
 map('n', L('fV'), MiniExtra.pickers.visit_labels, 'Find visit labels')
+map('n', L('ft'), MiniExtra.pickers.treesitter, 'Find treesitter nodes')
 -- LSP =======================================================================
 map('n', L('lr'), function()
   MiniExtra.pickers.lsp({ scope = 'references' })
