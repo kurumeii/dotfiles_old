@@ -18,19 +18,16 @@ map('n', L('bo'), Snacks.bufdelete.other, 'Buffer delete other')
 map('n', L('bD'), Snacks.bufdelete.all, 'Buffer delete all')
 
 -- Picker
--- Search things ==============================================================
-map('n', L('sf'), Snacks.picker.files, 'Search files')
-map('n', L('sm'), Snacks.picker.smart, 'Search files smart')
-map('n', L('sw'), Snacks.picker.grep, 'Search word')
-map('n', L('st'), Snacks.picker.colorschemes, 'Search colorschemes')
-map('n', L('sr'), Snacks.picker.registers, 'Search registers')
-map('n', L('sc'), Snacks.picker.commands, 'Search commands')
-map('n', L('sh'), Snacks.picker.help, 'Search help')
-map('n', L('sk'), Snacks.picker.keymaps, 'Search keymaps')
-map('n', L('sb'), Snacks.picker.buffers, 'Search buffers')
-map('n', L('sq'), Snacks.picker.qflist, 'Search quickfix list')
---- Find things ==============================================================
-map('n', L('fc'), function()
+map('n', L('ff'), Snacks.picker.files, 'Search files')
+map('n', L('fw'), Snacks.picker.grep, 'Search word')
+map('n', L('ft'), Snacks.picker.colorschemes, 'Search colorschemes')
+map('n', L('fr'), Snacks.picker.registers, 'Search registers')
+map('n', L('fc'), Snacks.picker.commands, 'Search commands')
+map('n', L('fh'), Snacks.picker.help, 'Search help')
+map('n', L('fk'), Snacks.picker.keymaps, 'Search keymaps')
+map('n', L('fb'), Snacks.picker.buffers, 'Search buffers')
+map('n', L('fq'), Snacks.picker.qflist, 'Search quickfix list')
+map('n', L('fC'), function()
   Snacks.picker.files({
     cwd = vim.fn.stdpath('config'),
   })

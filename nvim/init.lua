@@ -16,7 +16,7 @@ require('config.mini').setup({
   {
     source = 'plugins.theme',
     cb = function()
-      vim.cmd.colorscheme('astrotheme')
+      vim.cmd.colorscheme('catppuccin')
     end,
   },
   { source = 'plugins.mini.icons' },
@@ -261,6 +261,19 @@ require('config.mini').setup({
     later = true,
     cb = function()
       require('plugins.others.grug-far')
+    end,
+  },
+  {
+    source = 'f-person/git-blame.nvim',
+    later = true,
+    cb = function()
+      local gitBlame = require('gitblame')
+      gitBlame.setup({
+        enabled = true,
+        message_template = ' <summary> • <date> • <author>', -- template for the blame message, check the Message template section for more options
+        date_format = '%m-%d-%Y %H:%M:%S', -- template for the date, check Date format section for more options
+        virtual_text_column = 1,
+      })
     end,
   },
 })

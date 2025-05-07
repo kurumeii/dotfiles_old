@@ -2,12 +2,11 @@ local miniclue = require('mini.clue')
 miniclue.setup({
   window = {
     config = {
-      width = 'auto',
-      anchor = 'SE',
-      -- relative = 'editor',
+      -- width = 'auto',
+      anchor = 'SW',
+      row = 'auto',
+      col = 'auto',
       -- width = vim.api.nvim_list_uis()[1]['width'],
-      -- row = 'auto',
-      -- col = 'auto',
       border = 'double',
     },
   },
@@ -36,13 +35,18 @@ miniclue.setup({
     -- `z` key
     { mode = 'n', keys = 'z' },
     { mode = 'x', keys = 'z' },
+    { mode = 'n', keys = '<C-w>' },
+    -- Registers
+    { mode = 'n', keys = '"' },
+    { mode = 'x', keys = '"' },
+    { mode = 'i', keys = '<C-r>' },
+    { mode = 'c', keys = '<C-r>' },
   },
 
   clues = {
     -- Enhance this by adding descriptions for <Leader> mapping groups
     { mode = 'n', keys = '<leader>b', desc = '[B]uffers ' },
     { mode = 'n', keys = '<leader>c', desc = '[C]ode ' },
-    { mode = 'n', keys = '<leader>s', desc = '[S]earch ' },
     { mode = 'n', keys = '<leader>g', desc = '[G]it 󰊢' },
     { mode = 'n', keys = '<leader>f', desc = '[F]ind ' },
     { mode = 'n', keys = '<leader>w', desc = '[W]indow ' },
@@ -55,8 +59,14 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>S', desc = '[S]essions ' },
     { mode = 'n', keys = '<leader>u', desc = '[U]i ' },
     miniclue.gen_clues.builtin_completion(),
-    -- miniclue.gen_clues.g(),
-    -- miniclue.gen_clues.marks(),
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.marks(),
+    miniclue.gen_clues.registers(),
+    miniclue.gen_clues.windows({
+      submode_move = true,
+      submode_navigate = true,
+      submode_resize = true,
+    }),
     miniclue.gen_clues.z(),
   },
 })

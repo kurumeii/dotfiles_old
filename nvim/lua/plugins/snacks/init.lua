@@ -56,6 +56,7 @@ require('snacks').setup({
     },
   },
   lazygit = { enabled = true },
+  gitbrowse = { enabled = true },
   inputs = { enabled = true },
   bigfile = { enabled = true },
   terminal = { enabled = true },
