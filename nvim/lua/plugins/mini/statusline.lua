@@ -41,7 +41,7 @@ MiniStatusline.setup({
         for _, client in ipairs(clients) do
           table.insert(names, client.name)
         end
-        return mininvim.icons.lsp .. table.concat(names, ', ')
+        return mininvim.icons.lsp .. ' ' .. table.concat(names, ', ')
       end
       local lsp = MiniStatusline.section_lsp()
       local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 150 })
@@ -53,6 +53,7 @@ MiniStatusline.setup({
       local nvim_battery = battery.get_status_line()
       local time = '%{v:lua.statusline_time()}'
       local recorder = '%{v:lua.recorder()}'
+      local filename = MiniStatusline.section_filename({ trunc_width = 140 })
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
         {
@@ -64,8 +65,12 @@ MiniStatusline.setup({
           strings = { diff, diagnostics },
         },
         '%<', -- Mark general truncate point
+        {
+          hl = 'MiniStatuslineFilename',
+          strings = { filename },
+        },
         '%=', -- End left alignment
-        { hl = 'MiniStatuslineFileinfo', strings = {recorder , lsp, fileinfo } },
+        { hl = 'MiniStatuslineFileinfo', strings = { recorder, lsp, fileinfo } },
         { hl = '', strings = { nvim_battery } },
         { hl = mode_hl, strings = { search, location, time } },
       })

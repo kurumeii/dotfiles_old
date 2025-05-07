@@ -1,14 +1,14 @@
 require('conform').setup({
   notify_on_error = true,
-  -- format_after_save = function(bufnr)
-  --   if vim.g.disable_autoformat then
-  --     return
-  --   end
-  --   return {
-  --     timeout_ms = 1000,
-  --     lsp_format = "fallback",
-  --   }
-  -- end,
+  format_after_save = function()
+    if vim.g.disable_autoformat then
+      return
+    end
+    return {
+      timeout_ms = 1000,
+      lsp_format = "fallback",
+    }
+  end,
   formatters_by_ft = {
     markdown = { 'markdownlint-cli2', 'markdown-toc' },
     lua = { 'stylua' },
