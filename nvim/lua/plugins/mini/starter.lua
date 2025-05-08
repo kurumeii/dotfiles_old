@@ -47,9 +47,4 @@ local utils = require('utils')
 local map = utils.map
 local L = utils.L
 
-vim.api.nvim_create_autocmd('TabNewEntered', {
-  nested = true,
-  callback = MiniStarter.open,
-})
-
 map('n', L('h'), MiniStarter.open, 'Open Dashboard')

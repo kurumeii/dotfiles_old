@@ -162,14 +162,9 @@ require('config.mini').setup({
       })
     end,
   },
-  -- Consider using lualine instead of this and mini.statusline
   {
-    source = 'utilyre/barbecue.nvim',
-    disable = false,
+    source = 'SmiteshP/nvim-navic',
     later = true,
-    depends = {
-      'SmiteshP/nvim-navic',
-    },
     cb = function()
       require('plugins.others.breadcrumbs')
     end,

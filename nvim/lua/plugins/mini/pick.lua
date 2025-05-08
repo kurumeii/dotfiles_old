@@ -3,21 +3,27 @@ require('mini.pick').setup({
     content_from_bottom = false,
     use_cache = true,
   },
-  window = {
-    config = function()
-      local height = math.floor(0.618 * vim.o.lines)
-      local width = math.floor(0.618 * vim.o.columns)
-      return {
-        anchor = 'NW',
-        height = height,
-        width = width,
-        row = math.floor(0.5 * (vim.o.lines - height)),
-        col = math.floor(0.5 * (vim.o.columns - width)),
-      }
-    end,
-  },
+  -- window = {
+  --   config = function()
+  --     local height = math.floor(0.618 * vim.o.lines)
+  --     local width = math.floor(0.618 * vim.o.columns)
+  --     return {
+  --       anchor = 'NW',
+  --       height = height,
+  --       width = width,
+  --       row = math.floor(0.5 * (vim.o.lines - height)),
+  --       col = math.floor(0.5 * (vim.o.columns - width)),
+  --     }
+  --   end,
+  -- },
   mappings = {
-    choose_in_vsplit = '<c-l>',
+    choose_in_vsplit = '<c-v>',
+    move_up = '<S-tab>',
+    move_down = '<tab>',
+    mark = '',
+    mark_all = '',
+    toggle_preview = '<c-k>',
+    toggle_info = '?',
   },
 })
 vim.ui.select = MiniPick.ui_select

@@ -1,10 +1,4 @@
-local navic = require('nvim-navic')
 local battery = require('battery')
-
-navic.setup({
-  highlight = true,
-  depth_limit = 4,
-})
 
 require('lualine').setup({
   options = {
@@ -54,7 +48,7 @@ require('lualine').setup({
         fmt = function()
           local reg = vim.fn.reg_recording()
           if reg ~= '' then
-            return mininvim.icons.recording .. ' '.. reg
+            return mininvim.icons.recording .. ' ' .. reg
           end
           return nil
         end,

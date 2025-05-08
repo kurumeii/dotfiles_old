@@ -145,24 +145,6 @@ local mini_capabilities = MiniCompletion.get_lsp_capabilities({
 -- 		}
 -- 	}
 -- })
-local file_operations = {
-  workspace = {
-    fileOperations = {
-      didRename = true,
-      willRename = true,
-    },
-    didChangeWatchedFiles = {
-      dynamicRegistration = true,
-    },
-  },
-}
-capabilities = vim.tbl_deep_extend(
-  'force',
-  capabilities,
-  mini_capabilities,
-  -- blink_capabilities,
-  file_operations
-)
 
 require('mason-tool-installer').setup({
   ensure_installed = ensure_installed,
@@ -173,15 +155,32 @@ require('mason-lspconfig').setup({
   automatic_installation = false,
   handlers = {
     function(server_name)
-      vim.lsp.config(server_name, {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          if client.server_capabilities['documentSymbolProvider'] then
-            require('nvim-navic').attach(client, bufnr)
-          end
-        end,
-      })
-      vim.lsp.enable(server_name, true)
+      local server = require('lspconfig')[server_name]
+      server.capabilities = vim.tbl_deep_extend(
+        'force',
+        capabilities,
+        mini_capabilities,
+        -- blink_capabilities,
+        {
+          workspace = {
+            fileOperations = {
+              didRename = true,
+              willRename = true,
+            },
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        }
+      )
+      server.on_attach = function(client, bufnr)
+        if client.server_capabilities['documentSymbolProvider'] then
+          require('nvim-navic').attach(client, bufnr)
+        end
+      end
+
+      vim.lsp.config(server_name, server)
+      vim.lsp.enable(server_name)
     end,
   },
 })

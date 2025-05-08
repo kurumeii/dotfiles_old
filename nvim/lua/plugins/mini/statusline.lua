@@ -20,7 +20,7 @@ MiniStatusline.setup({
       mode = mininvim.icons.mode_prepend .. ' ' .. mode
 
       local git = MiniStatusline.section_git({ icon = mininvim.icons.git_branch, trunc_width = 40 })
-      local diff = MiniStatusline.section_diff({ icon = '|', trunc_width = 100 })
+      local diff = MiniStatusline.section_diff({ icon = '', trunc_width = 100 })
       local diagnostics = MiniStatusline.section_diagnostics({
         icon = '|',
         signs = {
