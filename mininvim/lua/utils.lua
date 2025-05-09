@@ -188,8 +188,56 @@ function H.rgbToHex(r, g, b, a)
   if a then
     return string.format('#%02x%02x%02x', r * a, g * a, b * a)
   end
-
   return string.format('#%02x%02x%02x', r, g, b)
+end
+
+local function oklch_to_srgb(l, c, h)
+  -- OKLCH -> OKLab
+  local h_rad = h * math.pi / 180
+  local a = c * math.cos(h_rad)
+  local b = c * math.sin(h_rad)
+
+  -- OKLab -> linear sRGB
+  local L = l
+  local A = a
+  local B = b
+
+  local l_ = L + 0.3963377774 * A + 0.2158037573 * B
+  local m_ = L - 0.1055613458 * A - 0.0638541728 * B
+  local s_ = L - 0.0894841775 * A - 1.2914855480 * B
+
+  local l3 = l_ * l_ * l_
+  local m3 = m_ * m_ * m_
+  local s3 = s_ * s_ * s_
+
+  local r = 4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3
+  local g = -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3
+  b = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.7076147010 * s3
+
+  -- Gamma correction
+  local function to_srgb_channel(x)
+    if x <= 0.0031308 then
+      return 12.92 * x
+    else
+      return 1.055 * x ^ (1 / 2.4) - 0.055
+    end
+  end
+
+  r = to_srgb_channel(r)
+  g = to_srgb_channel(g)
+  b = to_srgb_channel(b)
+
+  -- Clamp and convert to 0-255
+  local function clamp(x)
+    return math.max(0, math.min(1, x))
+  end
+
+  return math.floor(clamp(r) * 255 + 0.5), math.floor(clamp(g) * 255 + 0.5), math.floor(clamp(b) * 255 + 0.5)
+end
+
+function H.oklchToHex(l, c, h, a)
+  local r, g, b = oklch_to_srgb(l, c, h)
+  return H.rgbToHex(r, g, b, a)
 end
 
 return H

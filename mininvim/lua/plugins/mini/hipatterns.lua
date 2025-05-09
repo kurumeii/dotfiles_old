@@ -49,5 +49,22 @@ hi.setup({
         return hi.compute_hex_color_group(hex, 'bg')
       end,
     },
+    oklch_color = {
+      pattern = 'oklch%(%s*[%d%.]+%s+[%d%.]+%s+[%d%.]+%s*/?%s*[%d%.]*%%?%s*%)',
+      group = function(_, match)
+        local l, c, h, a = match:match('oklch%(%s*([%d%.]+)%s+([%d%.]+)%s+([%d%.]+)%s*/?%s*([%d%.]*)%%?%s*%)')
+        l, c, h = tonumber(l), tonumber(c), tonumber(h)
+        if a == '' or a == nil then
+          a = 1
+        else
+          a = tonumber(a)
+          if a > 1 then
+            a = a / 100
+          end
+        end
+        local hex = util.oklchToHex(l, c, h, a)
+        return hi.compute_hex_color_group(hex, 'bg')
+      end,
+    },
   },
 })
