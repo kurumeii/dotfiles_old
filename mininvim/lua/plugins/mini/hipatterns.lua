@@ -1,7 +1,9 @@
 local hi = require('mini.hipatterns')
 local hi_words = MiniExtra.gen_highlighter.words
 local util = require('utils')
-
+local M = {}
+---@type table<string, boolean>
+M.hl = {}
 hi.setup({
   highlighters = {
     fixme = hi_words({ 'FIXME', 'fixme' }, 'MiniHiPatternsFixme'),
@@ -66,5 +68,58 @@ hi.setup({
         return hi.compute_hex_color_group(hex, 'bg')
       end,
     },
+    tailwind_color = {
+      pattern = function()
+        local ft = {
+          'css',
+          'html',
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+        }
+        if not vim.tbl_contains(ft, vim.bo.filetype) then
+          return
+        end
+        return '%f[%w:-]()[%w:-]+%-[a-z%-]+%-%d+()%f[^%w:-]'
+      end,
+      group = function(_, match)
+        local color, shade = match:match('[%w-]+%-([a-z%-]+)%-(%d+)')
+        shade = tonumber(shade)
+        local bg = vim.tbl_get(mininvim.tw_colors, color, shade)
+        if bg == nil then
+          return
+        end
+        local word_color = mininvim.word_colors[color]
+        if word_color ~= nil then
+          return hi.compute_hex_color_group(word_color, 'bg')
+        end
+        local hl = 'MiniHiPatternsTailwind' .. color .. shade
+        if not M.hl[hl] then
+          M.hl[hl] = true
+          local bg_shade = shade == 500 and 950 or shade < 500 and 900 or 100
+          local fg = vim.tbl_get(mininvim.tw_colors, color, bg_shade)
+          vim.api.nvim_set_hl(0, hl, { bg = '#' .. bg, fg = '#' .. fg })
+        end
+        return hl
+      end,
+      extmark_opts = { priority = 1000 },
+    },
+    word_color = {
+      pattern = '%S+',
+      group = function(_, match)
+        local hex = mininvim.word_colors[match]
+        if hex == nil then
+          return nil
+        end
+        return hi.compute_hex_color_group(hex, 'bg')
+      end,
+    },
   },
+})
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function()
+    M.hl = {}
+  end,
 })

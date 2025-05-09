@@ -1,5 +1,7 @@
 _G.mininvim = {
   icons = require('config.icons'),
+  tw_colors = require('config.tailwind-color'),
+  word_colors = require('config.color-word'),
 }
 require('config.mini').setup({
   { source = 'config.option' },

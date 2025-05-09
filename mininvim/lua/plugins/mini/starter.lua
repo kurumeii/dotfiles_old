@@ -44,7 +44,4 @@ starter.setup({
 })
 
 local utils = require('utils')
-local map = utils.map
-local L = utils.L
-
-map('n', L('h'), MiniStarter.open, 'Open Dashboard')
+utils.map('n', utils.L('h'), MiniStarter.open, 'Open Dashboard')
