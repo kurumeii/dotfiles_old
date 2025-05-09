@@ -188,8 +188,7 @@ require('mason-lspconfig').setup({
 -- keymaps
 ----------------------------
 local utils = require('utils')
-local map, L = utils.map, utils.L
-
-map('n', L('lR'), function()
+utils.map('n', utils.L('lR'), function()
   vim.cmd('LspRestart')
 end, 'Lsp restart server')
+utils.map('i', '<C-l>', vim.lsp.buf.signature_help, 'Signature help')

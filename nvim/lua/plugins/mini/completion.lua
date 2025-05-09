@@ -9,6 +9,7 @@ require('mini.completion').setup({
     signature = { height = 25, width = 80, border = 'rounded' },
   },
   lsp_completion = {
+    source_func = 'omnifunc',
     process_items = function(items, base)
       return require('mini.completion').default_process_items(items, base, {
         filtersort = 'fuzzy',
