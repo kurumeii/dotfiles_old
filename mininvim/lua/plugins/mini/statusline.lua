@@ -17,13 +17,18 @@ local function get_lsp()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   if #clients == 0 then
-    return '󱏎 No LSP'
+    return '󱏎 '
   end
   local names = {}
   for _, client in ipairs(clients) do
     table.insert(names, client.name)
   end
-  return mininvim.icons.lsp .. ' ' .. table.concat(names, ',')
+  local icon = mininvim.icons.lsp
+  if #names > 2 then
+    return icon .. '+' .. #names
+  else
+    return icon .. ' ' .. table.concat(names, ',')
+  end
 end
 
 --- @param mode 'percent' | 'line'
