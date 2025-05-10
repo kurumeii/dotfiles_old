@@ -55,7 +55,6 @@ local local_server = {
     },
   },
   lua_ls = {},
-  selene = {},
   stylua = {},
   cspell = {},
   marksman = {},
@@ -188,7 +187,14 @@ require('mason-lspconfig').setup({
 -- keymaps
 ----------------------------
 local utils = require('utils')
-utils.map('n', utils.L('lR'), function()
-  vim.cmd('LspRestart')
-end, 'Lsp restart server')
-utils.map('i', '<C-l>', vim.lsp.buf.signature_help, 'Signature help')
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    utils.map('n', utils.L('lR'), function()
+      vim.cmd('LspRestart')
+    end, 'Lsp restart server')
+    utils.map('i', '<C-l>', vim.lsp.buf.signature_help, 'Signature help', {
+      buffer = args.bufnr,
+    })
+  end,
+})

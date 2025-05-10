@@ -1,6 +1,11 @@
 local H = {}
 local hexChars = '0123456789abcdef'
 
+--- @param mode string | table<string> -- n, v, i, x
+--- @param keys string
+--- @param func function|string
+--- @param desc? string
+--- @param opts? vim.keymap.set.Opts
 H.map = function(mode, keys, func, desc, opts)
   opts = opts or {}
   opts.desc = desc
@@ -15,7 +20,7 @@ H.C = function(cmd)
 end
 
 --- @param msg string
---- @param level 'ERROR' | 'WARN' | 'INFO'
+--- @param level? 'ERROR' | 'WARN' | 'INFO'
 --- @param title string?
 H.notify = function(msg, level, title)
   level = level or 'INFO'

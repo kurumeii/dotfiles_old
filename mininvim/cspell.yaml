@@ -1,7 +1,0 @@
----
-version: '0.2'
-language: en,vn
-ignorePaths: [node_modules/*, .gitignore, '*-data/**']
-dictionaryDefinitions:
-  - {name: custom-words, path: ./dictionary/custom-words.txt, description: (global)}
-dictionaries: [custom-words]

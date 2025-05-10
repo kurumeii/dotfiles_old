@@ -14,3 +14,4 @@ map('n', '[t', C('tabprev'), 'Previous tab')
 map('n', '<c-a>', 'ggVG', 'Visual select all', {
   noremap = true,
 })
+map('n', L('uM'), C('Mason'), 'Ui open mason')
