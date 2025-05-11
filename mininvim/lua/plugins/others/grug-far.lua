@@ -7,11 +7,11 @@ grug.setup({
 
 local utils = require('utils')
 
-utils.map({ 'n', 'v' }, utils.L('sg'), function()
+utils.map({ 'n', 'v' }, utils.L('fg'), function()
   local ext = vim.bo.buftype == '' and vim.fn.expand('%:e')
   grug.open({
     prefills = {
       filesFilter = ext and ext ~= '' and '*.' .. ext or nil,
     },
   })
-end, 'Search and grug')
+end, 'Find and grug')
