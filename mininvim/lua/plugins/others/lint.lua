@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   callback = function()
     lint.linters_by_ft = {
       ['*'] = { 'cspell' },
-      markdown = { 'markdownlint-cli2', 'cspell' },
+      markdown = { 'markdownlint-cli2' },
       javascriptreact = { 'biome' },
       typescriptreact = { 'biome' },
       typescript = { 'biome' },
@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
   callback = utils.debounce(100, function()
     local names = lint._resolve_linter_by_ft(vim.bo.ft)
     -- create a copy w/o modified the original
-    names = vim.list_extend({}, names)
+    names = vim.deepcopy(names)
     -- Fallback
     if #names == 0 then
       vim.list_extend(names, lint.linters_by_ft['_'] or {})

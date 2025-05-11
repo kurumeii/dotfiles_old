@@ -4,25 +4,8 @@ starter.setup({
   items = {
     starter.sections.sessions(1, true),
     starter.sections.recent_files(3, true, false),
-    {
-      { name = 'Open Mason', action = 'Mason', section = 'Tools' },
-      {
-        name = 'Update Mini Packages',
-        action = 'DepsUpdate',
-        section = 'Tools',
-      },
-    },
     starter.sections.pick(),
-    {
-      name = 'Edit config',
-      action = 'edit $MYVIMRC',
-      section = 'Core',
-    },
-    {
-      name = 'Quit',
-      action = 'qa',
-      section = 'Core',
-    },
+    starter.sections.builtin_actions(),
   },
 
   header = function()
