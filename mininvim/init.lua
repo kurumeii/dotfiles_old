@@ -166,6 +166,9 @@ require('config.mini').setup({
   },
   {
     source = 'SmiteshP/nvim-navic',
+    depends = {
+      'neovim/nvim-lspconfig',
+    },
     later = true,
     cb = function()
       require('plugins.others.breadcrumbs')

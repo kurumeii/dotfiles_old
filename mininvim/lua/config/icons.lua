@@ -1,5 +1,5 @@
 local M = {
-	mode_prepend = '',
+  mode_prepend = '',
   clock = '󱑃',
   git_branch = '',
   error = '',
@@ -7,6 +7,7 @@ local M = {
   info = '',
   hint = '',
   lsp = ' ',
+  no_lsp = '󱏎',
   edit = '󰏫',
   git_add = '',
   git_edit = '',
@@ -19,7 +20,7 @@ local M = {
     '',
     '',
   },
-	recording = ''
+  recording = '',
 }
 
 return M

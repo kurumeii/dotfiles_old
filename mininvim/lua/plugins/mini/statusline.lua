@@ -17,7 +17,7 @@ local function get_lsp()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   if #clients == 0 then
-    return '󱏎 '
+    return mininvim.icons.no_lsp
   end
   local names = {}
   for _, client in ipairs(clients) do

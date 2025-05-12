@@ -172,8 +172,10 @@ require('mason-lspconfig').setup({
           },
         }
       )
+      --- @param client vim.lsp.Client
+      --- @param bufnr number
       server.on_attach = function(client, bufnr)
-        if client.server_capabilities['documentSymbolProvider'] then
+        if client.server_capabilities.documentSymbolProvider then
           require('nvim-navic').attach(client, bufnr)
         end
       end

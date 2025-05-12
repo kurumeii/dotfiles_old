@@ -17,7 +17,11 @@ require('mini.notify').setup({
     config = function()
       local has_statusline = vim.o.laststatus > 0
       local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
-      return { anchor = 'SE', col = vim.o.columns, row = vim.o.lines - pad }
+      return {
+        anchor = 'SE',
+        col = vim.o.columns,
+        row = vim.o.lines - pad,
+      }
     end,
   },
   lsp_progress = {
@@ -48,4 +52,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-utils.map('n', utils.L('nd'), MiniNotify.clear, '[N]otify: [D]ismiss all')
+utils.map('n', utils.L('nd'), MiniNotify.clear, 'Notification Dismiss')
+utils.map('n', utils.L('nh'), MiniNotify.show_history, 'Notification History')
