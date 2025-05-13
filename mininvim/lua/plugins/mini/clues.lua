@@ -47,6 +47,7 @@ miniclue.setup({
     -- Enhance this by adding descriptions for <Leader> mapping groups
     { mode = 'n', keys = '<leader>b', desc = 'Buffers ' },
     { mode = 'n', keys = '<leader>c', desc = 'Code ' },
+    { mode = 'n', keys = '<leader>cs', desc = 'Spelling ' },
     { mode = 'n', keys = '<leader>g', desc = 'Git 󰊢' },
     { mode = 'n', keys = '<leader>f', desc = 'Find ' },
     { mode = 'n', keys = '<leader>w', desc = 'Window ' },

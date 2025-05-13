@@ -70,7 +70,7 @@ require('snacks').setup({
   indent = { enabled = false, scope = false },
   bufdelete = { enable = true },
   picker = { enabled = false },
-  quickfile = { enabled = true },
+  quickfile = { enabled = false },
   notifier = {
     enabled = false,
     top_down = true,

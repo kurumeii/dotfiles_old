@@ -7,8 +7,11 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   callback = function(args)
     conform.setup({
       notify_on_error = true,
-      format_after_save = {
+      default_format_opts = {
         timeout_ms = 1000,
+        lsp_format = 'fallback',
+      },
+      format_after_save = {
         bufnr = args.bufnr,
         async = true,
       },
