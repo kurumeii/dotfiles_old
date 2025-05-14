@@ -68,7 +68,7 @@ lint.linters.cspell = function()
     '--no-color',
     '--no-progress',
     '--no-summary',
-    type(H.config_path()) == 'string' and '--config=' .. H.config_path(),
+    type(H.config_path()) == 'string' and '--config=' .. H.config_path() or '',
     function()
       return 'stdin://' .. vim.api.nvim_buf_get_name(0)
     end,

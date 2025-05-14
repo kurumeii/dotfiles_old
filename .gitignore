@@ -4,3 +4,4 @@ bak/*
 *-data/*
 pnpm/*
 lesshst
+node_modules/*

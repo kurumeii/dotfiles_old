@@ -1,0 +1,33 @@
+{
+	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+	"version": "0.2",
+	"ignorePaths": [
+		"**/node_modules/**",
+		"**/.git/**",
+		"**/.gitignore",
+		"**/.github/**",
+		"**/.vscode/**",
+		"**-data/**"
+	],
+	"import": [
+		"@cspell/dict-vi-vn/cspell-ext.json",
+		"@cspell/dict-vim/cspell-ext.json"
+	],
+	"dictionaryDefinitions": [
+		{
+			"name": "custom-words",
+			"path": "./dictionary/custom-words.txt"
+		}
+	],
+	"dictionaries": [
+		"custom-words",
+		"software-term-suggestions",
+		"softwareTerms",
+		"software-tools",
+		"computing-acronyms",
+		"vim",
+		"filetypes",
+		"en-us",
+		"vi-vn"
+	]
+}
