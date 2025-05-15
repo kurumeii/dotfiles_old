@@ -60,6 +60,21 @@ function H.append_word(dict_path, word)
   fd:close()
 end
 
+function H.add_word_to_right_place(dicts, word)
+  if #dicts == 1 then
+    local dict_path = dicts[1].path
+    H.append_word(dict_path, word)
+  else
+    vim.ui.select(dicts, { prompt = 'Select dictionary: ' }, function(d, idx)
+      if not d then
+        return
+      end
+      local current_dict = dicts[idx]
+      H.append_word(current_dict.path, word)
+    end)
+  end
+end
+
 lint.linters.cspell = function()
   local default_config = require('lint.linters.cspell')
   local config = vim.deepcopy(default_config)
@@ -76,21 +91,6 @@ lint.linters.cspell = function()
   return config
 end
 
-function H.add_word_to_right_place(dicts, word)
-  if #dicts == 1 then
-    local dict_path = dicts[1].path
-    H.append_word(dict_path, word)
-  else
-    vim.ui.select(dicts, { prompt = 'Select dictionary: ' }, function(d, idx)
-      if not d then
-        return
-      end
-      local current_dict = dicts[idx]
-      H.append_word(current_dict.path, word)
-    end)
-  end
-end
-
 utils.map('n', utils.L('csc'), function()
   local items = { '.yml', '.json' }
   local opts = {
@@ -100,15 +100,15 @@ utils.map('n', utils.L('csc'), function()
     end,
   }
 
-  ---@param choice string
-  local function on_choice(choice)
+  vim.ui.select(items, opts, function(choice)
     if not choice then
       return utils.notify('Hey you cancel the thingy', 'INFO')
     end
     local fname = 'cspell' .. choice
     local content = ''
-    if choice == '.yaml' then
+    if choice == '.yml' or choice == '.yaml' then
       content = [[
+$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
 version: "0.2"
 language: "en"
 words: []
@@ -131,8 +131,7 @@ words: []
       file:close()
       utils.notify('Created ' .. fname)
     end
-  end
-  vim.ui.select(items, opts, on_choice)
+  end)
 end, 'Code create a config file')
 utils.map('n', utils.L('csw'), function()
   local opts = {
