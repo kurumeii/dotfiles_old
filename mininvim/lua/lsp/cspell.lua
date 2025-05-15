@@ -76,7 +76,22 @@ lint.linters.cspell = function()
   return config
 end
 
-utils.map('n', utils.L('csa'), function()
+function H.add_word_to_right_place(dicts, word)
+  if #dicts == 1 then
+    local dict_path = dicts[1].path
+    H.append_word(dict_path, word)
+  else
+    vim.ui.select(dicts, { prompt = 'Select dictionary: ' }, function(d, idx)
+      if not d then
+        return
+      end
+      local current_dict = dicts[idx]
+      H.append_word(current_dict.path, word)
+    end)
+  end
+end
+
+utils.map('n', utils.L('csc'), function()
   local items = { '.yml', '.json' }
   local opts = {
     prompt = 'Choose a cspell config file',
@@ -118,26 +133,7 @@ words: []
     end
   end
   vim.ui.select(items, opts, on_choice)
-end, 'Code add config file')
-
-function H.add_word_to_right_place(dicts, word)
-  if #dicts == 1 then
-    local dict_path = dicts[1].path
-    H.append_word(dict_path, word)
-  else
-    vim.ui.select(dicts, { prompt = 'Select dictionary: ' }, function(d, idx)
-      if not d then
-        return
-      end
-      local current_dict = dicts[idx]
-      H.append_word(current_dict.path, word)
-    end)
-  end
-end
-
--- manually add code actions
-function H.code_action() end
-
+end, 'Code create a config file')
 utils.map('n', utils.L('csw'), function()
   local opts = {
     prompt = 'Enter the word to add to the dictionary',
@@ -171,7 +167,6 @@ utils.map('n', utils.L('csw'), function()
     vim.cmd('e!')
   end)
 end, 'Code add word to dictionary')
-
 utils.map('n', utils.L('csW'), function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())
@@ -208,3 +203,41 @@ utils.map('n', utils.L('csW'), function()
     vim.cmd('e!')
   end)
 end, 'Code add diagnostic word to dictionary')
+utils.map('n', utils.L('csa'), function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local diagnostics = vim.diagnostic.get(bufnr)
+  local word_to_add = {} ---@type table<string>
+  for _, diagnostic in pairs(diagnostics) do
+    if diagnostic.source == 'cspell' then
+      local word = diagnostic.message:match('%((.+)%)')
+      table.insert(word_to_add, word)
+    end
+  end
+  if #word_to_add == 0 then
+    utils.notify('No word to add', 'INFO')
+    return
+  end
+  word_to_add = utils.uniq(word_to_add)
+  vim.ui.input({ prompt = 'Add ' .. #word_to_add .. ' word to dictionary ? y/n' }, function(input)
+    if input:lower() == 'n' then
+      return
+    end
+    local config = H.read_config(H.config_path())
+    if not config then
+      return
+    end
+    local dicts = config.dictionaryDefinitions or {}
+    if #dicts == 0 then
+      config.words = config.words or {}
+      for _, word in pairs(word_to_add) do
+        table.insert(config.words, word)
+      end
+      H.write_config(config, H.config_path())
+    else
+      for _, word in pairs(word_to_add) do
+        H.add_word_to_right_place(dicts, word)
+      end
+    end
+    vim.cmd('e!')
+  end)
+end, 'Code add all diagnostic words to dictionary')

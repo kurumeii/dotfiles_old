@@ -245,4 +245,16 @@ function H.oklchToHex(l, c, h, a)
   return H.rgbToHex(r, g, b, a)
 end
 
+--- @param tbl table
+function H.uniq(tbl)
+  local seen, result = {}, {}
+  for _, value in ipairs(tbl) do
+    if not seen[value] then
+      seen[value] = true
+      result[#result + 1] = value
+    end
+  end
+  return result
+end
+
 return H
