@@ -16,23 +16,32 @@ local valid_config_file = {
 }
 local H = {}
 
-H.config_path = function()
+function H.config_path()
   for idx, config_file in pairs(valid_config_file) do
     local path = vim.fn.getcwd() .. '/' .. config_file ---@type string
     if vim.uv.fs_stat(path) then
       return path
     elseif idx == #valid_config_file then
       utils.notify('Config file not found', 'WARN')
+      return nil
     end
   end
 end
 
----@param file string
-function H.read_config(file)
+function H.read_config()
+  local file = H.config_path()
+  if not file then
+    return nil
+  end
   local lines = vim.fn.readfile(file)
   local ext = file:match('^.+(%..+)$')
-  if ext == '.json' then
-    return vim.json.decode(table.concat(lines, '\n'))
+  if ext == '.json' or ext == '.jsonc' then
+    local ok, decoded = pcall(vim.json.decode, table.concat(lines, '\n'))
+    if not ok then
+      utils.notify('Failed to decode json file: ' .. decoded, 'ERROR')
+      return nil
+    end
+    return decoded
   elseif ext == '.yaml' or ext == '.yml' then
     utils.notify('Only support for json file right now', 'WARN')
     return nil
@@ -42,8 +51,12 @@ function H.read_config(file)
   end
 end
 
-function H.write_config(content, cfg_path)
-  local fd = io.open(cfg_path, 'w')
+function H.write_config(content)
+  local file = H.config_path()
+  if not file then
+    return
+  end
+  local fd = io.open(file, 'w')
   if not fd then
     return
   end
@@ -134,20 +147,12 @@ words: []
   end)
 end, 'Code create a config file')
 utils.map('n', utils.L('csw'), function()
-  local opts = {
-    prompt = 'Enter the word to add to the dictionary',
-  }
-  vim.ui.input(opts, function(word)
+  vim.ui.input({ prompt = 'Enter the word to add to the dictionary' }, function(word)
     if not word or word == '' then
       return utils.notify('Cancelled input', 'WARN')
     end
-    local config_file = H.config_path()
-    if not config_file then
-      return
-    end
-    -- Read config file
     -- TODO: Only support json file for now
-    local config = H.read_config(config_file)
+    local config = H.read_config()
     if not config then
       return
     end
@@ -159,7 +164,7 @@ utils.map('n', utils.L('csw'), function()
     if #dicts == 0 then
       config.words = config.words or {}
       table.insert(config.words, word)
-      H.write_config(config, config_file)
+      H.write_config(config)
     else
       H.add_word_to_right_place(dicts, word)
     end
@@ -186,8 +191,7 @@ utils.map('n', utils.L('csW'), function()
     if input:lower() == 'n' then
       return
     end
-
-    local config = H.read_config(H.config_path())
+    local config = H.read_config()
     if not config then
       return
     end
@@ -195,7 +199,7 @@ utils.map('n', utils.L('csW'), function()
     if #dicts == 0 then
       config.words = config.words or {}
       table.insert(config.words, word)
-      H.write_config(config, H.config_path())
+      H.write_config(config)
     else
       H.add_word_to_right_place(dicts, word)
     end
@@ -221,7 +225,7 @@ utils.map('n', utils.L('csa'), function()
     if input:lower() == 'n' then
       return
     end
-    local config = H.read_config(H.config_path())
+    local config = H.read_config()
     if not config then
       return
     end
@@ -231,7 +235,7 @@ utils.map('n', utils.L('csa'), function()
       for _, word in pairs(word_to_add) do
         table.insert(config.words, word)
       end
-      H.write_config(config, H.config_path())
+      H.write_config(config)
     else
       for _, word in pairs(word_to_add) do
         H.add_word_to_right_place(dicts, word)
