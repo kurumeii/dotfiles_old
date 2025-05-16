@@ -25,12 +25,9 @@ vim.o.mouse = 'a'
 vim.o.formatoptions = 'jcroqlnt' -- tcqj
 vim.o.grepformat = '%f:%l:%c:%m'
 vim.o.grepprg = 'rg --vimgrep'
--- Sync with system clipboard
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.o.clipboard = 'unnamedplus'
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 10
 vim.o.swapfile = false
 -- vim.o.backup = false
