@@ -1,5 +1,4 @@
 {
-	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
 	"version": "0.2",
 	"language": "en,vi",
 	"ignorePaths": [
@@ -8,7 +7,7 @@
 		"**/.gitignore",
 		"**/.github/**",
 		"**/.vscode/**",
-		"**-data/**"
+		"**/**-data/**"
 	],
 	"import": [
 		"@cspell/dict-vi-vn/cspell-ext.json",

@@ -1,0 +1,14 @@
+{
+	"json": {
+		"parser": {
+			"allowComments": true,
+			"allowTrailingCommas": false
+		},
+		"formatter": {
+			"enabled": true
+		},
+		"assists": {
+			"enabled": true
+		}
+	}
+}

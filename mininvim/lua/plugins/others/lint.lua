@@ -12,9 +12,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
       typescriptreact = { 'biome' },
       typescript = { 'biome' },
       javascript = { 'biome' },
+      json = { 'biome' },
     }
-    require('lsp.cspell')
-    require('lsp.biome')
+    require('config.cspell')
+    require('config.biome')
   end,
 })
 

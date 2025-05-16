@@ -1,7 +1,6 @@
 vim.o.updatetime = 200
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
-vim.g.colorscheme = 'astrotheme'
 vim.o.shell = 'pwsh.exe'
 vim.o.relativenumber = true
 vim.o.smartcase = true
@@ -14,6 +13,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 2
+vim.o.completeopt = 'menuone,noselect,fuzzy'
 -- vim.o.showcmd = false
 -- vim.o.showcmdloc = 'statusline'
 vim.o.wrap = true

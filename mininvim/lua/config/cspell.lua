@@ -22,7 +22,7 @@ function H.config_path()
     if vim.uv.fs_stat(path) then
       return path
     elseif idx == #valid_config_file then
-      utils.notify('Config file not found', 'WARN')
+      utils.notify('Cspell config file not found', 'WARN')
       return nil
     end
   end
