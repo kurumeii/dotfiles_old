@@ -34,6 +34,7 @@ require('mason-tool-installer').setup({
     'yamlfix',
     'jsonls',
     'yamlls',
+    'taplo',
   },
 })
 

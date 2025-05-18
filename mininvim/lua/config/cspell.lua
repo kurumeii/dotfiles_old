@@ -28,6 +28,7 @@ function H.config_path()
   end
 end
 
+---@return CspellConfig|nil
 function H.read_config()
   local file = H.config_path()
   if not file then
@@ -51,6 +52,7 @@ function H.read_config()
   end
 end
 
+---@param content CspellConfig
 function H.write_config(content)
   local file = H.config_path()
   if not file then
@@ -64,6 +66,8 @@ function H.write_config(content)
   fd:close()
 end
 
+---@param dict_path string
+---@param word string
 function H.append_word(dict_path, word)
   local fd = io.open(dict_path, 'a+')
   if not fd then
@@ -73,17 +77,51 @@ function H.append_word(dict_path, word)
   fd:close()
 end
 
-function H.add_word_to_right_place(dicts, word)
-  if #dicts == 1 then
-    local dict_path = dicts[1].path
-    H.append_word(dict_path, word)
+---@param word table<string> | string
+function H.add_to_right_place(word)
+  local config = H.read_config()
+  if not config then
+    return
+  end
+  local dicts = config.dictionaryDefinitions or {}
+  local adaptive_add = function(dict_path)
+    if type(word) == 'table' and #word > 1 then
+      for _, w in ipairs(word) do
+        H.append_word(dict_path, w)
+      end
+    elseif type(word) == 'string' then
+      H.append_word(dict_path, word)
+    else
+      utils.notify('Unsupported type', 'ERROR')
+    end
+  end
+  -- If there is no dictionary
+  if #dicts == 0 then
+    config.words = config.words or {}
+    if type(word) == 'table' then
+      for _, w in pairs(word) do
+        table.insert(config.words, w)
+      end
+    else
+      table.insert(config.words, word)
+    end
+    H.write_config(config)
+  elseif #dicts == 1 then
+    --  If there is only one dictionary
+    adaptive_add(dicts[1].path)
   else
-    vim.ui.select(dicts, { prompt = 'Select dictionary: ' }, function(d, idx)
+    -- Show ui select
+    vim.ui.select(dicts, {
+      prompt = 'Select dictionary: ',
+      format_item = function(item)
+        return 'Add to dictionary: ' .. item.name
+      end,
+    }, function(d)
       if not d then
+        utils.notify('Cancelled', 'WARN')
         return
       end
-      local current_dict = dicts[idx]
-      H.append_word(current_dict.path, word)
+      adaptive_add(d.path)
     end)
   end
 end
@@ -156,18 +194,8 @@ utils.map('n', utils.L('csw'), function()
     if not config then
       return
     end
-
-    -- Find dictionary
-    local dicts = config.dictionaryDefinitions or {}
-
     -- Add word to right place
-    if #dicts == 0 then
-      config.words = config.words or {}
-      table.insert(config.words, word)
-      H.write_config(config)
-    else
-      H.add_word_to_right_place(dicts, word)
-    end
+    H.add_to_right_place(word)
     vim.cmd('e!')
   end)
 end, 'Code add word to dictionary')
@@ -181,35 +209,27 @@ utils.map('n', utils.L('csW'), function()
       table.insert(diagnostics_map, diagnostic)
     end
   end
-  -- Get the first word from the first cspell diagnostic
   -- E.g. "Unknown word ( word )"
-  local word = diagnostics_map[1].message:match('%((.+)%)')
+  local word = diagnostics_map[1].message:match('%((.+)%)') ---@type string?
   if not word then
     return
   end
-  vim.ui.input({ prompt = 'Add ' .. word .. ' to dictionary ? y/n' }, function(input)
-    if input:lower() == 'n' then
-      return
-    end
-    local config = H.read_config()
-    if not config then
-      return
-    end
-    local dicts = config.dictionaryDefinitions or {}
-    if #dicts == 0 then
-      config.words = config.words or {}
-      table.insert(config.words, word)
-      H.write_config(config)
-    else
-      H.add_word_to_right_place(dicts, word)
-    end
-    vim.cmd('e!')
-  end)
+  local result = vim.fn.confirm('Add ' .. word .. ' to dictionary ?', '&Yes\n&No', 1, 'Question')
+  if result == 2 then
+    utils.notify('Cancelled', 'WARN')
+    return
+  end
+  local config = H.read_config()
+  if not config then
+    return
+  end
+  H.add_to_right_place(word)
+  vim.cmd('e!')
 end, 'Code add diagnostic word to dictionary')
 utils.map('n', utils.L('csa'), function()
   local bufnr = vim.api.nvim_get_current_buf()
   local diagnostics = vim.diagnostic.get(bufnr)
-  local word_to_add = {} ---@type table<string>
+  local word_to_add = {} ---@type string[]
   for _, diagnostic in pairs(diagnostics) do
     if diagnostic.source == 'cspell' then
       local word = diagnostic.message:match('%((.+)%)')
@@ -221,26 +241,15 @@ utils.map('n', utils.L('csa'), function()
     return
   end
   word_to_add = utils.uniq(word_to_add)
-  vim.ui.input({ prompt = 'Add ' .. #word_to_add .. ' word to dictionary ? y/n' }, function(input)
-    if input:lower() == 'n' then
-      return
-    end
-    local config = H.read_config()
-    if not config then
-      return
-    end
-    local dicts = config.dictionaryDefinitions or {}
-    if #dicts == 0 then
-      config.words = config.words or {}
-      for _, word in pairs(word_to_add) do
-        table.insert(config.words, word)
-      end
-      H.write_config(config)
-    else
-      for _, word in pairs(word_to_add) do
-        H.add_word_to_right_place(dicts, word)
-      end
-    end
-    vim.cmd('e!')
-  end)
+  local result = vim.fn.confirm('Add ' .. #word_to_add .. ' word to dictionary ?', '\v&Yes\n&No', 1, 'Question')
+  if result == 2 then
+    utils.notify('Cancelled', 'WARN')
+    return
+  end
+  local config = H.read_config()
+  if not config then
+    return
+  end
+  H.add_to_right_place(word_to_add)
+  vim.cmd('e!')
 end, 'Code add all diagnostic words to dictionary')

@@ -1,6 +1,5 @@
 mininvim
 folke
-catppuccin
 cursorword
 trailspace
 bufremove
