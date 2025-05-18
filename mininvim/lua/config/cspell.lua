@@ -185,7 +185,7 @@ words: []
   end)
 end, 'Code create a config file')
 utils.map('n', utils.L('csw'), function()
-  vim.ui.input({ prompt = 'Enter the word to add to the dictionary' }, function(word)
+  vim.ui.input({ prompt = 'Enter the word to add to the dictionary: ' }, function(word)
     if not word or word == '' then
       return utils.notify('Cancelled input', 'WARN')
     end
