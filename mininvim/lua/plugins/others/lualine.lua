@@ -11,7 +11,7 @@ require('lualine').setup({
         'mode',
         icons_enabled = false,
         fmt = function(str)
-          return ' ' .. str
+          return ' ' .. str:sub(1, 1)
         end,
       },
     },
@@ -20,8 +20,6 @@ require('lualine').setup({
         'branch',
         icon = mininvim.icons.git_branch,
       },
-    },
-    lualine_c = {
       {
         'diff',
         symbols = {
@@ -32,13 +30,20 @@ require('lualine').setup({
       },
       {
         'diagnostics',
-        always_visible = false,
         symbols = {
           error = mininvim.icons.error .. ' ',
           warn = mininvim.icons.warn .. ' ',
           info = mininvim.icons.info .. ' ',
           hint = mininvim.icons.hint .. ' ',
         },
+      },
+    },
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,
+        newfile_status = true,
+        path = 1,
       },
       '%=',
     },
@@ -53,17 +58,21 @@ require('lualine').setup({
           return nil
         end,
         draw_empty = false,
-        color = { fg = Snacks.util.color('MiniIconsOrange') },
+        color = { fg = '#fccccc' },
       },
       {
         'lsp_status',
         icon = mininvim.icons.lsp,
         symbols = {
-          spinner = '',
+          separator = ',',
+        },
+        ignore_lsp = {
+          'mini.snippets',
         },
       },
-      -- 'encoding',
-      'filetype',
+      {
+        'filetype',
+      },
       { battery.get_status_line },
     },
     lualine_y = {
@@ -72,7 +81,7 @@ require('lualine').setup({
     lualine_z = {
       {
         'datetime',
-        style = '%H:%M' .. ' ' .. mininvim.icons.clock,
+        style = '%R' .. ' ' .. mininvim.icons.clock,
       },
     },
   },
