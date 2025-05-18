@@ -54,7 +54,7 @@ end
 map('n', L('fe'), MiniExtra.pickers.explorer, 'Find explorer')
 map('n', L('ff'), MiniPick.builtin.files, 'Find files')
 map('n', L('fw'), MiniPick.builtin.grep_live, 'Find word (Grep)')
-map('n', L('fr'), MiniExtra.pickers.registers, 'Find registers')
+map({ 'n', 'i' }, L('fr'), MiniExtra.pickers.registers, 'Find registers')
 map('n', L('fc'), MiniExtra.pickers.commands, 'Find commands')
 map('n', L('fh'), MiniPick.builtin.help, 'Find help')
 map('n', L('fk'), MiniExtra.pickers.keymaps, 'Find keymaps')

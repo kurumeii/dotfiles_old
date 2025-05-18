@@ -1,20 +1,14 @@
 {
-	"$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
-	"workspace": {
-		"checkThirdParty": false
-	},
-	"completion": {
-		"showParams": true,
-		"callSnippet": "Both"
-	},
-	"doc": {
-		"privateName": ["^_"]
-	},
-	"hint": {
-		"enable": true
-	},
-	"diagnostics": {
-		"globals": ["mininvim", "Snacks"],
-		"disable": ["duplicate-set-field", "missing-fields", "undefined-field"]
-	}
+	"workspace.checkThirdParty": false,
+	"completion.callSnippet": "Both",
+	"completion.showParams": true,
+	"diagnostics.globals": ["mininvim", "Snacks"],
+	"diagnostics.disable": [
+		"duplicate-set-field",
+		"missing-fields",
+		"undefined-field"
+	],
+	"doc.privateName": ["^_"],
+	"hint.enable": true,
+	"hint.paramType": true
 }
