@@ -67,3 +67,4 @@ unnamedplus
 completeopt
 menuone
 noselect
+winbar

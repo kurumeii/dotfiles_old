@@ -42,32 +42,42 @@ require('mason-lspconfig').setup({
   automatic_enable = true,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-vim.tbl_extend('force', capabilities, require('mini.completion').get_lsp_capabilities(), {
-  textDocument = {
-    completion = {
-      completionItem = {
-        snippetSupport = true,
+---@type lsp.ClientCapabilities
+local capabilities = vim.tbl_extend(
+  'force',
+  vim.lsp.protocol.make_client_capabilities(),
+  require('mini.completion').get_lsp_capabilities(),
+  {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        },
+      },
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
       },
     },
-    foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true,
+    workspace = {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
+      },
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
     },
-  },
-  workspace = {
-    fileOperations = {
-      didRename = true,
-      willRename = true,
-    },
-    didChangeWatchedFiles = {
-      dynamicRegistration = true,
-    },
-  },
-})
+  }
+)
 
 vim.lsp.config('*', {
   capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+      require('nvim-navic').attach(client, bufnr)
+    end
+  end,
 })
 
 -- keymaps
