@@ -18,24 +18,22 @@ end
 local H = {}
 require('mini.deps').setup({ path = { package = path_package } })
 
---- @class MiniLoadSpec
---- @field source string
---- @field depends? string[]
---- @field hooks? table
---- @field later? boolean
---- @field cb? function
---- @field opts? table
---- @field name? string
---- @field disable? boolean
 --- @param specs MiniLoadSpec[]
 H.setup = function(specs)
-  for _, spec in ipairs(specs) do
+  for _, spec in pairs(specs) do
     if spec.disable then
       goto continue
     end
     local is_git = spec.source:find('/')
     local adaptive_func = spec.later and MiniDeps.later or MiniDeps.now
+    local get_mod_name = function()
+      if is_git then
+        return spec.name or spec.source:match('/(.*)')
+      end
+      return spec.source
+    end
     adaptive_func(function()
+      local mod_name = get_mod_name()
       if is_git then
         MiniDeps.add({
           source = spec.source,
@@ -43,17 +41,11 @@ H.setup = function(specs)
           hooks = spec.hooks,
           name = spec.name,
         })
-      else
-        local mod = require(spec.source)
-        if spec.opts then
-          mod.setup(spec.opts)
-        end
       end
-      local cb = spec.cb or function() end
-      local ok, err = pcall(cb)
-      if not ok then
-        print('Callback error:', err)
+      local cb = spec.cb or function()
+        require(mod_name).setup(spec.opts)
       end
+      pcall(cb)
     end)
     ::continue::
   end

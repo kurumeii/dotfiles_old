@@ -1,33 +1,33 @@
+local utils = require('utils')
+local H = {
+  show_dotfiles = true,
+  filter_show = function(_)
+    return true
+  end,
+  filter_hide = function(fs_entry)
+    return not vim.startswith(fs_entry.name, '.')
+  end,
+}
+
 require('mini.files').setup({
   windows = {
     preview = true,
-    -- width_focus = 30,
-    -- width_preview = 30,
-    --
+    width_focus = 30,
+    width_preview = 30,
   },
   options = {
     use_as_default_explorer = true,
   },
   mappings = {
     go_out_plus = 'h',
+    synchronize = '<c-s>',
+  },
+  content = {
+    filter = H.filter_hide,
   },
 })
 
-local show_dotfiles = true
-local filter_show = function(_)
-  return true
-end
-local filter_hide = function(fs_entry)
-  return not vim.startswith(fs_entry.name, '.')
-end
-
-local toggle_dotfiles = function()
-  show_dotfiles = not show_dotfiles
-  local new_filter = show_dotfiles and filter_show or filter_hide
-  MiniFiles.refresh({ content = { filter = new_filter } })
-end
-
-local map_split = function(buf_id, lhs, direction, close_on_file)
+H.map_split = function(buf_id, lhs, direction, close_on_file)
   local rhs = function()
     local new_target_window
     local cur_target_window = MiniFiles.get_explorer_state().target_window
@@ -49,49 +49,33 @@ local map_split = function(buf_id, lhs, direction, close_on_file)
   vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
-local files_set_cwd = function()
-  local cur_entry_path = MiniFiles.get_fs_entry().path
-  local cur_directory = vim.fs.dirname(cur_entry_path)
-  if cur_directory ~= nil then
-    vim.fn.chdir(cur_directory)
-  end
-end
-
 vim.api.nvim_create_autocmd('User', {
   pattern = 'MiniFilesBufferCreate',
   callback = function(args)
-    local buf_id = args.data.buf_id
-
-    vim.keymap.set(
-      'n',
-      'g.',
-      toggle_dotfiles,
-      { buffer = buf_id, desc = 'Toggle hidden files' }
-    )
-
-    vim.keymap.set(
-      'n',
-      'gc',
-      files_set_cwd,
-      { buffer = args.data.buf_id, desc = 'Set cwd' }
-    )
-
-    map_split(buf_id, '<C-w>s', 'horizontal', false)
-    map_split(buf_id, '<C-w>v', 'vertical', false)
-    map_split(buf_id, '<C-w>S', 'horizontal', true)
-    map_split(buf_id, '<C-w>V', 'vertical', true)
+    utils.map({ 'n' }, '/', function()
+      H.show_dotfiles = not H.show_dotfiles
+      local new_filter = H.show_dotfiles and H.filter_show or H.filter_hide
+      MiniFiles.refresh({ content = { filter = new_filter } })
+    end, 'Toggle hidden files', { buffer = args.buf })
+    H.map_split(args.buf, '<C-w>s', 'horizontal', true)
+    H.map_split(args.buf, '<C-w>v', 'vertical', true)
   end,
 })
 
--- MiniFile (Tree)
-local utils = require('utils')
-local map, L = utils.map, utils.L
+--[[
+-- fixme Temporary commented out since snacks will be removed and 
+-- currently i am not able to find a way to rename files
+--]]
+-- vim.api.nvim_create_autocmd('User', {
+--   pattern = 'MiniFilesActionRename',
+--   callback = function(e)
+--     MiniMisc.Snacks.rename.on_rename_file(e.data.from, e.data.to)
+--   end,
+-- })
 
-map('n', L('e'), function()
-  local ok = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0))
-  if ok then
-    MiniFiles.reveal_cwd()
-  else
-    MiniFiles.open()
+utils.map('n', utils.L('e'), function()
+  local ok = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), false)
+  if not ok then
+    MiniFiles.open(nil, false)
   end
 end, 'Open explore')

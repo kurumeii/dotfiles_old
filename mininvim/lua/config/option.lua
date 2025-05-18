@@ -4,6 +4,7 @@ vim.g.maplocalleader = '\\'
 vim.o.shell = 'pwsh.exe'
 vim.o.relativenumber = true
 vim.o.smartcase = true
+vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.breakindent = true
 vim.o.inccommand = 'nosplit'
@@ -25,7 +26,9 @@ vim.o.mouse = 'a'
 vim.o.formatoptions = 'jcroqlnt' -- tcqj
 vim.o.grepformat = '%f:%l:%c:%m'
 vim.o.grepprg = 'rg --vimgrep'
-vim.o.clipboard = 'unnamedplus'
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 10

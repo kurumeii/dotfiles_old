@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
 })
 
 -- keymaps
-map({ 'n' }, L('Ss'), function()
+map({ 'n' }, L('ss'), function()
   vim.ui.input({ prompt = 'Enter session name: ', default = default_session }, function(input)
     if input == nil or input == '' then
       notify('Name is required for session', 'WARN')
@@ -36,7 +36,7 @@ map({ 'n' }, L('Ss'), function()
   end)
 end, 'Save session')
 
-map({ 'n' }, L('Sd'), function()
+map({ 'n' }, L('sd'), function()
   local ok, err = pcall(function()
     MiniSessions.select('delete')
   end)
@@ -46,6 +46,6 @@ map({ 'n' }, L('Sd'), function()
   -- notify('Session deleted', 'INFO')
 end, 'Delete session')
 
-map({ 'n' }, L('Sl'), function()
+map({ 'n' }, L('sl'), function()
   MiniSessions.select()
 end, 'Load session')

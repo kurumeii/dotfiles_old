@@ -1,17 +1,12 @@
 local util = require('utils')
 local map, L = util.map, util.L
 
-map('n', L('G'), function()
-  Snacks.lazygit.open()
-end, 'Open Lazy[G]it')
-
 -- Dashboard =================================================================
 -- map('n', L('h'), Snacks.dashboard.open, 'Open Dashboard')
-
 -- Terminal ==================================================================
 map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
 -- And rename file in current buffer
-map('n', L('cr'), Snacks.rename.rename_file, '[C]ode [R]ename')
+-- map('n', L('cr'), Snacks.rename.rename_file, '[C]ode [R]ename')
 -- Delete buffer with snacks
 map('n', L('bd'), Snacks.bufdelete.delete, 'Budder delete')
 map('n', L('bo'), Snacks.bufdelete.other, 'Buffer delete other')

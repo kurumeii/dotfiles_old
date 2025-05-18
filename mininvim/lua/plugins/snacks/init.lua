@@ -55,9 +55,6 @@ require('snacks').setup({
       git_hl = true,
     },
   },
-  lazygit = { enabled = true },
-  gitbrowse = { enabled = true },
-  inputs = { enabled = true },
   bigfile = { enabled = true },
   terminal = { enabled = true },
   image = {
@@ -67,21 +64,10 @@ require('snacks').setup({
       ['SNACKS_WEZTERM'] = 'true',
     },
   },
-  indent = { enabled = false, scope = false },
-  bufdelete = { enable = true },
-  picker = { enabled = false },
-  quickfile = { enabled = false },
-  notifier = {
-    enabled = false,
-    top_down = true,
-  },
-  util = { enabled = true },
-  words = { enabled = true },
 })
 
-vim.ui.input = Snacks.input.input
+-- vim.ui.input = Snacks.input.input
 -- vim.ui.select = Snacks.picker.select
 -- vim.notify = Snacks.notifier.notify
 
-require('plugins.snacks.keymap')
-require('plugins.snacks.autocmd')
+-- require('plugins.snacks.keymap')

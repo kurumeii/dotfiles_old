@@ -54,7 +54,7 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>n', desc = 'Notify ' },
     { mode = 'n', keys = '<leader>l', desc = 'Lsp ' },
     { mode = 'n', keys = '<leader>d', desc = 'Debugger ' },
-    { mode = 'n', keys = '<leader>S', desc = 'Sessions ' },
+    { mode = 'n', keys = '<leader>s', desc = 'Sessions ' },
     { mode = 'n', keys = '<leader>u', desc = 'Ui ' },
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),

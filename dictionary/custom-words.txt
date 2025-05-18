@@ -67,3 +67,12 @@ completeopt
 menuone
 noselect
 winbar
+statuscolumn
+lazygit
+gitbrowse
+bufdelete
+quickfile
+startswith
+bufs
+buflisted
+showtabline

@@ -10,90 +10,63 @@ require('config.mini').setup({
   { source = 'plugins.mini.notify', disable = false },
   { source = 'plugins.mini.starter', disable = false },
   {
-    source = 'folke/snacks.nvim',
+    source = 'catppuccin/nvim',
+    name = 'catppuccin',
     cb = function()
-      require('plugins.snacks')
+      require('plugins.theme.catppuccin')
     end,
   },
   {
-    source = 'plugins.theme',
+    source = 'folke/tokyonight.nvim',
     cb = function()
-      vim.cmd.colorscheme('catppuccin')
+      require('plugins.theme.tokyonight')
+    end,
+  },
+  {
+    source = 'rebelot/kanagawa.nvim',
+    cb = function()
+      require('plugins.theme.kanagawa')
+    end,
+  },
+  {
+    source = 'AstroNvim/astrotheme',
+    cb = function()
+      require('plugins.theme.astro')
     end,
   },
   { source = 'plugins.mini.icons' },
   { source = 'plugins.mini.basics' },
-  { source = 'mini.colors', opts = {}, later = true },
-  { source = 'mini.keymap', opts = {}, later = true },
+  { source = 'mini.colors', later = true },
+  { source = 'mini.keymap', later = true },
   { source = 'plugins.mini.animate', later = true },
   { source = 'plugins.mini.bracketed', later = true },
   { source = 'plugins.mini.surround', later = true },
   { source = 'plugins.mini.jump', later = true },
   { source = 'plugins.mini.pairs', later = true },
   { source = 'plugins.mini.cursorword', later = true },
-  { source = 'mini.trailspace', later = true, opts = {} },
+  { source = 'mini.trailspace', later = true },
   { source = 'mini.fuzzy', later = true, opts = {} },
   { source = 'mini.extra', later = true, opts = {} },
   { source = 'mini.operators', later = true, opts = {} },
   { source = 'mini.comment', later = true, opts = {} },
   { source = 'mini.bufremove', later = true, opts = {} },
-  {
-    source = 'plugins.mini.misc',
-    later = true,
-  },
-  {
-    source = 'plugins.mini.snippets',
-    later = true,
-  },
-  {
-    source = 'plugins.mini.jump2d',
-    later = true,
-  },
-  {
-    source = 'plugins.mini.tabline',
-    later = true,
-    disable = false,
-  },
-  {
-    source = 'plugins.mini.pick',
-    later = true,
-    disable = false,
-  },
-  {
-    source = 'plugins.mini.diff',
-    later = true,
-  },
-  {
-    source = 'plugins.mini.git',
-    later = true,
-  },
+  { source = 'plugins.mini.misc', later = true },
+  { source = 'plugins.mini.snippets', later = true },
+  { source = 'plugins.mini.jump2d', later = true },
+  { source = 'plugins.mini.tabline', later = true, disable = false },
+  { source = 'plugins.mini.pick', later = true, disable = false },
+  { source = 'plugins.mini.diff', later = true },
+  { source = 'plugins.mini.git', later = true },
   { source = 'plugins.mini.ai', later = true },
-  {
-    source = 'plugins.mini.indentscope',
-    later = true,
-    disable = false,
-  },
-  {
-    source = 'plugins.mini.completion',
-    later = true,
-    disable = false,
-  },
-  {
-    source = 'plugins.others.blink-cmp',
-    later = true,
-    disable = true,
-  },
-  {
-    source = 'plugins.mini.hipatterns',
-    later = true,
-  },
-  {
-    source = 'plugins.mini.minimap',
-    later = true,
-  },
+  { source = 'plugins.mini.indentscope', later = true, disable = false },
+  { source = 'plugins.mini.completion', later = true, disable = false },
+  { source = 'plugins.others.blink-cmp', later = true, disable = true },
+  { source = 'plugins.mini.hipatterns', later = true },
+  { source = 'plugins.mini.minimap', later = true },
   {
     source = 'plugins.mini.files',
-    later = true,
+    later = false,
+    disable = false,
   },
   {
     source = 'plugins.mini.clues',
@@ -122,47 +95,30 @@ require('config.mini').setup({
   {
     source = 'max397574/better-escape.nvim',
     later = true,
-    cb = function()
-      require('better_escape').setup()
-    end,
+    name = 'better_escape',
   },
   {
     source = 'windwp/nvim-ts-autotag',
     later = true,
-    cb = function()
-      require('nvim-ts-autotag').setup()
-    end,
-  },
-  {
-    source = 'folke/noice.nvim',
-    depends = { 'MunifTanjim/nui.nvim' },
-    later = true,
-    disable = true,
-    cb = function()
-      require('plugins.others.noice')
-    end,
   },
   {
     source = 'TheLeoP/powershell.nvim',
     later = true,
-    disable = true,
-    cb = function()
-      require('powershell').setup({
-        bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services',
-      })
-    end,
+    name = 'powershell',
+    opts = {
+      bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services',
+    },
   },
   {
     source = 'justinhj/battery.nvim',
     depends = {
       'nvim-lua/plenary.nvim',
     },
-    cb = function()
-      require('battery').setup({
-        vertical_icons = false,
-        update_rate_seconds = 20,
-      })
-    end,
+    name = 'battery',
+    opts = {
+      vertical_icons = false,
+      update_rate_seconds = 20,
+    },
   },
   {
     source = 'SmiteshP/nvim-navic',
@@ -171,7 +127,11 @@ require('config.mini').setup({
     },
     later = true,
     cb = function()
-      require('plugins.others.breadcrumbs')
+      require('nvim-navic').setup({
+        highlight = true,
+        depth_limit = 4,
+      })
+      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
   },
   {
@@ -233,13 +193,23 @@ require('config.mini').setup({
     },
     later = true,
     cb = function()
-      require('plugins.others.fold')
+      require('ufo').setup({
+        provider_selector = function()
+          return { 'treesitter', 'indent' }
+        end,
+      })
     end,
   },
   {
-    source = 'plugins.others.supermaven',
+    source = 'supermaven-inc/supermaven-nvim',
     later = true,
-    disable = false,
+    opts = {
+      keymaps = {
+        accept_suggestion = '<Tab>',
+        clear_suggestion = '<C-c>',
+        accept_word = '<c-j>',
+      },
+    },
   },
   {
     source = 'mfussenegger/nvim-lint',
@@ -249,18 +219,19 @@ require('config.mini').setup({
     end,
   },
   {
-    source = 'eero-lehtinen/oklch-color-picker.nvim',
-    later = true,
-    disable = true,
-    cb = function()
-      require('plugins.others.colorizer')
-    end,
-  },
-  {
     source = 'MagicDuck/grug-far.nvim',
     later = true,
     cb = function()
       require('plugins.others.grug-far')
     end,
   },
+  {
+    source = 'folke/snacks.nvim',
+    later = true,
+    cb = function()
+      require('plugins.snacks')
+    end,
+  },
 })
+
+vim.cmd.colorscheme('catppuccin')
