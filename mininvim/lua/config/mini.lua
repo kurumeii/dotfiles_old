@@ -28,10 +28,11 @@ H.setup = function(specs)
     local adaptive_func = spec.later and MiniDeps.later or MiniDeps.now
     local get_mod_name = function()
       if is_git then
-        return spec.name or spec.source:match('/(.*)')
+        return spec.name or spec.source:match('.*/(.*)')
       end
       return spec.source
     end
+
     adaptive_func(function()
       local mod_name = get_mod_name()
       if is_git then
@@ -42,10 +43,16 @@ H.setup = function(specs)
           name = spec.name,
         })
       end
-      local cb = spec.cb or function()
+      if spec.cb then
+        local ok, err = pcall(spec.cb)
+        if not ok then
+          vim.notify('Callback error in: ' .. mod_name .. tostring(err), vim.log.levels.ERROR)
+        end
+      elseif spec.opts then
         require(mod_name).setup(spec.opts)
+      else
+        require(mod_name)
       end
-      pcall(cb)
     end)
     ::continue::
   end

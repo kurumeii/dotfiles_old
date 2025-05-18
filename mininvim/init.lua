@@ -36,15 +36,15 @@ require('config.mini').setup({
   },
   { source = 'plugins.mini.icons' },
   { source = 'plugins.mini.basics' },
-  { source = 'mini.colors', later = true },
-  { source = 'mini.keymap', later = true },
+  { source = 'mini.colors', later = true, opts = {} },
+  { source = 'mini.keymap', later = true, opts = {} },
   { source = 'plugins.mini.animate', later = true },
   { source = 'plugins.mini.bracketed', later = true },
   { source = 'plugins.mini.surround', later = true },
   { source = 'plugins.mini.jump', later = true },
   { source = 'plugins.mini.pairs', later = true },
   { source = 'plugins.mini.cursorword', later = true },
-  { source = 'mini.trailspace', later = true },
+  { source = 'mini.trailspace', later = true, opts = {} },
   { source = 'mini.fuzzy', later = true, opts = {} },
   { source = 'mini.extra', later = true, opts = {} },
   { source = 'mini.operators', later = true, opts = {} },
@@ -70,7 +70,6 @@ require('config.mini').setup({
   },
   {
     source = 'plugins.mini.clues',
-    later = true,
   },
   {
     source = 'plugins.mini.visited',
@@ -96,10 +95,12 @@ require('config.mini').setup({
     source = 'max397574/better-escape.nvim',
     later = true,
     name = 'better_escape',
+    opts = {},
   },
   {
     source = 'windwp/nvim-ts-autotag',
     later = true,
+    opts = {},
   },
   {
     source = 'TheLeoP/powershell.nvim',
@@ -131,7 +132,7 @@ require('config.mini').setup({
         highlight = true,
         depth_limit = 4,
       })
-      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+      -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
   },
   {
@@ -139,7 +140,7 @@ require('config.mini').setup({
     depends = {
       'SmiteshP/nvim-navic',
     },
-    disable = true,
+    disable = false,
     later = true,
     cb = function()
       require('plugins.others.lualine')
@@ -148,7 +149,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.statusline',
     later = true,
-    disable = false,
+    disable = true,
   },
   {
     source = 'neovim/nvim-lspconfig',
@@ -233,5 +234,4 @@ require('config.mini').setup({
     end,
   },
 })
-
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme('tokyonight')
