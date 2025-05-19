@@ -77,3 +77,6 @@ bufs
 buflisted
 showtabline
 searchcount
+virt
+strdisplaywidth
+winhighlight
