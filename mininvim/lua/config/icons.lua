@@ -1,6 +1,6 @@
 local M = {
   mode_prepend = '',
-  clock = '󱑃',
+  clock = '',
   git_branch = '',
   error = '',
   warn = '',
