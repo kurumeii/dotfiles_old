@@ -1,23 +1,36 @@
-require('mini.map').setup()
+local map = require('mini.map')
 
-MiniMap.config.integrations = {
-  MiniMap.gen_integration.builtin_search(),
-  MiniMap.gen_integration.diagnostic(),
-  MiniMap.gen_integration.diff(),
-	-- MiniMap.gen_integration.gitsigns()
-}
+map.setup({
+  integrations = {
+    map.gen_integration.builtin_search(),
+    map.gen_integration.diff(),
+    map.gen_integration.diagnostic({
+      error = 'DiagnosticFloatingError',
+      warn = 'DiagnosticFloatingWarn',
+      info = 'DiagnosticFloatingInfo',
+      hint = 'DiagnosticFloatingHint',
+    }),
+  },
+  symbols = {
+    encode = map.gen_encode_symbols.dot('3x2'),
+  },
+  window = {
+    width = 1,
+  },
+})
 
-MiniMap.config.symbols.encode = MiniMap.gen_encode_symbols.dot('4x2')
-MiniMap.config.window.width = 7
 local utils = require('utils')
-local map, L = utils.map, utils.L
+
 --- Experimental features
--- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
---   callback = function()
---     MiniMap.open()
---   end,
--- })
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  callback = function()
+    if vim.bo.ft == 'ministarter' then
+      return
+    else
+      MiniMap.open()
+    end
+  end,
+})
 
-map('n', L('um'), MiniMap.toggle, 'UI Minimap Toggle')
-
-map('n', L('us'), MiniMap.toggle_side, 'UI Minimap Toggle Side')
+utils.map('n', utils.L('um'), MiniMap.toggle, 'UI Minimap Toggle')
+utils.map('n', utils.L('us'), MiniMap.toggle_side, 'UI Minimap Toggle Side')

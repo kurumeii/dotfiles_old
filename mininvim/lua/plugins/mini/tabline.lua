@@ -3,7 +3,7 @@ require('mini.tabline').setup({
   format = function(buf_id, label)
     local buf_name = vim.api.nvim_buf_get_name(buf_id)
     local icon = vim.bo[buf_id].modified and mininvim.icons.edit or MiniIcons.get('file', buf_name)
-    return string.format(' %s %s ', label, icon)
+    return string.format(' %s %s ', icon, label)
   end,
 })
 
