@@ -140,7 +140,7 @@ require('config.mini').setup({
     depends = {
       'SmiteshP/nvim-navic',
     },
-    disable = false,
+    disable = true,
     later = true,
     cb = function()
       require('plugins.others.lualine')
@@ -149,7 +149,7 @@ require('config.mini').setup({
   {
     source = 'plugins.mini.statusline',
     later = true,
-    disable = true,
+    disable = false,
   },
   {
     source = 'neovim/nvim-lspconfig',

@@ -1,8 +1,9 @@
 local MiniStatusline = require('mini.statusline')
 local battery = require('battery')
+local navic = require('nvim-navic')
 
 local function get_time()
-  return mininvim.icons.clock .. ' ' .. os.date('%R')
+  return os.date('%R') .. ' ' .. mininvim.icons.clock
 end
 
 local function recorder_section()
@@ -13,7 +14,7 @@ local function recorder_section()
   return ''
 end
 
-local function get_lsp()
+local function get_lsp(ignore_lsp)
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   if #clients == 0 then
@@ -21,13 +22,18 @@ local function get_lsp()
   end
   local names = {}
   for _, client in ipairs(clients) do
-    table.insert(names, client.name)
+    if vim.tbl_contains(ignore_lsp, client.name) then
+      goto continue
+    else
+      table.insert(names, client.name)
+    end
+    ::continue::
   end
   local icon = mininvim.icons.lsp
   if #names > 2 then
     return icon .. '+' .. #names
   else
-    return icon .. ' ' .. table.concat(names, ',')
+    return icon .. '' .. table.concat(names, ',')
   end
 end
 
@@ -64,14 +70,15 @@ local function active_mode()
     },
     trunc_width = 75,
   })
-  local lsp = get_lsp()
+  local lsp = get_lsp({ 'mini.snippets' })
   local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 200 })
   local location = get_location('percent')
   local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
   local nvim_battery = battery.get_status_line()
   local time = get_time()
   local recorder = recorder_section()
-  local filename = MiniStatusline.section_filename({ trunc_width = 250 })
+  -- local filename = MiniStatusline.section_filename({ trunc_width = 250 })
+  local navic = navic.is_available() and navic.get_location()
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
     {
@@ -84,13 +91,13 @@ local function active_mode()
     },
     '%<', -- Mark general truncate point
     {
-      hl = 'MiniStatuslineFilename',
-      strings = { filename },
+      hl = '',
+      strings = { navic },
     },
     '%=', -- End left alignment
     { hl = 'MiniStatuslineFileinfo', strings = { recorder, lsp, fileinfo } },
-    { hl = '', strings = { nvim_battery } },
-    { hl = mode_hl, strings = { search, location, time } },
+    { hl = '', strings = { nvim_battery, location } },
+    { hl = mode_hl, strings = { search, time } },
   })
 end
 

@@ -76,3 +76,4 @@ startswith
 bufs
 buflisted
 showtabline
+searchcount
