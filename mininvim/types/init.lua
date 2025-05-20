@@ -16,3 +16,4 @@
 --- @field opts? table -- Options to pass to the plugin use with name if module name is not equal to source
 --- @field name? string -- Provided a name to use with opts
 --- @field disable? boolean -- Whether to disable the plugin
+--- @field version? string -- Version of the plugin?

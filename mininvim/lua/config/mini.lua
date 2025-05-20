@@ -18,14 +18,18 @@ end
 local H = {}
 require('mini.deps').setup({ path = { package = path_package } })
 
+---@param lazy boolean
+H.adaptive_func = function(lazy, cb)
+  return lazy and MiniDeps.later(cb) or MiniDeps.now(cb)
+end
+
 --- @param specs MiniLoadSpec[]
 H.setup = function(specs)
   for _, spec in pairs(specs) do
     if spec.disable then
       goto continue
     end
-    local is_git = spec.source:find('/')
-    local adaptive_func = spec.later and MiniDeps.later or MiniDeps.now
+    local is_git = spec.source:find('/') ~= nil
     local get_mod_name = function()
       if is_git then
         return spec.name or spec.source:match('.*/(.*)')
@@ -33,7 +37,7 @@ H.setup = function(specs)
       return spec.source
     end
 
-    adaptive_func(function()
+    H.adaptive_func(spec.later, function()
       local mod_name = get_mod_name()
       if is_git then
         MiniDeps.add({
@@ -46,7 +50,7 @@ H.setup = function(specs)
       if spec.cb then
         local ok, err = pcall(spec.cb)
         if not ok then
-          vim.notify('Callback error in: ' .. mod_name .. tostring(err), vim.log.levels.ERROR)
+          vim.notify('Callback error in: ' .. mod_name .. '\n\t' .. tostring(err), vim.log.levels.ERROR)
         end
       elseif spec.opts then
         require(mod_name).setup(spec.opts)

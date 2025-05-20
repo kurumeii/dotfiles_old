@@ -9,32 +9,8 @@ require('config.mini').setup({
   { source = 'plugins.mini.sessions' },
   { source = 'plugins.mini.notify', disable = false },
   { source = 'plugins.mini.starter', disable = false },
-  {
-    source = 'catppuccin/nvim',
-    name = 'catppuccin',
-    cb = function()
-      require('plugins.theme.catppuccin')
-    end,
-  },
-  {
-    source = 'folke/tokyonight.nvim',
-    cb = function()
-      require('plugins.theme.tokyonight')
-    end,
-  },
-  {
-    source = 'rebelot/kanagawa.nvim',
-    cb = function()
-      require('plugins.theme.kanagawa')
-    end,
-  },
-  {
-    source = 'AstroNvim/astrotheme',
-    cb = function()
-      require('plugins.theme.astro')
-    end,
-  },
   { source = 'plugins.mini.icons' },
+  { source = 'plugins.theme' },
   { source = 'plugins.mini.basics' },
   { source = 'mini.colors', later = true, opts = {} },
   { source = 'mini.keymap', later = true, opts = {} },
@@ -230,4 +206,3 @@ require('config.mini').setup({
     end,
   },
 })
-vim.cmd.colorscheme('tokyonight')
