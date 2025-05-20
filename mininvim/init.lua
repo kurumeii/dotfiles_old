@@ -194,11 +194,7 @@ require('config.mini').setup({
     },
     later = true,
     cb = function()
-      require('ufo').setup({
-        provider_selector = function()
-          return { 'treesitter', 'indent' }
-        end,
-      })
+      require('plugins.others.ufo')
     end,
   },
   {
