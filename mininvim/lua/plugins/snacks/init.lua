@@ -70,4 +70,4 @@ require('snacks').setup({
 -- vim.ui.select = Snacks.picker.select
 -- vim.notify = Snacks.notifier.notify
 
--- require('plugins.snacks.keymap')
+require('plugins.snacks.keymap')
