@@ -176,13 +176,9 @@ require('config.mini').setup({
   {
     source = 'supermaven-inc/supermaven-nvim',
     later = true,
-    opts = {
-      keymaps = {
-        accept_suggestion = '<Tab>',
-        clear_suggestion = '<C-c>',
-        accept_word = '<c-j>',
-      },
-    },
+    cb = function()
+      require('plugins.others.supermaven')
+    end,
   },
   {
     source = 'mfussenegger/nvim-lint',
