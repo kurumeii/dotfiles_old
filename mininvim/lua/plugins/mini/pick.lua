@@ -41,7 +41,9 @@ local function find_config_files()
     return vim.fn.isdirectory(f) == 0
   end, files)
   files = vim.tbl_map(function(f)
-    return vim.fn.fnamemodify(f, ':~:.')
+    local file = vim.fn.fnamemodify(f, ':~:.')
+    local icon = MiniIcons.get('file', file)
+    return icon .. ' ' .. file
   end, files)
   MiniPick.start({
     source = {

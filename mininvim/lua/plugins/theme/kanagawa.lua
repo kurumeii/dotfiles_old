@@ -4,6 +4,6 @@ require('kanagawa').setup({
   dimInactive = true,
   background = {
     light = 'lotus',
-    dark = 'wave',
+    dark = 'dragon',
   },
 })

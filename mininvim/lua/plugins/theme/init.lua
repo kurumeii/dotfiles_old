@@ -26,4 +26,4 @@ require('config.mini').setup({
   },
 })
 
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('kanagawa')

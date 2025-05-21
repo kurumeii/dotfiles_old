@@ -42,7 +42,7 @@ for _, lang in ipairs(js) do
       request = 'launch',
       name = 'Start Edge with "localhost"',
       url = 'http://localhost:3000',
-			webRoot = vim.fn.getcwd(),
+      webRoot = vim.fn.getcwd(),
       userDataDir = '${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir',
     },
   }

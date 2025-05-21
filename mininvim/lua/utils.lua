@@ -257,4 +257,14 @@ function H.uniq(tbl)
   return result
 end
 
+function H.build_blink(params)
+  H.notify('Building blink.cmp', 'INFO')
+  local obj = vim.system({ 'cargo', 'build', '--release' }, { cwd = params.path }):wait()
+  if obj.code == 0 then
+    H.notify('Building blink.cmp done', 'INFO')
+  else
+    H.notify('Building blink.cmp failed', 'ERROR')
+  end
+end
+
 return H

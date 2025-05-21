@@ -54,6 +54,30 @@ local function get_location(mode)
   end
 end
 
+local function custom_fileinfo(args)
+  args = args or {}
+  local filetype = vim.bo.filetype
+  filetype = MiniIcons.get('filetype', filetype) .. ' ' .. filetype
+  if MiniStatusline.is_truncated(args.trunc_width) or vim.bo.buftype ~= '' then
+    return filetype
+  end
+
+  local encoding = vim.bo.fileencoding or vim.bo.encoding
+  -- local format = vim.bo.fileformat
+  local size = function()
+    local size = math.max(vim.fn.line2byte(vim.fn.line('$') + 1) - 1, 0)
+    if size < 1024 then
+      return string.format('%dB', size)
+    elseif size < 1048576 then
+      return string.format('%.2fKiB', size / 1024)
+    else
+      return string.format('%.2fMiB', size / 1048576)
+    end
+  end
+
+  return string.format('%s%s[%s] %s', filetype, filetype == '' and '' or ' ', encoding, size())
+end
+
 local function active_mode()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 250 })
   mode = mininvim.icons.mode_prepend .. ' ' .. mode
@@ -71,14 +95,15 @@ local function active_mode()
     trunc_width = 75,
   })
   local lsp = get_lsp({ 'mini.snippets' })
-  local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 200 })
+  MiniStatusline.section_fileinfo = custom_fileinfo
+  local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 150 })
   local location = get_location('percent')
   local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
   local nvim_battery = battery.get_status_line()
   local time = get_time()
   local recorder = recorder_section()
   -- local filename = MiniStatusline.section_filename({ trunc_width = 250 })
-  local navic = navic.is_available() and navic.get_location()
+  local code_contex = navic.is_available() and navic.get_location()
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
     {
@@ -92,7 +117,7 @@ local function active_mode()
     '%<', -- Mark general truncate point
     {
       hl = '',
-      strings = { navic },
+      strings = { code_contex },
     },
     '%=', -- End left alignment
     { hl = 'MiniStatuslineFileinfo', strings = { recorder, lsp, fileinfo } },

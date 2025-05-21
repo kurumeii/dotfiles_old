@@ -1,14 +1,3 @@
-require('lazydev').setup({
-  integrations = {
-    lspconfig = true,
-  },
-  library = {
-    'nvim-dap-ui',
-    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-    { path = 'wezterm-types', mods = { 'wezterm' } },
-  },
-})
-
 require('mason').setup({
   ui = {
     icons = {
@@ -47,6 +36,7 @@ require('mason-lspconfig').setup({
 local capabilities = vim.tbl_extend(
   'force',
   vim.lsp.protocol.make_client_capabilities(),
+  -- require('blink.cmp').get_lsp_capabilities({}, false),
   require('mini.completion').get_lsp_capabilities(),
   {
     textDocument = {

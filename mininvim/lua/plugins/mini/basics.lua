@@ -1,7 +1,7 @@
 require('mini.basics').setup({
   options = {
     basic = true,
-    extra_ui = false,
+    extra_ui = true,
     win_borders = 'shadow',
   },
   mappings = {

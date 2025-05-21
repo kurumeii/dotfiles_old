@@ -1,5 +1,5 @@
 require('mini.bracketed').setup({
-  treesitter = { suffix = '' },
+  treesitter = { suffix = 's' },
 })
 
 local utils = require('utils')
@@ -13,9 +13,3 @@ end, 'Next buffer ->')
 map('n', 'H', function()
   MiniBracketed.buffer('backward')
 end, 'Previous buffer <-')
-map('n', L('bl'), function()
-  MiniBracketed.buffer('last')
-end, '[B]uffer (L) ->>')
-map('n', L('bh'), function()
-  MiniBracketed.buffer('first')
-end, '[B]uffer (H) <<-')

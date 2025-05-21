@@ -25,6 +25,7 @@ require('config.mini').setup({
   { source = 'mini.extra', later = true, opts = {} },
   { source = 'mini.operators', later = true, opts = {} },
   { source = 'mini.comment', later = true, opts = {} },
+  { source = 'mini.move', later = true, opts = {} },
   { source = 'mini.bufremove', later = true, opts = {} },
   { source = 'plugins.mini.misc', later = true },
   { source = 'plugins.mini.snippets', later = true },
@@ -36,7 +37,18 @@ require('config.mini').setup({
   { source = 'plugins.mini.ai', later = true },
   { source = 'plugins.mini.indentscope', later = true, disable = false },
   { source = 'plugins.mini.completion', later = true, disable = false },
-  { source = 'plugins.others.blink-cmp', later = true, disable = true },
+  {
+    source = 'saghen/blink.cmp',
+    later = true,
+    disable = true,
+    hooks = {
+      post_install = require('utils').build_blink,
+      post_checkout = require('utils').build_blink,
+    },
+    cb = function()
+      require('plugins.others.blink-cmp')
+    end,
+  },
   { source = 'plugins.mini.hipatterns', later = true },
   { source = 'plugins.mini.minimap', later = true },
   {
@@ -128,15 +140,29 @@ require('config.mini').setup({
     disable = false,
   },
   {
+    source = 'folke/lazydev.nvim',
+    name = 'lazydev',
+    later = true,
+    opts = {
+      integrations = {
+        lspconfig = true,
+      },
+      library = {
+        'nvim-dap-ui',
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'wezterm-types', mods = { 'wezterm' } },
+      },
+    },
+  },
+  {
     source = 'neovim/nvim-lspconfig',
     later = true,
     depends = {
-      'williamboman/mason.nvim', -- mason core
-      'williamboman/mason-lspconfig.nvim', -- mason lsp
+      'mason-org/mason.nvim',
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim', -- mason easy installer
       'justinsgithub/wezterm-types',
       'b0o/SchemaStore.nvim',
-      'folke/lazydev.nvim',
     },
     cb = function()
       require('plugins.others.mason')

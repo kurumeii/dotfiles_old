@@ -26,5 +26,5 @@ require('mini.icons').setup({
 })
 MiniIcons.mock_nvim_web_devicons()
 MiniDeps.later(function()
-  MiniIcons.tweak_lsp_kind('append')
+  MiniIcons.tweak_lsp_kind('prepend')
 end)
