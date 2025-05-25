@@ -24,6 +24,19 @@ require('config.mini').setup({
       require('plugins.theme.astro')
     end,
   },
+  {
+    source = 'ellisonleao/gruvbox.nvim',
+    name = 'gruvbox',
+    opts = {
+      italic = {
+        strings = true,
+        emphasis = true,
+        comments = true,
+        operators = false,
+        folds = true,
+      },
+    },
+  },
 })
 
-vim.cmd.colorscheme('kanagawa')
+vim.cmd.colorscheme('gruvbox')
