@@ -76,6 +76,7 @@ map('n', L('fH'), MiniExtra.pickers.history, 'Find history')
 map('n', L('fv'), MiniExtra.pickers.visit_paths, 'Find visit paths')
 map('n', L('fV'), MiniExtra.pickers.visit_labels, 'Find visit labels')
 map('n', L('css'), MiniExtra.pickers.spellsuggest, 'Code spelling suggestions')
+map('n', L('ft'), MiniExtra.pickers.colorschemes, 'Find colorschemes')
 -- LSP =======================================================================
 map('n', L('lr'), function()
   MiniExtra.pickers.lsp({ scope = 'references' })
