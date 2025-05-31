@@ -15,6 +15,7 @@ require('mini.icons').setup({
     ['.dockerignore'] = { glyph = '󰡨', hl = 'MiniIconsBlue' },
     ['react-router.config.ts'] = { glyph = '', hl = 'MiniIconsRed' },
     ['bun.lockb'] = { glyph = '', hl = 'MiniIconsAzure' },
+    ['bun.lock'] = { glyph = '', hl = 'MiniIconsAzure' },
   },
   directory = {
     ['.vscode'] = { glyph = '', hl = 'MiniIconsBlue' },
