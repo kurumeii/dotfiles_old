@@ -14,6 +14,7 @@ require('mini.icons').setup({
     ['pnpm-workspace.yaml'] = { glyph = '', hl = 'MiniIconsYellow' },
     ['.dockerignore'] = { glyph = '󰡨', hl = 'MiniIconsBlue' },
     ['react-router.config.ts'] = { glyph = '', hl = 'MiniIconsRed' },
+    ['bun.lockb'] = { glyph = '', hl = 'MiniIconsAzure' },
   },
   directory = {
     ['.vscode'] = { glyph = '', hl = 'MiniIconsBlue' },
@@ -22,6 +23,9 @@ require('mini.icons').setup({
     ['config'] = { glyph = '', hl = 'MiniIconsGrey' },
     ['configs'] = { glyph = '', hl = 'MiniIconsGrey' },
     ['server'] = { glyph = '󰒋', hl = 'MiniIconsCyan' },
+    ['api'] = { glyph = '󰒋', hl = 'MiniIconsCyan' },
+    ['web'] = { glyph = '󰖟', hl = 'MiniIconsBlue' },
+    ['client'] = { glyph = '󰖟', hl = 'MiniIconsBlue' },
   },
 })
 MiniIcons.mock_nvim_web_devicons()
