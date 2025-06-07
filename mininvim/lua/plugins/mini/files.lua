@@ -23,7 +23,7 @@ require('mini.files').setup({
     synchronize = '<c-s>',
   },
   content = {
-    filter = H.filter_hide,
+    filter = H.filter_show,
   },
 })
 
@@ -52,7 +52,7 @@ end
 vim.api.nvim_create_autocmd('User', {
   pattern = 'MiniFilesBufferCreate',
   callback = function(args)
-    utils.map({ 'n' }, '/', function()
+    utils.map({ 'n' }, '//', function()
       H.show_dotfiles = not H.show_dotfiles
       local new_filter = H.show_dotfiles and H.filter_show or H.filter_hide
       MiniFiles.refresh({ content = { filter = new_filter } })
