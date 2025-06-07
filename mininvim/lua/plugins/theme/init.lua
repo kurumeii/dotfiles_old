@@ -39,4 +39,4 @@ require('config.mini').setup({
   },
 })
 
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme('astrotheme')
