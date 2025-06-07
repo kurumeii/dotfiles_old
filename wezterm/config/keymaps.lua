@@ -61,12 +61,12 @@ return {
 			key = "l", -- Focus next tab
 			-- mods = mods.M .. "|" .. mods.S,
 			mods = join_mods({ mods.M, mods.S }),
-			action = wez.action.ActivateTabRelative(-1),
+			action = wez.action.ActivateTabRelative(1),
 		},
 		{
 			key = "h", -- Focus previous tab
 			mods = join_mods({ mods.M, mods.S }),
-			action = wez.action.ActivateTabRelative(1),
+			action = wez.action.ActivateTabRelative(-1),
 		},
 		{
 			key = "LeftArrow", -- Focus Right Pane,
@@ -90,7 +90,7 @@ return {
 		},
 		{
 			key = "c",
-			mods = join_mods({ mods.C , mods.S}),
+			mods = join_mods({ mods.C, mods.S }),
 			action = wez.action.CopyTo("Clipboard"),
 		},
 		{
