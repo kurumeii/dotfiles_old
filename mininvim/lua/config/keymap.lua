@@ -11,3 +11,5 @@ map('n', '<c-a>', 'ggVG', 'Visual select all', {
   noremap = true,
 })
 map('n', L('uM'), C('Mason'), 'Ui open mason')
+map('n', L('wsl'), C(':vsplit'), 'Split window right')
+map('n', L('wsj'), C(':split'), 'Split window horizontally')

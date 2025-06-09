@@ -57,8 +57,8 @@ vim.api.nvim_create_autocmd('User', {
       local new_filter = H.show_dotfiles and H.filter_show or H.filter_hide
       MiniFiles.refresh({ content = { filter = new_filter } })
     end, 'Toggle hidden files', { buffer = args.buf })
-    H.map_split(args.buf, '<C-w>s', 'horizontal', true)
-    H.map_split(args.buf, '<C-w>v', 'vertical', true)
+    H.map_split(args.buf, '<C-w>s', 'horizontal', false)
+    H.map_split(args.buf, '<C-w>v', 'vertical', false)
   end,
 })
 
