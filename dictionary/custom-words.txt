@@ -80,3 +80,9 @@ searchcount
 virt
 strdisplaywidth
 winhighlight
+taplo
+trunc
+fileencoding
+fileformat
+contex) fix: (context
+Devinfo
