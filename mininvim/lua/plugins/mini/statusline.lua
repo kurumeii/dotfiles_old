@@ -102,8 +102,8 @@ local function active_mode()
   local nvim_battery = battery.get_status_line()
   local time = get_time()
   local recorder = recorder_section()
-  -- local filename = MiniStatusline.section_filename({ trunc_width = 250 })
-  local code_contex = navic.is_available() and navic.get_location()
+  local filename = MiniStatusline.section_filename({ trunc_width = 250 })
+  -- local code_context = navic.is_available() and navic.get_location()
   return MiniStatusline.combine_groups({
     { hl = mode_hl, strings = { mode } },
     {
@@ -117,7 +117,7 @@ local function active_mode()
     '%<', -- Mark general truncate point
     {
       hl = '',
-      strings = { code_contex },
+      strings = { filename },
     },
     '%=', -- End left alignment
     { hl = 'MiniStatuslineFileinfo', strings = { recorder, lsp, fileinfo } },
