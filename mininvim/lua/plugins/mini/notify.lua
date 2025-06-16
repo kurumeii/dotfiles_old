@@ -1,16 +1,16 @@
 require('mini.notify').setup({
   content = {
-    format = function(notif)
-      if notif.data.source == 'lsp_progress' then
-        return notif.msg
+    format = function(notification)
+      if notification.data.source == 'lsp_progress' then
+        return notification.msg
       end
-      return MiniNotify.default_format(notif)
+      return MiniNotify.default_format(notification)
     end,
-    sort = function(notif_arr)
-      table.sort(notif_arr, function(a, b)
+    sort = function(arr)
+      table.sort(arr, function(a, b)
         return a.ts_update > b.ts_update
       end)
-      return notif_arr
+      return arr
     end,
   },
   -- window = {
@@ -43,14 +43,15 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    if vim.fn.getreg('"') then
-      local number_of_lines = vim.fn.getreg('"'):len()
-      utils.notify('Yanked ' .. number_of_lines .. ' lines', 'INFO')
-    end
-  end,
-})
+-- README: This thing is annoying as heck
+-- vim.api.nvim_create_autocmd('TextYankPost', {
+--   callback = function()
+--     if vim.fn.getreg('"') then
+--       local number_of_lines = vim.fn.getreg('"'):len()
+--       utils.notify('Yanked ' .. number_of_lines .. ' lines', 'INFO')
+--     end
+--   end,
+-- })
 
 utils.map('n', utils.L('nd'), MiniNotify.clear, 'Notification Dismiss')
 utils.map('n', utils.L('nh'), MiniNotify.show_history, 'Notification History')
