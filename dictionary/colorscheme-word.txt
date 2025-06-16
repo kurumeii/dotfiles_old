@@ -4,3 +4,4 @@ tokyonight
 rebelot
 kanagawa
 astrotheme
+gruvbox

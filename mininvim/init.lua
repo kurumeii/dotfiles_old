@@ -120,7 +120,7 @@ require('config.mini').setup({
         highlight = true,
         depth_limit = 4,
       })
-      -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
   },
   {

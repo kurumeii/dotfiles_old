@@ -39,4 +39,4 @@ require('config.mini').setup({
   },
 })
 
-vim.cmd.colorscheme('astrotheme')
+vim.cmd.colorscheme('gruvbox')
