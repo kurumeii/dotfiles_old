@@ -12,6 +12,7 @@ return {
       classFunctions = {
         'cva',
         'cx',
+        'tv',
       },
     },
   },
