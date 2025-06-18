@@ -1,7 +1,7 @@
 return {
   settings = {
     json = {
-      format = { enable = false },
+      format = {},
       schemas = require('schemastore').json.schemas({
         extra = {
           {
