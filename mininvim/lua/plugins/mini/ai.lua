@@ -3,10 +3,10 @@ ai.setup({
   n_lines = 500,
   custom_textobjects = {
     L = MiniExtra.gen_ai_spec.line(), -- Line
-    F = ai.gen_spec.treesitter({
-      a = '@function.outer',
-      i = '@function.inner',
-    }), -- Function
+    -- Tweak function call to not detect dot in function name
+    f = ai.gen_spec.function_call({ name_pattern = '[%w_]' }),
+    -- Function definition (needs treesitter queries with these captures)
+    F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     o = ai.gen_spec.treesitter({
       a = { '@block.outer', '@loop.outer', '@conditional.outer' },
       i = { '@block.inner', '@loop.inner', '@conditional.inner' },

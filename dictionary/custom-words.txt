@@ -87,3 +87,4 @@ fileformat
 Devinfo
 ellisonleao
 saghen
+srgb

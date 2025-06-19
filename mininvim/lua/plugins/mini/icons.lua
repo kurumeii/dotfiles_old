@@ -29,6 +29,7 @@ require('mini.icons').setup({
     ['client'] = { glyph = '󰖟', hl = 'MiniIconsBlue' },
     ['database'] = { glyph = '󰆼', hl = 'MiniIconsOrange' },
     ['db'] = { glyph = '󰆼', hl = 'MiniIconsOrange' },
+    ['cspell'] = { glyph = '󰓆', hl = 'MiniIconsPurple' },
   },
 })
 MiniIcons.mock_nvim_web_devicons()

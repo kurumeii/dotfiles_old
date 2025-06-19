@@ -143,44 +143,20 @@ lint.linters.cspell = function()
 end
 
 utils.map('n', utils.L('csc'), function()
-  local items = { '.yml', '.json' }
-  local opts = {
+  vim.ui.select({ 'yaml', 'json' }, {
     prompt = 'Choose a cspell config file',
     format_item = function(item)
-      return 'Create cspell' .. item
+      return 'Create cspell.' .. item
     end,
-  }
-
-  vim.ui.select(items, opts, function(choice)
+  }, function(choice)
     if not choice then
-      return utils.notify('Hey you cancel the thingy', 'INFO')
+      return utils.notify('Cancelled!', 'INFO')
     end
-    local fname = 'cspell' .. choice
-    local content = ''
-    if choice == '.yml' or choice == '.yaml' then
-      content = [[
-$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
-version: "0.2"
-language: "en"
-words: []
-]]
+    local result = os.execute('cspell init --format ' .. choice .. ' --locale en,vi')
+    if result then
+      utils.notify('Created config file', 'INFO')
     else
-      content = [[
-{
-	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-  "version": "0.2",
-  "language": "en",
-  "words": []
-}
-]]
-    end
-    local file = io.open(fname, 'w')
-    if not file then
-      return utils.notify('Can not write file', 'ERROR')
-    else
-      file:write(content)
-      file:close()
-      utils.notify('Created ' .. fname)
+      utils.notify('Failed to create ' .. choice .. ' error: ' .. result, 'ERROR')
     end
   end)
 end, 'Code create a config file')
@@ -202,7 +178,10 @@ end, 'Code add word to dictionary')
 utils.map('n', utils.L('csW'), function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())
-  local diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr, cursor[1] - 1)
+  local diagnostics = vim.diagnostic.get(bufnr, {
+    lnum = cursor[1] - 1,
+    severity = 'INFO',
+  })
   local diagnostics_map = {}
   for _, diagnostic in ipairs(diagnostics) do
     if diagnostic.source == 'cspell' then
@@ -215,7 +194,7 @@ utils.map('n', utils.L('csW'), function()
     return
   end
   local result = vim.fn.confirm('Add ' .. word .. ' to dictionary ?', '&Yes\n&No', 1, 'Question')
-  if result == 2 then
+  if result ~= 1 then
     utils.notify('Cancelled', 'WARN')
     return
   end
@@ -242,7 +221,7 @@ utils.map('n', utils.L('csa'), function()
   end
   word_to_add = utils.uniq(word_to_add)
   local result = vim.fn.confirm('Add ' .. #word_to_add .. ' word to dictionary ?', '\v&Yes\n&No', 1, 'Question')
-  if result == 2 then
+  if result ~= 1 then
     utils.notify('Cancelled', 'WARN')
     return
   end
