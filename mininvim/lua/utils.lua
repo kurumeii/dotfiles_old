@@ -267,4 +267,16 @@ function H.build_blink(params)
   end
 end
 
+---@param dot_ext string
+---@param target_ft string
+function H.set_ft(dot_ext, target_ft)
+  vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+    pattern = '*.' .. dot_ext,
+    desc = 'Set filetype to ' .. target_ft,
+    callback = function(args)
+      vim.bo[args.buf].ft = target_ft
+    end,
+  })
+end
+
 return H
