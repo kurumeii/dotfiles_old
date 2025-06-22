@@ -1,7 +1,8 @@
 return {
+  filetypes = { 'json', 'jsonc', 'bak' },
   settings = {
     json = {
-      format = {},
+      format = { enable = false },
       schemas = require('schemastore').json.schemas({
         extra = {
           {
