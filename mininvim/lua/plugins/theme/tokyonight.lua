@@ -1,5 +1,5 @@
 require('tokyonight').setup({
-  style = 'night',
+  style = 'storm',
   light_style = 'day',
   transparent = false,
   lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold

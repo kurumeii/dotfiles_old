@@ -53,7 +53,13 @@ local load = function(specs)
   end
   return adaptive_func(specs.lazy, function()
     if is_git then
-      MiniDeps.add(specs)
+      MiniDeps.add({
+        source = specs.source,
+        name = specs.name,
+        depends = specs.depends,
+        hooks = specs.hooks,
+        checkout = specs.version,
+      })
       after_script()
     else
       after_script()

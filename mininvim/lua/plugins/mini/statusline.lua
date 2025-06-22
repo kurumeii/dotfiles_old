@@ -79,8 +79,8 @@ local function custom_fileinfo(args)
 end
 
 local function active_mode()
-  local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 250 })
-  mode = mininvim.icons.mode_prepend .. ' ' .. mode
+  local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 75 })
+  mode = mode:upper()
 
   local git = MiniStatusline.section_git({ icon = mininvim.icons.git_branch, trunc_width = 40 })
   local diff = MiniStatusline.section_diff({ icon = '', trunc_width = 100 })

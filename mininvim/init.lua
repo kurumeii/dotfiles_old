@@ -65,7 +65,7 @@ require('config.mini').setup({
     disable = false,
   },
   {
-    source = 'nvim-treesitter/nvim-treesitter',
+    source = 'nvim-treesitter/nvim-treesitter-textobjects',
     later = true,
     hooks = {
       post_checkout = function()
@@ -74,6 +74,7 @@ require('config.mini').setup({
     },
     depends = {
       'nvim-treesitter/nvim-treesitter-context',
+      'nvim-treesitter/nvim-treesitter',
     },
     cb = function()
       require('plugins.others.treesitter')
