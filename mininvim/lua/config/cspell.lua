@@ -14,7 +14,14 @@ local valid_config_file = {
   'cspell.config.yaml',
   'cspell.config.yml',
 }
+
 local H = {}
+
+---@param file string
+---@return '.json'|'.yaml'|'.yml'|'.jsonc'
+local function read_ext(file)
+  return file:match('^.+(%..+)$')
+end
 
 function H.config_path()
   for idx, config_file in pairs(valid_config_file) do
@@ -35,17 +42,28 @@ function H.read_config()
     return nil
   end
   local lines = vim.fn.readfile(file)
-  local ext = file:match('^.+(%..+)$')
-  if ext == '.json' or ext == '.jsonc' then
-    local ok, decoded = pcall(vim.json.decode, table.concat(lines, '\n'))
+  local ext = read_ext(file)
+  local handle_jsonc = function(txt)
+    local ok, decoded = pcall(vim.json.decode, txt)
     if not ok then
       utils.notify('Failed to decode json file: ' .. decoded, 'ERROR')
       return nil
     end
     return decoded
+  end
+  if ext == '.json' or ext == '.jsonc' then
+    return handle_jsonc(table.concat(lines, '\n'))
   elseif ext == '.yaml' or ext == '.yml' then
-    utils.notify('Only support for json file right now', 'WARN')
-    return nil
+    local cmd = string.format('yq eval -Pj %s', file)
+    local process, err = io.popen(cmd)
+    print(vim.inspect(process))
+    if err or not process then
+      utils.notify('Failed to run yq: ' .. err, 'ERROR')
+    else
+      local json_str = process:read('*a')
+      process:close()
+      return handle_jsonc(json_str)
+    end
   else
     utils.notify('Unsupported file type', 'ERROR')
     return nil
@@ -58,9 +76,21 @@ function H.write_config(content)
   if not file then
     return
   end
+  local ext = read_ext(file)
   local fd = io.open(file, 'w')
   if not fd then
     return
+  end
+  if ext == '.yml' or ext == '.yaml' then
+    local cmd = string.format('yq eval -P - > %s', file)
+    os.execute(cmd)
+    local pipe = io.popen(cmd, 'w')
+    if not pipe then
+      utils.notify('Error: Could not open pipe', 'ERROR')
+      return
+    end
+    pipe:write(vim.json.encode(content))
+    pipe:close()
   end
   fd:write(vim.json.encode(content))
   fd:close()
@@ -165,7 +195,6 @@ utils.map('n', utils.L('csw'), function()
     if not word or word == '' then
       return utils.notify('Cancelled input', 'WARN')
     end
-    -- TODO: Only support json file for now
     local config = H.read_config()
     if not config then
       return
