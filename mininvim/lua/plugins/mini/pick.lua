@@ -28,30 +28,8 @@ require('mini.pick').setup({
 })
 vim.ui.select = MiniPick.ui_select
 
--- Colorscheme picker =======================================================
--- Still waiting for the exact implementation from the author
-
 local utils = require('utils')
 local map, L = utils.map, utils.L
-
-local function find_config_files()
-  local dir = vim.fn.stdpath('config')
-  local files = vim.fn.glob(dir .. '/**/*', true, true)
-  files = vim.tbl_filter(function(f)
-    return vim.fn.isdirectory(f) == 0
-  end, files)
-  files = vim.tbl_map(function(f)
-    local file = vim.fn.fnamemodify(f, ':~:.')
-    local icon = MiniIcons.get('file', file)
-    return icon .. ' ' .. file
-  end, files)
-  MiniPick.start({
-    source = {
-      items = files,
-      name = 'Config files',
-    },
-  })
-end
 
 map('n', L('fe'), MiniExtra.pickers.explorer, 'Find explorer')
 map('n', L('ff'), MiniPick.builtin.files, 'Find files')
@@ -61,10 +39,21 @@ map('n', L('fc'), MiniExtra.pickers.commands, 'Find commands')
 map('n', L('fh'), MiniPick.builtin.help, 'Find help')
 map('n', L('fk'), MiniExtra.pickers.keymaps, 'Find keymaps')
 map('n', L('fb'), MiniPick.builtin.buffers, 'Find buffers')
+map('n', L('fl'), function()
+  MiniExtra.pickers.buf_lines({ scope = 'current' })
+end, 'Find lines in buffer')
 map('n', L('fq'), function()
   MiniExtra.pickers.list({ scope = 'quickfix' })
 end, 'Find quickfix list')
-map('n', L('fC'), find_config_files, 'Find Config files')
+map('n', L('fC'), function()
+  MiniPick.builtin.files({
+    tool = 'fd',
+  }, {
+    source = {
+      cwd = vim.fn.stdpath('config'),
+    },
+  })
+end, 'Find config files')
 map('n', L('fd'), function()
   MiniExtra.pickers.diagnostic({ scope = 'current' })
 end, 'Find Diagnostics in buffer')

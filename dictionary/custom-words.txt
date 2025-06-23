@@ -89,3 +89,6 @@ ellisonleao
 saghen
 srgb
 luap
+isdirectory
+spellsuggest
+colorschemes

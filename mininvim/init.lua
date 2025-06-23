@@ -84,7 +84,14 @@ require('config.mini').setup({
     source = 'max397574/better-escape.nvim',
     later = true,
     name = 'better_escape',
-    opts = {},
+    opts = {
+      default_mappings = false,
+      mappings = {
+        i = {
+          j = { j = false, k = '<c-c>' },
+        },
+      },
+    },
   },
   {
     source = 'windwp/nvim-ts-autotag',
