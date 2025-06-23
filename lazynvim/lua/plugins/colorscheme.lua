@@ -1,7 +1,11 @@
 ---@type LazySpec
 return {
-  -- add gruvbox
-  'ellisonleao/gruvbox.nvim',
+  {
+    'ellisonleao/gruvbox.nvim',
+    opts = {
+      dim_inactive = true,
+    },
+  },
   {
     'rebelot/kanagawa.nvim',
     opts = {
@@ -23,7 +27,7 @@ return {
   {
     'LazyVim/LazyVim',
     opts = {
-      colorscheme = 'astrotheme',
+      colorscheme = 'gruvbox',
     },
   },
 }
