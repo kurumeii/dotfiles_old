@@ -29,7 +29,7 @@ function H.config_path()
     if vim.uv.fs_stat(path) then
       return path
     elseif idx == #valid_config_file then
-      utils.notify('Cspell config file not found', 'WARN')
+      utils.notify_once('Cspell config file not found', 'WARN')
       return nil
     end
   end
@@ -56,7 +56,6 @@ function H.read_config()
   elseif ext == '.yaml' or ext == '.yml' then
     local cmd = string.format('yq eval -Pj %s', file)
     local process, err = io.popen(cmd)
-    print(vim.inspect(process))
     if err or not process then
       utils.notify('Failed to run yq: ' .. err, 'ERROR')
     else
@@ -72,28 +71,31 @@ end
 
 ---@param content CspellConfig
 function H.write_config(content)
-  local file = H.config_path()
-  if not file then
+  local file_path = H.config_path()
+  if not file_path then
     return
   end
-  local ext = read_ext(file)
-  local fd = io.open(file, 'w')
-  if not fd then
-    return
-  end
+  local ext = read_ext(file_path)
+  local json_encoded = vim.json.encode(content)
   if ext == '.yml' or ext == '.yaml' then
-    local cmd = string.format('yq eval -P - > %s', file)
-    os.execute(cmd)
-    local pipe = io.popen(cmd, 'w')
-    if not pipe then
-      utils.notify('Error: Could not open pipe', 'ERROR')
+    local cmd = string.format('yq eval -P - > %s', file_path)
+    local process, err = io.popen(cmd, 'w')
+    if err or not process then
+      utils.notify('Failed to run yq: ' .. err, 'ERROR')
       return
     end
-    pipe:write(vim.json.encode(content))
-    pipe:close()
+    process:write(json_encoded)
+    process:close()
+  elseif ext == '.json' or ext == '.jsonc' then
+    local process, err = io.open(file_path, 'w')
+    if not process or err then
+      utils.notify('Failed to open file: ' .. err, 'ERROR')
+      return
+    end
+    process:write(json_encoded)
+    process:close()
+  else
   end
-  fd:write(vim.json.encode(content))
-  fd:close()
 end
 
 ---@param dict_path string

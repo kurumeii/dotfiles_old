@@ -30,6 +30,14 @@ H.notify = function(msg, level, title)
   end, 1000)
 end
 
+--- @param msg string
+--- @param level? 'ERROR' | 'WARN' | 'INFO'
+--- @param title string?
+H.notify_once = function(msg, level, title)
+  level = level or 'INFO'
+  vim.notify_once(msg, vim.log.levels[level], { title = title or 'Notification' })
+end
+
 H.debounce = function(ms, fn)
   local timer = vim.uv.new_timer()
   return function(...)
