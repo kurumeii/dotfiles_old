@@ -287,4 +287,24 @@ function H.set_ft(dot_ext, target_ft)
   })
 end
 
+---@param lsp_name string
+---@return boolean
+function H.has_lsp(lsp_name)
+  local find_lsp = vim.lsp.get_clients({
+    name = lsp_name,
+  })
+  return #find_lsp > 0
+end
+
+---@param action lsp.CodeActionKind
+H.lsp_action = function(action)
+  vim.lsp.buf.code_action({
+    apply = true,
+    context = {
+      only = { action },
+      diagnostics = {},
+    },
+  })
+end
+
 return H

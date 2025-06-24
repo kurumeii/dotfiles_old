@@ -75,7 +75,7 @@ vim.lsp.config('*', {
 ----------------------------
 local utils = require('utils')
 
-vim.api.nvim_create_autocmd('LspAttach', {
+vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(args)
     utils.map('i', '<C-l>', vim.lsp.buf.signature_help, 'Signature help', {
       buffer = args.bufnr,
@@ -90,5 +90,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
       end)
     end, 'Rename')
+    utils.map(
+      'n',
+      utils.L('co'),
+      function()
+        utils.lsp_action('source.fixAll')
+      end,
+      '[TS] Organize imports',
+      {
+        buffer = args.bufnr,
+      }
+    )
   end,
 })

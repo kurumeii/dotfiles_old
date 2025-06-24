@@ -37,6 +37,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
               if line:find('<!%-%- toc %-%->') then
                 return true
               end
+              return false
             end
           end,
         },
@@ -51,8 +52,14 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
       },
     })
 
-    utils.map('n', utils.L('cf'), conform.format, 'Code format manually')
-    utils.map('n', utils.L('ca'), vim.lsp.buf.code_action, 'Code action')
-    utils.map('n', utils.L('cd'), vim.diagnostic.open_float, 'Code show diagnostic')
+    utils.map('n', utils.L('cf'), conform.format, 'Code format manually', {
+      buffer = args.bufnr,
+    })
+    utils.map('n', utils.L('ca'), vim.lsp.buf.code_action, 'Code action', {
+      buffer = args.bufnr,
+    })
+    utils.map('n', utils.L('cd'), vim.diagnostic.open_float, 'Code show diagnostic', {
+      buffer = args.bufnr,
+    })
   end,
 })
