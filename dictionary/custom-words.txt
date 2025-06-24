@@ -92,3 +92,6 @@ luap
 isdirectory
 spellsuggest
 colorschemes
+minidiff
+scrollbind
+winrestview

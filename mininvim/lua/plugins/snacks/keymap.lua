@@ -5,6 +5,8 @@ local map, L = util.map, util.L
 -- map('n', L('h'), Snacks.dashboard.open, 'Open Dashboard')
 -- Terminal ==================================================================
 map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
+-- Lazygit ==================================================================
+map('n', L('gg'), Snacks.lazygit.open, Snacks.lazygit.meta.desc)
 -- And rename file in current buffer
 -- map('n', L('cr'), Snacks.rename.rename_file, '[C]ode [R]ename')
 -- Delete buffer with snacks

@@ -1,4 +1,29 @@
 require('snacks').setup({
+  lazygit = {
+    enabled = true,
+  },
+  statuscolumn = {
+    left = { 'mark', 'fold' }, -- priority of signs on the left (high to low)
+    right = { 'sign', 'git' }, -- priority of signs on the right (high to low)
+    git = {
+      -- patterns to match Git signs
+      patterns = { 'MiniDiffSign' },
+    },
+    refresh = 50, -- refresh at most every 50ms
+    folds = {
+      open = true,
+      git_hl = true,
+    },
+  },
+  bigfile = { enabled = true },
+  terminal = { enabled = true },
+  image = {
+    enabled = true,
+    force = true,
+    env = {
+      ['SNACKS_WEZTERM'] = 'true',
+    },
+  },
   dashboard = {
     enabled = false,
     preset = {
@@ -40,28 +65,6 @@ require('snacks').setup({
     sections = {
       { section = 'header' },
       { section = 'keys', gap = 1, padding = 1 },
-    },
-  },
-  statuscolumn = {
-    left = { 'mark', 'fold' }, -- priority of signs on the left (high to low)
-    right = { 'sign', 'git' }, -- priority of signs on the right (high to low)
-    git = {
-      -- patterns to match Git signs
-      patterns = { 'MiniDiffSign' },
-    },
-    refresh = 50, -- refresh at most every 50ms
-    folds = {
-      open = true,
-      git_hl = true,
-    },
-  },
-  bigfile = { enabled = true },
-  terminal = { enabled = true },
-  image = {
-    enabled = true,
-    force = true,
-    env = {
-      ['SNACKS_WEZTERM'] = 'true',
     },
   },
 })

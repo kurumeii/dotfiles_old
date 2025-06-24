@@ -17,9 +17,11 @@ vim.api.nvim_create_autocmd('User', {
     vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
   end,
 })
-local utils = require('utils')
-
-utils.map({'n', 'x'}, utils.L('ga'), MiniGit.show_at_cursor, 'Show at cursor')
-utils.map({'n', 'x'}, utils.L('gd'), MiniGit.show_diff_source, 'Show Diff Source')
-utils.map({'v'}, utils.L('gr'), MiniGit.show_range_history, 'Show range history')
-
+vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+  callback = function(arg)
+    local utils = require('utils')
+    utils.map({ 'n', 'x' }, utils.L('ga'), MiniGit.show_at_cursor, 'Show at cursor', {
+      buffer = arg.buf,
+    })
+  end,
+})

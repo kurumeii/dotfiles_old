@@ -47,3 +47,15 @@ vim.api.nvim_create_autocmd('User', {
     vim.b[data.buf].minidiff_summary_string = table.concat(t, ' ')
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+  callback = function(arg)
+    local utils = require('utils')
+    utils.map('n', utils.L('ug'), MiniDiff.toggle_overlay, 'UI toggle git overlay', {
+      buffer = arg.buf,
+    })
+    utils.map('n', utils.L('uG'), MiniDiff.toggle, 'UI toggle git', {
+      buffer = arg.buf,
+    })
+  end,
+})
