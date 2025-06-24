@@ -62,16 +62,13 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
---[[
--- fixme Temporary commented out since snacks will be removed and 
--- currently i am not able to find a way to rename files
---]]
--- vim.api.nvim_create_autocmd('User', {
---   pattern = 'MiniFilesActionRename',
---   callback = function(e)
---     MiniMisc.Snacks.rename.on_rename_file(e.data.from, e.data.to)
---   end,
--- })
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'MiniFilesActionRename',
+  callback = function(e)
+    Snacks.rename.on_rename_file(e.data.from, e.data.to)
+    utils.notify('Renamed ' .. e.data.from .. ' to ' .. e.data.to .. ' successfully')
+  end,
+})
 
 utils.map('n', utils.L('e'), function()
   local ok = pcall(MiniFiles.open, vim.api.nvim_buf_get_name(0), false)

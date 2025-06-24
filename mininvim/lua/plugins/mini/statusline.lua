@@ -1,6 +1,6 @@
 local MiniStatusline = require('mini.statusline')
 local battery = require('battery')
-local navic = require('nvim-navic')
+-- local navic = require('nvim-navic')
 
 local function get_time()
   return os.date('%R') .. ' ' .. mininvim.icons.clock

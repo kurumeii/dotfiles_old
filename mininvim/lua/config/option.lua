@@ -1,6 +1,6 @@
 vim.o.updatetime = 200
 vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
+vim.g.maplocalleader = ' '
 vim.o.shell = 'pwsh.exe'
 vim.o.relativenumber = true
 vim.o.smartcase = true
@@ -12,10 +12,10 @@ vim.o.foldlevel = 99 -- Necessary
 vim.o.foldlevelstart = 99
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 vim.o.laststatus = 2
 vim.o.completeopt = 'menuone,noselect,fuzzy'
--- vim.o.showcmd = false
+-- vim.o.showcmd = true
 -- vim.o.showcmdloc = 'statusline'
 vim.o.wrap = true
 vim.o.tabstop = 2
@@ -31,7 +31,7 @@ vim.schedule(function()
 end)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.o.scrolloff = 10
+vim.o.scrolloff = 5
 vim.o.swapfile = false
 -- vim.o.backup = false
 vim.diagnostic.config({

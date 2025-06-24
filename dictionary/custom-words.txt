@@ -95,3 +95,4 @@ colorschemes
 minidiff
 scrollbind
 winrestview
+smartindent

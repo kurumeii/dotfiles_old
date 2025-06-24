@@ -77,11 +77,18 @@ local utils = require('utils')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    utils.map('n', utils.L('lR'), function()
-      vim.cmd('LspRestart')
-    end, 'Lsp restart server')
     utils.map('i', '<C-l>', vim.lsp.buf.signature_help, 'Signature help', {
       buffer = args.bufnr,
     })
+    utils.map('n', utils.L('cr'), function()
+      vim.ui.input({ prompt = 'Rename to: ' }, function(new_name)
+        if not new_name then
+          utils.notify('Rename cancelled', 'WARN')
+        else
+          vim.lsp.buf.rename(new_name, { bufnr = args.bufnr })
+          utils.notify('Rename successfully')
+        end
+      end)
+    end, 'Rename')
   end,
 })
