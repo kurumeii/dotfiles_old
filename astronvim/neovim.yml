@@ -1,6 +1,0 @@
----
-base: lua54
-
-globals:
-  vim:
-    any: true
