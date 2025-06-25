@@ -292,19 +292,46 @@ end
 function H.has_lsp(lsp_name)
   local find_lsp = vim.lsp.get_clients({
     name = lsp_name,
+    bufnr = vim.api.nvim_get_current_buf(),
   })
   return #find_lsp > 0
 end
 
----@param action lsp.CodeActionKind
-H.lsp_action = function(action)
-  vim.lsp.buf.code_action({
-    apply = true,
-    context = {
-      only = { action },
-      diagnostics = {},
-    },
-  })
+H.action = setmetatable({}, {
+  ---@param action lsp.CodeActionKind
+  __index = function(action)
+    return function()
+      vim.lsp.buf.code_action({
+        apply = true,
+        context = {
+          only = { action },
+          diagnostics = {},
+        },
+      })
+    end
+  end,
+})
+-- function H.lsp_action(action)
+--   vim.lsp.buf.code_action({
+--     apply = true,
+--     context = {
+--       only = { action },
+--       diagnostics = {},
+--     },
+--   })
+-- end
+
+---@param opts lsp.ExecuteCommandParams
+---@param buffer? number
+function H.execute(opts, buffer)
+  vim.lsp.buf_request(buffer or 0, 'workspace/executeCommand', {
+    command = opts.command,
+    arguments = opts.args,
+  }, function(err)
+    if err then
+      H.notify(err.message, 'ERROR')
+    end
+  end)
 end
 
 return H
