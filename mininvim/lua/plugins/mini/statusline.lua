@@ -64,7 +64,7 @@ local function custom_fileinfo(args)
 
   local encoding = vim.bo.fileencoding or vim.bo.encoding
   -- local format = vim.bo.fileformat
-  local size = function()
+  local get_size = function()
     local size = math.max(vim.fn.line2byte(vim.fn.line('$') + 1) - 1, 0)
     if size < 1024 then
       return string.format('%dB', size)
@@ -75,7 +75,7 @@ local function custom_fileinfo(args)
     end
   end
 
-  return string.format('%s%s[%s] %s', filetype, filetype == '' and '' or ' ', encoding, size())
+  return string.format('%s%s[%s] %s', filetype, filetype == '' and '' or ' ', encoding, get_size())
 end
 
 local function active_mode()
