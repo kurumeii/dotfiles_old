@@ -235,5 +235,5 @@ require('config.mini').setup({
       require('plugins.snacks')
     end,
   },
-  { source = 'config.ftypes' },
+  { source = 'config.ftypes', later = true },
 })
