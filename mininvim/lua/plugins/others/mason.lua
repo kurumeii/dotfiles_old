@@ -19,6 +19,8 @@ require('mason-tool-installer').setup({
     'markdownlint-cli2',
     'markdown-toc',
     'biome',
+    'prettierd',
+    'eslint_d',
     'powershell_es',
     'yamlfix',
     'jsonls',

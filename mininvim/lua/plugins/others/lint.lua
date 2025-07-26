@@ -8,10 +8,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     lint.linters_by_ft = {
       ['*'] = { 'cspell' },
       markdown = { 'markdownlint-cli2' },
-      javascriptreact = { 'biome' },
-      typescriptreact = { 'biome' },
-      typescript = { 'biome' },
-      javascript = { 'biome' },
+      javascriptreact = { 'biome', 'eslint_d' },
+      typescriptreact = { 'biome', 'eslint_d' },
+      typescript = { 'biome', 'eslint_d' },
+      javascript = { 'biome', 'eslint_d' },
       json = { 'biome' },
     }
     require('config.cspell')

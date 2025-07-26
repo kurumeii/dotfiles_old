@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
       default_format_opts = {
         timeout_ms = 1000,
         lsp_format = 'fallback',
+        stop_after_first = true,
       },
       format_after_save = {
         bufnr = args.bufnr,
@@ -20,10 +21,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
         lua = { 'stylua' },
         json = { 'biome' },
         yaml = { 'yamlfix' },
-        javascript = { 'biome' },
-        typescript = { 'biome' },
-        typescriptreact = { 'biome' },
-        javascriptreact = { 'biome' },
+        javascript = { 'biome', 'prettierd' },
+        typescript = { 'biome', 'prettierd' },
+        typescriptreact = { 'biome', 'prettierd' },
+        javascriptreact = { 'biome', 'prettierd' },
       },
       formatters = {
         biome = {
