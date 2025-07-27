@@ -21,6 +21,7 @@ require('mason-tool-installer').setup({
     'biome',
     'prettierd',
     'eslint_d',
+    'prismals',
     'powershell_es',
     'yamlfix',
     'jsonls',
