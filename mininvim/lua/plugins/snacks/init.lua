@@ -69,7 +69,7 @@ require('snacks').setup({
   },
 })
 
--- vim.ui.input = Snacks.input.input
+vim.ui.input = Snacks.input.input
 -- vim.ui.select = Snacks.picker.select
 -- vim.notify = Snacks.notifier.notify
 
