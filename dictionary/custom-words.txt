@@ -100,3 +100,7 @@ biomejs
 prismals
 miniclue
 submode
+ftypes
+dstein
+startuptime
+gitsigns

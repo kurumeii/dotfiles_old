@@ -242,4 +242,23 @@ require('config.mini').setup({
       vim.keymap.set('n', '<leader>ps', '<cmd>StartupTime<cr>', { desc = 'StartupTime' })
     end,
   },
+  {
+    source = 'lewis6991/gitsigns.nvim',
+    name = 'gitsigns',
+    later = true,
+    opts = {
+      signs = nil,
+      signs_staged = nil,
+      current_line_blame = true,
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+        use_focus = true,
+      },
+      current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+    },
+  },
 })
