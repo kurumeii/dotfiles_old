@@ -236,4 +236,10 @@ require('config.mini').setup({
     end,
   },
   { source = 'config.ftypes', later = true },
+  {
+    source = 'dstein64/vim-startuptime',
+    cb = function()
+      vim.keymap.set('n', '<leader>ps', '<cmd>StartupTime<cr>', { desc = 'StartupTime' })
+    end,
+  },
 })
