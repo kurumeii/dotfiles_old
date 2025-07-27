@@ -69,9 +69,26 @@ end
 
 --- @param specs MiniLoadSpec[]
 H.setup = function(specs)
-  for _, spec in pairs(specs) do
-    load(spec)
+  local total_specs = #specs
+  local current_idx = 1
+
+  local function load_next()
+    local batch_size = 5
+    local batch_end = math.min(current_idx + batch_size - 1, total_specs)
+    for i = current_idx, batch_end do
+      load(specs[i])
+    end
+    current_idx = batch_end + 1
+    if current_idx <= total_specs then
+      vim.schedule(load_next)
+    else
+      vim.schedule(function()
+        vim.notify('MiniNvim: All plugins loaded!', vim.log.levels.INFO)
+      end)
+    end
   end
+
+  load_next()
 end
 
 return H
