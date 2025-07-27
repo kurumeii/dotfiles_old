@@ -83,7 +83,7 @@ H.setup = function(specs)
       vim.schedule(load_next)
     else
       vim.schedule(function()
-        vim.notify('MiniNvim: All plugins loaded!', vim.log.levels.INFO)
+        vim.notify_once('MiniNvim: All plugins loaded!', vim.log.levels.INFO)
       end)
     end
   end
