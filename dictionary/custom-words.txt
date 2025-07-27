@@ -98,3 +98,5 @@ winrestview
 smartindent
 biomejs
 prismals
+miniclue
+submode
