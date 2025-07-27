@@ -104,3 +104,8 @@ ftypes
 dstein
 startuptime
 gitsigns
+yetone
+avante
+Hakon
+Harnes
+Avante

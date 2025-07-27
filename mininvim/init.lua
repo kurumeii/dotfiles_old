@@ -261,4 +261,50 @@ require('config.mini').setup({
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
     },
   },
+  {
+    source = 'yetone/avante.nvim',
+    name = 'avante',
+    later = true,
+    disable = false,
+    version = 'main',
+    depends = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+    },
+    --BUG: There is something wrong with the build script, so i have to cd to the directory and run it manually
+    -- hooks = {
+    --   post_checkout = function()
+    --     vim.cmd('powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource true')
+    --   end,
+    -- },
+    ---@module 'avante'
+    ---@type avante.Config
+    opts = {
+      provider = 'gemini',
+    },
+  },
+  {
+    source = 'HakonHarnes/img-clip.nvim',
+    name = 'img-clip',
+    later = true,
+    opts = {
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        -- required for Windows users
+        use_absolute_path = true,
+      },
+    },
+  },
+  {
+    source = 'MeanderingProgrammer/render-markdown.nvim',
+    name = 'render-markdown',
+    later = true,
+    cb = function()
+      require('plugins.others.render-markdown')
+    end,
+  },
 })
