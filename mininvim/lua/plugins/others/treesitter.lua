@@ -14,6 +14,8 @@ require('nvim-treesitter.configs').setup({
     'diff',
     'html',
     'css',
+    'scss',
+    'powershell',
     'javascript',
     'typescript',
     'tsx',

@@ -9,22 +9,22 @@ importers:
   .:
     devDependencies:
       '@cspell/dict-vi-vn':
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.6
+        version: 3.0.6
       '@cspell/dict-vim':
-        specifier: ^1.0.8
-        version: 1.0.8
+        specifier: ^1.0.10
+        version: 1.0.10
 
 packages:
 
-  '@cspell/dict-vi-vn@3.0.4':
-    resolution: {integrity: sha512-t7sRsbKNwChQK9+VDDceDQd6UbSI7C926h1QvnK1PvFftOYcv1IkaFk1ziKZbnWqepGGI61EawcHqUUMKE0saw==}
+  '@cspell/dict-vi-vn@3.0.6':
+    resolution: {integrity: sha512-VFPpTrutrNOY8UTRSThTq3u5xfdkdsB2kiSSP9VCpUo2AaBdKbvL0rk8QBhvJEfaQVgZwRfPIAgM8ml97QJAKA==}
 
-  '@cspell/dict-vim@1.0.8':
-    resolution: {integrity: sha512-LUnznQiaNatVfb89pu916qYJwbkvgTKyNXK17MRHm1AgcCxN5Z1V5hyqTlQumhQYVAFFvN8t9VQDUw6k47spiw==}
+  '@cspell/dict-vim@1.0.10':
+    resolution: {integrity: sha512-eP+bKOr/nhxYQJuBM8e5Kj33dwJcfo5MTcKYd9WOEJ68qNrGXzfcZtlNmuncTTRQmS8k90Khl6JNZGSANwevig==}
 
 snapshots:
 
-  '@cspell/dict-vi-vn@3.0.4': {}
+  '@cspell/dict-vi-vn@3.0.6': {}
 
-  '@cspell/dict-vim@1.0.8': {}
+  '@cspell/dict-vim@1.0.10': {}
