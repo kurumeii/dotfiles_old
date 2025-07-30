@@ -13,6 +13,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
       typescript = { 'biome', 'eslint_d' },
       javascript = { 'biome', 'eslint_d' },
       json = { 'biome' },
+      css = { 'biome', 'stylelint' },
+      scss = { 'biome', 'stylelint' },
     }
     require('config.cspell')
     require('config.biome')

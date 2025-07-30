@@ -25,6 +25,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
         typescript = { 'biome', 'prettierd' },
         typescriptreact = { 'biome', 'prettierd' },
         javascriptreact = { 'biome', 'prettierd' },
+        css = { 'biome', 'prettierd' },
+        scss = { 'biome', 'prettierd' },
       },
       formatters = {
         biome = {
