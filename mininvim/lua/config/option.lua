@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.o.shell = 'pwsh.exe'
 vim.o.relativenumber = true
+vim.o.number = true
 vim.o.smartcase = true
 vim.o.smartindent = true
 vim.o.ignorecase = true
