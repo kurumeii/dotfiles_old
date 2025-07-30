@@ -21,9 +21,6 @@ starter.setup({
  \▓▓      \▓▓\▓▓\▓▓   \▓▓\▓▓    \▓    \▓▓\▓▓  \▓▓  \▓▓
     ]]
   end,
-  footer = function()
-    return "It's - " .. os.date('%x %X')
-  end,
 })
 
 local utils = require('utils')
