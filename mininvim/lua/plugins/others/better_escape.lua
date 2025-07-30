@@ -5,11 +5,12 @@ require('better_escape').setup({
     i = {
       j = {
         j = false,
+        k = '<Esc>',
       },
     },
     t = {
       q = {
-        q = '<C-\\><C-n>',
+        k = '<C-\\><C-n>',
       },
     },
     v = {
