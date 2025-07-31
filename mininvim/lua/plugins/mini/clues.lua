@@ -50,6 +50,7 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>cs', desc = 'Spelling ' },
     { mode = 'n', keys = '<leader>g', desc = 'Git 󰊢' },
     { mode = 'n', keys = '<leader>f', desc = 'Find ' },
+    { mode = 'n', keys = '<leader>t', desc = 'Terminal  ' },
     { mode = 'n', keys = '<leader>w', desc = 'Window ' },
     { mode = 'n', keys = '<leader>n', desc = 'Notify ' },
     { mode = 'n', keys = '<leader>l', desc = 'Lsp ' },

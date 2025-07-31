@@ -16,7 +16,7 @@ require('snacks').setup({
     },
   },
   bigfile = { enabled = true },
-  terminal = { enabled = true },
+  terminal = { enabled = true, win },
   image = {
     enabled = true,
     force = true,

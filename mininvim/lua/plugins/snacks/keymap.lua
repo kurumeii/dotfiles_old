@@ -4,7 +4,15 @@ local map, L = util.map, util.L
 -- Dashboard =================================================================
 -- map('n', L('h'), Snacks.dashboard.open, 'Open Dashboard')
 -- Terminal ==================================================================
-map('n', L('t'), Snacks.terminal.toggle, 'Toggle Terminal')
+map('n', L('ts'), Snacks.terminal.toggle, 'Toggle Terminal split')
+map('n', L('tf'), function()
+  Snacks.terminal.toggle(nil, {
+    win = {
+      style = 'float',
+      border = 'rounded',
+    },
+  })
+end, 'Toggle Terminal float')
 -- Lazygit ==================================================================
 map('n', L('gg'), Snacks.lazygit.open, Snacks.lazygit.meta.desc)
 -- And rename file in current buffer
