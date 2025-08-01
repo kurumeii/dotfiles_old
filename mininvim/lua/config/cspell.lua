@@ -158,20 +158,25 @@ function H.add_to_right_place(word)
   end
 end
 
-lint.linters.cspell = function()
-  local default_config = require('lint.linters.cspell')
-  local config = vim.deepcopy(default_config)
-  config.args = {
-    'lint',
-    '--no-color',
-    '--no-progress',
-    '--no-summary',
-    type(H.config_path()) == 'string' and '--config=' .. H.config_path() or '',
-    function()
-      return 'stdin://' .. vim.api.nvim_buf_get_name(0)
-    end,
-  }
-  return config
+local file = H.config_path()
+if not file then
+  return nil
+else
+  lint.linters.cspell = function()
+    local default_config = require('lint.linters.cspell')
+    local config = vim.deepcopy(default_config)
+    config.args = {
+      'lint',
+      '--no-color',
+      '--no-progress',
+      '--no-summary',
+      type(H.config_path()) == 'string' and '--config=' .. H.config_path() or '',
+      function()
+        return 'stdin://' .. vim.api.nvim_buf_get_name(0)
+      end,
+    }
+    return config
+  end
 end
 
 utils.map('n', utils.L('csc'), function()
