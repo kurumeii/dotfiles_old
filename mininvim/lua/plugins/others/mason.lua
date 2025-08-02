@@ -20,7 +20,7 @@ require('mason-tool-installer').setup({
     'markdown-toc',
     'biome',
     'prettierd',
-    'eslint_d',
+    'eslint-lsp',
     'css_variables',
     'cssls',
     'stylelint',
