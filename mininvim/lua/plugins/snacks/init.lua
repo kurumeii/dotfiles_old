@@ -14,9 +14,10 @@ require('snacks').setup({
       open = true,
       git_hl = true,
     },
+    enabled = true,
   },
   bigfile = { enabled = true },
-  terminal = { enabled = true, win },
+  terminal = { enabled = true },
   image = {
     enabled = true,
     force = true,

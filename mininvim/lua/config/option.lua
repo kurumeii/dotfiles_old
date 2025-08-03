@@ -15,6 +15,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.cmdheight = 1
 vim.o.laststatus = 3
+vim.o.signcolumn = 'yes'
 vim.o.completeopt = 'menuone,noselect,fuzzy'
 -- vim.o.showcmd = true
 -- vim.o.showcmdloc = 'statusline'

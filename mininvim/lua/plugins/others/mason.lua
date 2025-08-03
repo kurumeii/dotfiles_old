@@ -30,6 +30,7 @@ require('mason-tool-installer').setup({
     'jsonls',
     'yamlls',
     'taplo',
+    'js-debug-adapter',
   },
 })
 
