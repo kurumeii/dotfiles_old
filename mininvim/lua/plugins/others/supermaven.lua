@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
   desc = 'Supermaven: Lazy init',
   callback = function(args)
     local utils = require('utils')
@@ -13,25 +13,12 @@ vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
           clear_suggestion = '<C-c>',
           accept_word = '<c-j>',
         },
+        ignore_filetypes = { 'bigfile', 'snacks_input' },
       })
     end
 
-    utils.map(
-      { 'n' },
-      utils.L('xat'),
-      function()
-        if helper.api.is_running() then
-          helper.api.stop()
-          utils.notify('Supermaven is now disabled', 'WARN')
-        else
-          helper.api.start()
-          utils.notify('Supermaven is now running', 'WARN')
-        end
-      end,
-      'Code: toggle supermaven',
-      {
-        buffer = args.buf,
-      }
-    )
+    utils.map({ 'n' }, utils.L('xat'), helper.api.toggle, 'Code: toggle supermaven', {
+      buffer = args.buf,
+    })
   end,
 })
