@@ -1,5 +1,6 @@
 local MiniStatusline = require('mini.statusline')
 local battery = require('battery')
+
 -- local navic = require('nvim-navic')
 
 local function get_time()
@@ -29,7 +30,8 @@ local function get_lsp(ignore_lsp)
     end
     ::continue::
   end
-  local icon = mininvim.icons.lsp
+  local supermaven_status = require('supermaven-nvim.api').is_running() and ' ' or ' '
+  local icon = mininvim.icons.lsp .. ' ' .. supermaven_status
   if #names > 2 then
     return icon .. '+' .. #names
   else
