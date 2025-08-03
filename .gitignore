@@ -8,3 +8,4 @@ node_modules/*
 .cspellcache
 .github/*
 .git/*
+configstore/*
