@@ -6,7 +6,6 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   group = vim.api.nvim_create_augroup('lazy_load_lint', { clear = false }),
   callback = function()
     lint.linters_by_ft = {
-      ['*'] = { 'cspell' },
       markdown = { 'markdownlint-cli2' },
       javascriptreact = { 'biome' },
       typescriptreact = { 'biome' },
@@ -31,9 +30,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
     if #names == 0 then
       vim.list_extend(names, lint.linters_by_ft['_'] or {})
     end
-    -- use global
-    vim.list_extend(names, lint.linters_by_ft['*'] or {})
-
     if #names > 0 then
       lint.try_lint(names)
     end
