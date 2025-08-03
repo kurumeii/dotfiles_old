@@ -6,3 +6,5 @@ pnpm/*
 lesshst
 node_modules/*
 .cspellcache
+.github/*
+.git/*
