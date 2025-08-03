@@ -5,8 +5,8 @@ local dap_widget = require('dap.ui.widgets')
 local dapui = require('dapui')
 
 require('mason-nvim-dap').setup({
-  ensure_installed = { 'js' },
-  automatic_installation = true,
+  ensure_installed = {},
+  automatic_installation = false,
 })
 
 -- TODO: Config the icons
