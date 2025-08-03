@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
         async = true,
       },
       formatters_by_ft = {
-        markdown = { 'markdownlint-cli2', 'markdown-toc' },
+        markdown = { 'markdownlint-cli2' },
         lua = { 'stylua' },
         json = { 'biome' },
         yaml = { 'yamlfix' },

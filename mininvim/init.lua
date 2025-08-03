@@ -250,19 +250,17 @@ mininvim.deps.setup({
   {
     source = 'yetone/avante.nvim',
     name = 'avante',
-    later = true,
     disable = false,
+    later = true,
     version = 'main',
     depends = {
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
     },
-    --BUG: There is something wrong with the build script, so i have to cd to the directory and run it manually
-    -- hooks = {
-    --   post_checkout = function()
-    --     vim.cmd('powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource true')
-    --   end,
-    -- },
+    hooks = {
+      post_checkout = require('utils').build_avante,
+      post_install = require('utils').build_avante,
+    },
     ---@module 'avante'
     ---@type avante.Config
     opts = {

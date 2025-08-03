@@ -3,8 +3,8 @@ require('snacks').setup({
     enabled = true,
   },
   statuscolumn = {
-    left = { 'mark', 'fold' }, -- priority of signs on the left (high to low)
-    right = { 'sign', 'git' }, -- priority of signs on the right (high to low)
+    left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
+    right = { 'fold', 'git' }, -- priority of signs on the right (high to low)
     git = {
       -- patterns to match Git signs
       patterns = { 'MiniDiffSign' },

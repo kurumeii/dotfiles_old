@@ -17,7 +17,6 @@ require('mason-tool-installer').setup({
     'cspell',
     'marksman',
     'markdownlint-cli2',
-    'markdown-toc',
     'biome',
     'prettierd',
     'eslint-lsp',

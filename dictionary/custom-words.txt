@@ -111,3 +111,6 @@ Harnes
 Avante
 tabprev
 cssls
+signcolumn
+numhl
+linehl

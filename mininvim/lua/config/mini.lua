@@ -58,7 +58,7 @@ local load = function(specs)
         name = specs.name,
         depends = specs.depends,
         hooks = specs.hooks,
-        checkout = specs.version,
+        monitor = specs.version,
       })
       after_script()
     else
