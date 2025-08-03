@@ -2,8 +2,10 @@ _G.mininvim = {
   icons = require('config.icons'),
   tw_colors = require('config.tailwind-color'),
   word_colors = require('config.color-word'),
+  deps = require('config.mini'),
 }
-require('config.mini').setup({
+
+mininvim.deps.setup({
   { source = 'config.option' },
   { source = 'config.keymap' },
   { source = 'plugins.mini.sessions' },
@@ -24,9 +26,9 @@ require('config.mini').setup({
   { source = 'mini.fuzzy', later = true, opts = {} },
   { source = 'mini.extra', later = true, opts = {} },
   { source = 'mini.operators', later = true, opts = {} },
-  { source = 'mini.comment', later = true, opts = {} },
   { source = 'mini.move', later = true, opts = {} },
   { source = 'mini.bufremove', later = true, opts = {} },
+  { source = 'plugins.mini.comment', later = true },
   { source = 'plugins.mini.misc', later = true },
   { source = 'plugins.mini.snippets', later = true },
   { source = 'plugins.mini.jump2d', later = true },
@@ -241,20 +243,9 @@ require('config.mini').setup({
     source = 'lewis6991/gitsigns.nvim',
     name = 'gitsigns',
     later = true,
-    opts = {
-      signs = nil,
-      signs_staged = nil,
-      current_line_blame = true,
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-        delay = 1000,
-        ignore_whitespace = false,
-        virt_text_priority = 100,
-        use_focus = true,
-      },
-      current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
-    },
+    cb = function()
+      require('plugins.others.gitsigns')
+    end,
   },
   {
     source = 'yetone/avante.nvim',
