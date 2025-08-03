@@ -3,7 +3,7 @@ local starter = require('mini.starter')
 starter.setup({
   items = {
     starter.sections.sessions(1, true),
-    starter.sections.recent_files(3, true, false),
+    starter.sections.recent_files(3, true, true),
     starter.sections.pick(),
     starter.sections.builtin_actions(),
   },
