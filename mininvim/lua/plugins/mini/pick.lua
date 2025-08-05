@@ -33,7 +33,15 @@ local map, L = utils.map, utils.L
 
 map('n', L('fe'), MiniExtra.pickers.explorer, 'Find explorer')
 map('n', L('ff'), MiniPick.builtin.files, 'Find files')
-map('n', L('fw'), MiniPick.builtin.grep_live, 'Find word (Grep)')
+map('n', L('fw'), function()
+  MiniPick.builtin.grep_live()
+end, 'Find word live')
+map('v', L('fw'), function()
+  local word = vim.fn.expand('<cword>')
+  MiniPick.builtin.grep({
+    pattern = word,
+  })
+end, 'Find visual word')
 map({ 'n', 'i' }, L('fr'), MiniExtra.pickers.registers, 'Find registers')
 map('n', L('fc'), MiniExtra.pickers.commands, 'Find commands')
 map('n', L('fh'), MiniPick.builtin.help, 'Find help')

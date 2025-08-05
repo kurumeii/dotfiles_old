@@ -1,4 +1,6 @@
 vim.o.updatetime = 200
+vim.o.timeout = true
+vim.o.timeoutlen = 250
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.o.shell = 'pwsh.exe'
