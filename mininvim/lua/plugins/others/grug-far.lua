@@ -1,7 +1,7 @@
 local grug = require('grug-far')
+
 grug.setup({
   headerMaxWidth = 80,
-  engine = 'astgrep',
   transient = true,
 })
 
