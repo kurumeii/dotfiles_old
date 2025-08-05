@@ -241,7 +241,6 @@ mininvim.deps.setup({
   },
   {
     source = 'lewis6991/gitsigns.nvim',
-    name = 'gitsigns',
     later = true,
     cb = function()
       require('plugins.others.gitsigns')
@@ -285,10 +284,16 @@ mininvim.deps.setup({
   },
   {
     source = 'MeanderingProgrammer/render-markdown.nvim',
-    name = 'render-markdown',
     later = true,
     cb = function()
       require('plugins.others.render-markdown')
+    end,
+  },
+  {
+    source = 'stuckinsnow/import-size.nvim',
+    later = true,
+    cb = function()
+      require('plugins.others.import-size')
     end,
   },
 })
