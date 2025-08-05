@@ -3,7 +3,6 @@ local grug = require('grug-far')
 grug.setup({
   headerMaxWidth = 80,
   transient = true,
-  showStatusIcon = true,
 })
 
 local utils = require('utils')
