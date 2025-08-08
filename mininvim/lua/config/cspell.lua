@@ -162,6 +162,9 @@ local file = H.config_path()
 if not file then
   return nil
 else
+  lint.linters_by_ft = {
+    ['*'] = { 'cspell' },
+  }
   lint.linters.cspell = function()
     local default_config = require('lint.linters.cspell')
     local config = vim.deepcopy(default_config)

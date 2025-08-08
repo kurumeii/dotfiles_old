@@ -7,13 +7,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   callback = function()
     lint.linters_by_ft = {
       markdown = { 'markdownlint-cli2' },
-      javascriptreact = { 'biome' },
-      typescriptreact = { 'biome' },
-      typescript = { 'biome' },
-      javascript = { 'biome' },
-      json = { 'biome' },
-      css = { 'biome', 'stylelint' },
-      scss = { 'biome', 'stylelint' },
+      css = { 'stylelint' },
+      scss = { 'stylelint' },
     }
     require('config.cspell')
     require('config.biome')

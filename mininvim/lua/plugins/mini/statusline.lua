@@ -82,7 +82,7 @@ end
 
 local function active_mode()
   local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 75 })
-  mode = mode:upper()
+  -- mode = mode:upper()
 
   local git = MiniStatusline.section_git({ icon = mininvim.icons.git_branch, trunc_width = 40 })
   local diff = MiniStatusline.section_diff({ icon = '', trunc_width = 100 })
@@ -105,9 +105,10 @@ local function active_mode()
   local time = get_time()
   local recorder = recorder_section()
   local filename = MiniStatusline.section_filename({ trunc_width = 250 })
+  filename = vim.fn.expand('%:h:t') .. '/' .. vim.fn.expand('%:t')
   -- local code_context = navic.is_available() and navic.get_location()
   return MiniStatusline.combine_groups({
-    { hl = mode_hl, strings = { mode } },
+    { hl = mode_hl, strings = { filename } },
     {
       hl = '',
       strings = { git },
@@ -119,7 +120,7 @@ local function active_mode()
     '%<', -- Mark general truncate point
     {
       hl = '',
-      strings = { filename },
+      strings = {},
     },
     '%=', -- End left alignment
     { hl = 'MiniStatuslineFileinfo', strings = { recorder, lsp, fileinfo } },
