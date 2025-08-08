@@ -20,21 +20,19 @@ end
 return {
 	leader = {
 		key = " ",
-		mods = "CTRL",
+		mods = mods.C,
 		timeout_milliseconds = 1500,
 	},
 	keys = {
 		{
-			key = "t", -- Create new tab
+			key = "n", -- Create new tab
 			mods = mods.L,
-			action = wez.action.SpawnTab("CurrentPaneDomain"),
+			action = wez.action.SpawnTab,
 		},
 		{
-			key = "w", -- Delete tab
+			key = "c", -- Close tab
 			mods = mods.L,
-			action = wez.action.CloseCurrentTab({
-				confirm = true,
-			}),
+			action = wez.action.CloseCurrentTab,
 		},
 		{
 			key = "l", -- Split pane to the right
@@ -48,13 +46,6 @@ return {
 			mods = mods.L,
 			action = wez.action.SplitVertical({
 				domain = "CurrentPaneDomain",
-			}),
-		},
-		{
-			key = "c", -- Close pane
-			mods = mods.L,
-			action = wez.action.CloseCurrentPane({
-				confirm = false,
 			}),
 		},
 		{
