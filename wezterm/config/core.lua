@@ -8,7 +8,7 @@ return {
 		},
 		{
 			label = " linux",
-			args = { "wsl.exe", "-e", "~" },
+			args = { "wsl.exe", "--cd", "~" },
 		},
 	},
 	default_prog = { "pwsh.exe" },
