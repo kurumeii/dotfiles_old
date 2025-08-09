@@ -17,6 +17,8 @@ local join_mods = function(m)
 	return result
 end
 
+---@module "wezterm.wezterm"
+---@type Config
 return {
 	leader = {
 		key = " ",
@@ -27,12 +29,26 @@ return {
 		{
 			key = "n", -- Create new tab
 			mods = mods.L,
-			action = wez.action.SpawnTab,
+			action = wez.action.SpawnTab("DefaultDomain"),
+		},
+		{
+			key = "d", -- Duplicate tab
+			mods = mods.L,
+			action = wez.action.SpawnTab("CurrentPaneDomain"),
 		},
 		{
 			key = "c", -- Close tab
 			mods = mods.L,
-			action = wez.action.CloseCurrentTab,
+			action = wez.action.CloseCurrentTab({
+				confirm = true,
+			}),
+		},
+		{
+			key = "w", -- Close tab without confirm
+			mods = mods.L,
+			action = wez.action.CloseCurrentTab({
+				confirm = false,
+			}),
 		},
 		{
 			key = "l", -- Split pane to the right
@@ -100,17 +116,17 @@ return {
 		{
 			key = "=",
 			mods = mods.C,
-			action = wez.action.IncreaseFontSize,
+			action = "IncreaseFontSize",
 		},
 		{
 			key = "-",
 			mods = mods.C,
-			action = wez.action.DecreaseFontSize,
+			action = "DecreaseFontSize",
 		},
 		{
 			key = "0",
 			mods = mods.C,
-			action = wez.action.ResetFontAndWindowSize,
+			action = "ResetFontSize",
 		},
 	},
 }
