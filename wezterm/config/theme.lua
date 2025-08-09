@@ -1,3 +1,4 @@
+---@type Config
 return {
 	color_scheme = "Kanagawa (Gogh)",
 	enable_scroll_bar = true,

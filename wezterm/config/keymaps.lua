@@ -44,6 +44,11 @@ return {
 			}),
 		},
 		{
+			key = "o",
+			mods = mods.L,
+			action = "ShowLauncher",
+		},
+		{
 			key = "w", -- Close tab without confirm
 			mods = mods.L,
 			action = wez.action.CloseCurrentTab({
