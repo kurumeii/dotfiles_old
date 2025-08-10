@@ -39,7 +39,7 @@ return {
 		{
 			key = "c", -- Close tab
 			mods = mods.L,
-			action = wez.action.CloseCurrentTab({
+			action = wez.action.CloseCurrentPane({
 				confirm = true,
 			}),
 		},
@@ -52,7 +52,7 @@ return {
 			key = "w", -- Close tab without confirm
 			mods = mods.L,
 			action = wez.action.CloseCurrentTab({
-				confirm = false,
+				confirm = true,
 			}),
 		},
 		{

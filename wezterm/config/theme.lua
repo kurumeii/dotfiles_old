@@ -1,6 +1,6 @@
 ---@type Config
 return {
-	color_scheme = "Kanagawa (Gogh)",
+	color_scheme = "Tokyo Night",
 	enable_scroll_bar = true,
 	-- window_background_opacity = 0.7,
 	-- macos_window_background_blur = 20,
@@ -10,9 +10,8 @@ return {
 	use_fancy_tab_bar = false,
 	window_decorations = "RESIZE",
 	window_padding = {
-		top = 0,
 		right = 0,
-		bottom = 0,
 		left = 0,
+		bottom = 0,
 	},
 }
