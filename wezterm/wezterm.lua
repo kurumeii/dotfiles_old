@@ -18,6 +18,12 @@ bar.apply_to_config(config, {
 		pane = { enabled = false },
 		workspace = { enabled = false },
 	},
+	separator = {
+		space = 1,
+		left_icon = wez.nerdfonts.fa_hand_o_right,
+		right_icon = "",
+		field_icon = "",
+	},
 })
 require("events")
 
