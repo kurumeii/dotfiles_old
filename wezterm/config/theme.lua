@@ -6,8 +6,8 @@ return {
 	-- macos_window_background_blur = 20,
 	-- win32_system_backdrop = "Acrylic", -- Mica | Acrylic | Tabbed
 	hide_tab_bar_if_only_one_tab = false,
-	tab_bar_at_bottom = true,
-	use_fancy_tab_bar = false,
+	-- tab_bar_at_bottom = true,
+	-- use_fancy_tab_bar = false,
 	window_decorations = "RESIZE",
 	window_padding = {
 		right = 0,

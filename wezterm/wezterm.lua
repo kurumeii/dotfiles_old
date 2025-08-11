@@ -2,7 +2,7 @@
 local wez = require("wezterm")
 local config = wez.config_builder()
 local config_dir = wez.glob(wez.config_dir .. "/config/*.lua")
-local bar = wez.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+local tabline = wez.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 
 for _, file in ipairs(config_dir) do
 	local tbl = dofile(file)
@@ -13,18 +13,36 @@ for _, file in ipairs(config_dir) do
 	end
 end
 
-bar.apply_to_config(config, {
-	modules = {
-		pane = { enabled = false },
-		workspace = { enabled = false },
+tabline.setup({
+	options = {
+		-- section_separators = {
+		-- 	left = "",
+		-- 	right = "",
+		-- },
 	},
-	separator = {
-		space = 1,
-		left_icon = wez.nerdfonts.fa_hand_o_right,
-		right_icon = "",
-		field_icon = "",
+
+	sections = {
+		tabline_a = {
+			"hostname",
+		},
+		tabline_b = {},
+		tab_active = {
+			"index",
+			"process",
+		},
+		tabline_x = {
+			"domain",
+		},
+		tabline_y = {
+			"datetime",
+		},
+		tabline_z = {
+			"battery",
+		},
 	},
 })
+
+tabline.apply_to_config(config)
 require("events")
 
 return config
