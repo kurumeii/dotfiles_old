@@ -1,5 +1,8 @@
 ---@module 'wezterm.wezterm'
 ---@type Config
+
+local wsl_distro = "Ubuntu"
+
 return {
 	launch_menu = {
 		{
@@ -8,10 +11,10 @@ return {
 		},
 		{
 			label = " linux",
-			args = { "wsl.exe", "--cd", "~" },
+			args = { "wsl.exe", "-d", wsl_distro, "--cd", "~" },
 		},
 	},
-	default_prog = { "pwsh.exe" },
+	default_prog = { "wsl.exe", "-d", wsl_distro, "--cd", "~" },
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	prefer_egl = true,
