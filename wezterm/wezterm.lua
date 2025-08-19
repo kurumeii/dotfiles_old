@@ -15,10 +15,7 @@ end
 
 tabline.setup({
 	options = {
-		-- section_separators = {
-		-- 	left = "",
-		-- 	right = "",
-		-- },
+		theme = config.color_scheme
 	},
 
 	sections = {
