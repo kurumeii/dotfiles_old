@@ -1,6 +1,6 @@
 ---@type Config
 return {
-	color_scheme = "Tokyo Night",
+	color_scheme = "Gruvbox Material (Gogh)",
 	enable_scroll_bar = true,
 	-- window_background_opacity = 0.7,
 	-- macos_window_background_blur = 20,
