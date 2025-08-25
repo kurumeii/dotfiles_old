@@ -14,7 +14,7 @@ return {
 			args = { "wsl.exe", "-d", wsl_distro, "--cd", "~" },
 		},
 	},
-	default_prog = { "wsl.exe", "-d", wsl_distro, "--cd", "~" },
+	default_prog = { "wsl.exe", "-d", wsl_distro, '--cd', '~' },
 	default_cursor_style = "BlinkingBlock",
 	cursor_blink_rate = 500,
 	prefer_egl = true,
