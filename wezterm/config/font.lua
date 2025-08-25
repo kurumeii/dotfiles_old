@@ -3,11 +3,11 @@ local wez = require("wezterm")
 
 ---@type Config
 return {
-	font = wez.font("FiraCode Nerd Font", {
+	font = wez.font("GeistMono Nerd Font", {
 		weight = "Light",
 	}),
 	font_size = 11,
-	freetype_load_target = "Light",
+	freetype_load_target = "HorizontalLcd",
 	front_end = "WebGpu",
 	enable_kitty_graphics = true,
 	underline_thickness = 1,
