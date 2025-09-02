@@ -21,8 +21,8 @@ end
 ---@type Config
 return {
 	leader = {
-		key = " ",
-		mods = mods.C,
+		key = "q",
+		mods = mods.M,
 		timeout_milliseconds = 1500,
 	},
 	keys = {
